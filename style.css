@@ -1,0 +1,49 @@
+html, body { 
+    background: #FFF;
+    width: 100%;
+    height: 100%;
+    margin: 0; 
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#game_viewport{
+    background: #00000000;
+    overflow: hidden;
+    height: fit-content;
+    width: fit-content;
+}
+
+@media (max-aspect-ratio: 1/1) {
+    #game_viewport{
+        width: 100vw;
+    }
+}
+@media (min-aspect-ratio: 1/1) {
+    #game_viewport{
+        width: calc(100vh * (3/2));
+    }
+}
+
+canvas {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+/* Effet de vieil écran CRT */
+.crt::before {
+    content: " ";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+    z-index: 2;
+    background-size: 100% 2px, 3px 100%;
+    pointer-events: none;
+}
