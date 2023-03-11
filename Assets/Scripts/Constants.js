@@ -4,6 +4,10 @@ const DEBUG = true;
 // Inputs
 const INPUT_ZERO_TOLERANCE = 0.1;
 
+const GAMEPAD_BUTTON = {
+    A: 1,
+};
+
 // Dimensions
 const TILE_SIZE = 16;
 
