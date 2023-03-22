@@ -1,4 +1,4 @@
-import StateMachine from "../../Components/StateMachine";
+import StateMachine from "../Components/StateMachine.js";
 
 export default class PlayerStateMachine extends StateMachine {
     constructor(context){

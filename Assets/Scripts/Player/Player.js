@@ -1,4 +1,4 @@
-import PlayerStateMachine from "/Assets/Scripts/Player/States/PlayerStateMachine";
+import PlayerStateMachine from "./PlayerStateMachine.js";
 
 export default class Player {
     constructor(scene, x, y){
