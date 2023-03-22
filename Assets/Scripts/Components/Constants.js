@@ -1,25 +1,22 @@
 // Debug mode
-const DEBUG = true;
+const DEBUG = false;
 
 // Inputs
 const INPUT_ZERO_TOLERANCE = 0.1;
 
-const GAMEPAD_BUTTON = {
-    A: 1,
-};
-
 // Dimensions
-const TILE_SIZE = 16;
-
 const GAME_WIDTH = 256;
 const GAME_HEIGHT = 144;
 
-// Camera
-const CAMERA_VERTICAL_SMOOTH = 0.1; // value between 0 - 1(no smoothing)
-const CAMERA_HORIZONTAL_SMOOTH = 0.1;
+const TILE_SIZE = 16;
+const ROOM_H_OFFSET = 16;
+const ROOM_V_OFFSET = 16;
 
 // Durations
+const CAMERA_ROOM_TRANSITION_SPEED = 256; // px/s
+
 const INVINCIBLE_DURATION = 1.5 * 1000;
 
 // Player
+const PLAYER_SPEED = 64 // px.s-1
 const INITIAL_HEALTH = 3;

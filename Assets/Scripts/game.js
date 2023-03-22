@@ -1,7 +1,9 @@
 //#region imports
-import TestScene from "./Scenes/TestScene.js";
+import GameManager from "./Components/GameManager.js";
+import Level001 from "./Scenes/Level001.js";
 //#endregion
 
+let gameManager = new GameManager();
 
 // #region GAME CONFIGURATION
 const config = {
@@ -12,18 +14,18 @@ const config = {
         default: 'arcade',
         arcade: {
             gravity: { y: 0 }, // deactivate vertical gravity
-            debug: false
+            debug: true
         }
     },
     render: {
         antialias: false
     },
     scene: [
-        TestScene
+        new Level001(gameManager),
     ],
     input: {
         gamepad: true,
     },
 };
-var game = new Phaser.Game(config); // creates the game object
+let game = new Phaser.Game(config); // creates the game object
 // #endregion

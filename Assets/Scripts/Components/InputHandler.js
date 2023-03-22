@@ -1,5 +1,5 @@
 export default class InputHandler{
-    constructor(context){
+    constructor(){
         this.keyboardKeys;
         this.isGamepadConnected = false;
         this.gamepad; // stores used controller
@@ -12,7 +12,7 @@ export default class InputHandler{
             interact: false,
         }
 
-        Phaser.Input.Gamepad.Axis.on('connected', () => {
+        this.input.gamepad.on('connected', () => {
             this.gamepad = this.input.gamepad.pad1;
             InputHandler.onGamepadConnect();
         });
