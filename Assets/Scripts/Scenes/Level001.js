@@ -17,10 +17,10 @@ export default class Level001 extends GameScene{
         this._camera.setBackgroundColor(0x8888FF);
 
         // Create a test map
-        this._testMap = this.add.image(0, 0, "testMap").setOrigin(0, 0);
+        //this._testMap = this.add.image(0, 0, "testMap").setOrigin(0, 0);
         
         // Create a player
-        this._player = new Player(this, 32, 32);
+        this._player = new Player(this, 32, 32, "player");
     }
 
     update(time, deltaTime){

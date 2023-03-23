@@ -1,11 +1,13 @@
 import PlayerStateMachine from "./PlayerStateMachine.js";
 import { IdlePlayerState } from "./PlayerStates.js";
 
-export default class Player {
-    constructor(scene, x, y){
-        this._scene = scene;
+export default class Player extends Phaser.Physics.Arcade.Sprite {
+    constructor(scene, x, y, spriteKey){
+        super(scene, x, y, spriteKey, 0);
 
-        this._sprite = scene.physics.add.sprite(x, y, "player", 0);
+        this.setOrigin(0, 0);
+        
+        scene.physics.world.enable(this);
 
         this._speed = PLAYER_SPEED;
 
@@ -45,6 +47,8 @@ export default class Player {
         this.AssignKeyboardEvents();
 
         this._stateMachine = new PlayerStateMachine(this, new IdlePlayerState(this));
+
+        scene.add.existing(this);
     }
     
     //#region Phaser methods
@@ -81,25 +85,25 @@ export default class Player {
 
     CreateAnimations(){
         //#region IDLE animations
-        this._scene.anims.create({
+        this.scene.anims.create({
             key: 'player_idle',
-            frames: this._scene.anims.generateFrameNumbers('player', {start:0, end:2}),
+            frames: this.scene.anims.generateFrameNumbers('player', {start:0, end:2}),
             frameRate: 4,
             repeat: -1
         });
         //#endregion
 
         //#region MOVE animations
-        this._scene.anims.create({
+        this.scene.anims.create({
             key: 'player_move_down',
-            frames: this._scene.anims.generateFrameNumbers('player', {start:5, end:9}),
+            frames: this.scene.anims.generateFrameNumbers('player', {start:5, end:9}),
             frameRate: 4,
             repeat: -1
         });
 
-        this._scene.anims.create({
+        this.scene.anims.create({
             key: 'player_move_up',
-            frames: this._scene.anims.generateFrameNumbers('player', {start:10, end:14}),
+            frames: this.scene.anims.generateFrameNumbers('player', {start:10, end:14}),
             frameRate: 4,
             repeat: -1
         });
