@@ -1,8 +1,7 @@
 export default class StateMachine{
-    constructor(context){
+    constructor(context, defaultState){
         this._context = context;
-        this._states;
-        this._currentState;
+        this._currentState = defaultState;
     }
 
     UpdateState(){

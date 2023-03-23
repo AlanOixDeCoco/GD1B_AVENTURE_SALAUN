@@ -12,6 +12,6 @@ export default class State {
     }
 
     onExitState(nextState){
-
+        delete this;
     }
 }

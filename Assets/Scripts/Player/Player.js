@@ -1,9 +1,8 @@
 import PlayerStateMachine from "./PlayerStateMachine.js";
+import { IdlePlayerState } from "./PlayerStates.js";
 
 export default class Player {
     constructor(scene, x, y){
-        this._stateMachine = new PlayerStateMachine(this);
-
         this._scene = scene;
 
         this._sprite = scene.physics.add.sprite(x, y, "player", 0);
@@ -25,8 +24,6 @@ export default class Player {
 
         this._animations = this.CreateAnimations();
 
-        this._state = PlayerStates.Idle;
-
         // setup the keys
         this._movementKeys = scene.input.keyboard.addKeys({
             up: Phaser.Input.Keyboard.KeyCodes.Z, 
@@ -46,57 +43,13 @@ export default class Player {
         });
 
         this.AssignKeyboardEvents();
+
+        this._stateMachine = new PlayerStateMachine(this, new IdlePlayerState(this));
     }
     
     //#region Phaser methods
     update(time){
-
-
-        switch(this._state){
-            // called when the player is in "idle" state
-            case PlayerStates.Idle:
-
-                //#region states transitions
-                if(this._input.moving){
-                    this._state = PlayerStates.Moving;
-                    break;
-                }
-                //#endregion
-
-                this._sprite.body.setVelocity(0, 0);
-                this._sprite.anims.play(this._animations.idle, true);
-
-                if(this._input.attack){
-                    // Attack
-                }
-                
-                break;
-            
-            // called when the player is in "moving" state
-            case PlayerStates.Moving:
-
-                //#region states transitions
-                if(!this._input.moving){
-                    this._state = PlayerStates.Idle;
-                    break;
-                }
-                //#endregion
-            
-                this._sprite.body.setVelocity(this._input.normalizedMovement.x * this._speed, this._input.normalizedMovement.y * this._speed);
-                this._sprite.anims.play(this._animations.moveDown, true);
-
-                if(this._input.attack){
-                    // Attack
-                }
-
-                break;
-
-            // called when the player is in "" state
-        }
-
-        if(DEBUG) {
-            console.log(`Input: [x: ${this._input.x}], [y: ${this._input.y}], [attack: ${this._input.attack}], [grappling: ${this._input.grappling}], [glove: ${this._input.glove}]`);
-        }
+        this._stateMachine.UpdateState();
     }
     //#endregion
 
