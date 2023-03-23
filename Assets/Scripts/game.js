@@ -14,7 +14,7 @@ const config = {
         default: 'arcade',
         arcade: {
             gravity: { y: 0 }, // deactivate vertical gravity
-            debug: true
+            debug: DEBUG
         }
     },
     render: {

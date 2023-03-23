@@ -18,5 +18,23 @@ const CAMERA_ROOM_TRANSITION_SPEED = 256; // px/s
 const INVINCIBLE_DURATION = 1.5 * 1000;
 
 // Player
-const PLAYER_SPEED = 64 // px.s-1
+const PLAYER_SPEED = 80; // px.s-1
 const INITIAL_HEALTH = 3;
+
+// Sprite layers depth
+const LAYER_ENTITIES = 10;
+const LAYER_SHADOWS = 1;
+const LAYER_GROUND = 0;
+
+// Gamepad buttons
+const BUTTON_ATTACK = 0;
+const BUTTON_BOXING = 1;
+const BUTTON_GRAPPLING = 2;
+const BUTTON_LEFT = 14;
+const BUTTON_RIGHT = 15;
+const BUTTON_UP = 12;
+const BUTTON_DOWN = 13;
+
+// Gamepad Axis
+const AXIS_LX = 0;
+const AXIS_LY = 1;

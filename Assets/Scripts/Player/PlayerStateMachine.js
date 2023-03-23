@@ -6,8 +6,4 @@ export default class PlayerStateMachine extends StateMachine {
         super(context, defaultState);
         this._currentState.onEnterState();
     }
-
-    UpdateState(){
-        super.UpdateState();
-    }
 }

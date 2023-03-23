@@ -77,39 +77,6 @@ export default class GameScene extends Phaser.Scene{
         }
     }
 
-    // configure the controller when it is connected
-    onGamepadConnect(){
-        console.log("Controller connected!");
-
-        // see https://phaser.io/examples/v3/view/input/gamepad/gamepad-debug to identify the buttons indexes
-        this._gamepadButtons = {
-            'up': this._gamepad.buttons[12],
-            'down': this._gamepad.buttons[13],
-            'left': this._gamepad.buttons[14],
-            'right': this._gamepad.buttons[15],
-        };
-
-        this._isGamepadConnected = true;
-    }
-
-    // called when the gamepad is disconnected
-    onGamepadDisconnect(){
-        console.log("Controller disconnected!");
-
-        // clear the gamepad
-        this._gamepad = null;
-        this._isGamepadConnected = false;
-
-        this._input = {x: 0, y: 0}; // avoid forever moving player when disconnecting the controller while button pressed
-    }
-
     update(){
-        //if(this._gamepad){
-        //    this._input = {
-        //        x: this._gamepadButtons.right.pressed - this._gamepadButtons.left.pressed,
-        //        y: this._gamepadButtons.up.pressed - this._gamepadButtons.down.pressed
-        //    };
-        //    return;
-        //}
     };
 }

@@ -1,20 +1,17 @@
+import Entity from "../Components/Entity.js";
 import PlayerStateMachine from "./PlayerStateMachine.js";
 import { IdlePlayerState } from "./PlayerStates.js";
 
-export default class Player extends Phaser.Physics.Arcade.Sprite {
+export default class Player extends Entity {
     constructor(scene, x, y, spriteKey){
         super(scene, x, y, spriteKey, 0);
-
-        this.setOrigin(0, 0);
-        
-        scene.physics.world.enable(this);
 
         this._speed = PLAYER_SPEED;
 
         this._input = {
             x: 0,
             y: 0,
-            normalizedMovement: new Phaser.Math.Vector2(0, 0),
+            movement: new Phaser.Math.Vector2(0, 0),
             up: false,
             down: false,
             left: false,
@@ -24,10 +21,38 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
             glove: false,
         }
 
+        this._facingUp == false;
+
         this._animations = this.CreateAnimations();
 
-        // setup the keys
-        this._movementKeys = scene.input.keyboard.addKeys({
+        //#region Inputs setup
+        this.AssignKeyboardEvents();
+        this.AssignGamepadEvents();
+        //#endregion
+
+        this._stateMachine = new PlayerStateMachine(this, new IdlePlayerState(this));
+
+        this.onStart();
+    }
+    
+    update(time){
+        super.update();
+        if(this._gamepad) {
+            this._input.x = this._gamepad.leftStick.length() > 0.1 ? this._gamepad.leftStick.x : 0;
+            this._input.y = this._gamepad.leftStick.length() > 0.1 ? this._gamepad.leftStick.y : 0;
+            this.CalculateJoystickMovement();
+        }
+
+
+        this._input.moving = !((Math.abs(this._input.x) + Math.abs(this._input.y)) == 0);
+
+        this._stateMachine.UpdateState();
+    }
+
+    //#region Keyboard
+    AssignKeyboardEvents(){
+        // Movement keys
+        this._movementKeys = this.scene.input.keyboard.addKeys({
             up: Phaser.Input.Keyboard.KeyCodes.Z, 
             up_arrow: Phaser.Input.Keyboard.KeyCodes.UP, 
             left: Phaser.Input.Keyboard.KeyCodes.Q, 
@@ -38,35 +63,20 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
             right_arrow: Phaser.Input.Keyboard.KeyCodes.RIGHT
         });
 
-        this._actionKeys = scene.input.keyboard.addKeys({
-            attack: Phaser.Input.Keyboard.KeyCodes.X,
-            grappling: Phaser.Input.Keyboard.KeyCodes.C,
-            glove: Phaser.Input.Keyboard.KeyCodes.V,
-        });
-
-        this.AssignKeyboardEvents();
-
-        this._stateMachine = new PlayerStateMachine(this, new IdlePlayerState(this));
-
-        scene.add.existing(this);
-    }
-    
-    //#region Phaser methods
-    update(time){
-        this._stateMachine.UpdateState();
-    }
-    //#endregion
-
-    //#region constructor methods
-    AssignKeyboardEvents(){
-        // Movement keys
         for (const [key, value] of Object.entries(this._movementKeys)) {
             value
             .on('down', this.onKeyboardMove)
             .on('up', this.onKeyboardMove)
             .context = this;
         }
+
         // Action keys
+        this._actionKeys = this.scene.input.keyboard.addKeys({
+            attack: Phaser.Input.Keyboard.KeyCodes.X,
+            grappling: Phaser.Input.Keyboard.KeyCodes.C,
+            glove: Phaser.Input.Keyboard.KeyCodes.V,
+        });
+        
         this._actionKeys.attack
         .on('down', this.onAttack)
         .on('up', this.onAttack)
@@ -83,48 +93,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         .context = this;
     }
 
-    CreateAnimations(){
-        //#region IDLE animations
-        this.scene.anims.create({
-            key: 'player_idle',
-            frames: this.scene.anims.generateFrameNumbers('player', {start:0, end:2}),
-            frameRate: 4,
-            repeat: -1
-        });
-        //#endregion
-
-        //#region MOVE animations
-        this.scene.anims.create({
-            key: 'player_move_down',
-            frames: this.scene.anims.generateFrameNumbers('player', {start:5, end:9}),
-            frameRate: 4,
-            repeat: -1
-        });
-
-        this.scene.anims.create({
-            key: 'player_move_up',
-            frames: this.scene.anims.generateFrameNumbers('player', {start:10, end:14}),
-            frameRate: 4,
-            repeat: -1
-        });
-        //#endregion
-
-        return {
-            idle: "player_idle",
-            
-            moveUp: "player_move_up",
-            moveDown: "player_move_down",
-            
-            grapplingUp: "player_grappling_up",
-            grapplingDown: "player_grappling_down",
-            
-            boxingUp: "player_boxing_up",
-            boxingDown: "player_boxing_down",
-        };
-    }
-    //#endregion
-
-    //#region input events
+    //#region onKeyboard events
     onKeyboardMove(evt){
         switch(evt.keyCode){
             case Phaser.Input.Keyboard.KeyCodes.Z:
@@ -148,13 +117,95 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
                 break;
         }
 
-        evt.context._input.x = -evt.context._input.left + evt.context._input.right;
-        evt.context._input.y = -evt.context._input.up + evt.context._input.down;
-        evt.context._input.normalizedMovement = new Phaser.Math.Vector2(evt.context._input.x, evt.context._input.y).normalize();
+        evt.context.CalculateButtonMovement();
+    }
+    //#endregion
+    //#endregion
 
-        evt.context._input.moving = !((Math.abs(evt.context._input.x) + Math.abs(evt.context._input.y)) == 0);
+    //#region Gamepad
+    AssignGamepadEvents(){
+        // setup the controller connected/disconnected event
+        this.scene.input.gamepad.on('connected', () => {
+            this._gamepad = this.scene.input.gamepad.pad1;
+            this.onGamepadConnect(this);
+        });
+        this.scene.input.gamepad.on('disconnected', this.onGamepadDisconnect, this);
+    }
+    onGamepadConnect(){
+        console.log("Controller connected!");
+
+        // see https://phaser.io/examples/v3/view/input/gamepad/gamepad-debug to identify the buttons indexes
+        this._movementButtons = {
+            up: this._gamepad[BUTTON_UP],
+            down: this._gamepad[BUTTON_DOWN],
+            left: this._gamepad[BUTTON_LEFT],
+            right: this._gamepad[BUTTON_RIGHT],
+        };
+
+        this._movementJoystick = {
+            x: AXIS_LX,
+            y: AXIS_LY,
+        }
+
+        this._actionButtons = {
+            attack: this._gamepad[BUTTON_ATTACK],
+            grappling: this._gamepad[BUTTON_GRAPPLING],
+            glove: this._gamepad[BUTTON_BOXING],
+        };
+
+        this._gamepad.on('down', () => {
+            this.onGamepadButtonDown(this);
+        });
+        this._gamepad.on('up', () => {
+            this.onGamepadButtonDown(this);
+        });
     }
 
+    // called when the gamepad is disconnected
+    onGamepadDisconnect(){
+        console.log("Controller disconnected!");
+
+        // clear the gamepad
+        this._gamepad = null;
+        this._isGamepadConnected = false;
+
+        // resets inputs when disconnected
+        this._input = {
+            x: 0,
+            y: 0,
+            movement: new Phaser.Math.Vector2(0, 0),
+            up: false,
+            down: false,
+            left: false,
+            right: false,
+            attack: false,
+            grappling: false,
+            glove: false,
+        };
+    }
+
+
+
+    //#region onGamepad events 
+    onGamepadButtonDown(context){
+        if(context._gamepad == null) return;
+
+        context._input.up = context._gamepad.up;
+        context._input.down = context._gamepad.down;
+        context._input.left = context._gamepad.left;
+        context._input.right = context._gamepad.right;
+
+        context._input.attack = context._gamepad.attack;
+        context._input.grappling = context._gamepad.grappling;
+        context._input.boxing = context._gamepad.boxing;
+
+        context.CalculateButtonMovement();
+    }
+    //#endregion
+    
+    //#endregion
+
+    //#region onAction events
     onAttack(evt){
         evt.context._input.attack = evt.isDown;
     }
@@ -165,6 +216,66 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
     onGlove(evt){
         evt.context._input.glove = evt.isDown;
+    }
+    //#endregion
+
+    //#region Input processing
+    CalculateButtonMovement(){
+        this._input.x = -this._input.left + this._input.right;
+        this._input.y = -this._input.up + this._input.down;
+        this._input.movement = new Phaser.Math.Vector2(this._input.x, this._input.y).normalize();
+    }
+
+    CalculateJoystickMovement(){
+        this._input.movement = new Phaser.Math.Vector2(this._input.x, this._input.y);
+    }
+    //#endregion
+
+    //#region Animations
+    CreateAnimations(){
+        //#region IDLE animations
+        this.scene.anims.create({
+            key: 'player_idle_down',
+            frames: this.scene.anims.generateFrameNumbers('player', {start:0, end:3}),
+            frameRate: 6,
+            repeat: -1
+        });
+        this.scene.anims.create({
+            key: 'player_idle_up',
+            frames: this.scene.anims.generateFrameNumbers('player', {start:6, end:9}),
+            frameRate: 6,
+            repeat: -1
+        });
+        //#endregion
+
+        //#region MOVE animations
+        this.scene.anims.create({
+            key: 'player_move_down',
+            frames: this.scene.anims.generateFrameNumbers('player', {start:12, end:17}),
+            frameRate: 8,
+            repeat: -1
+        });
+        this.scene.anims.create({
+            key: 'player_move_up',
+            frames: this.scene.anims.generateFrameNumbers('player', {start:18, end:23}),
+            frameRate: 8,
+            repeat: -1
+        });
+        //#endregion
+
+        return {
+            idleUp: "player_idle_up",
+            idleDown: "player_idle_down",
+            
+            moveUp: "player_move_up",
+            moveDown: "player_move_down",
+            
+            grapplingUp: "player_grappling_up",
+            grapplingDown: "player_grappling_down",
+            
+            boxingUp: "player_boxing_up",
+            boxingDown: "player_boxing_down",
+        };
     }
     //#endregion
 }

@@ -8,8 +8,17 @@ export class IdlePlayerState extends State {
     onEnterState(){
         if(DEBUG) console.log("Enter Idle State!\n");
 
+        this._context.x = Math.round(this._context.x);
+        this._context.y = Math.round(this._context.y);
+
         this._context.body.setVelocity(0, 0);
-        this._context.anims.play(this._context._animations.idle);
+
+        if(this._context._facingUp){
+            this._context.anims.play(this._context._animations.idleUp);
+        }
+        else {
+            this._context.anims.play(this._context._animations.idleDown);
+        }
     }
 
     Update(){
@@ -44,14 +53,23 @@ export class MovingPlayerState extends State {
         //#endregion
     
         this._context.body.setVelocity(
-            this._context._input.normalizedMovement.x * this._context._speed,
-            this._context._input.normalizedMovement.y * this._context._speed
+            this._context._input.movement.x * this._context._speed,
+            this._context._input.movement.y * this._context._speed
         );
-        this._context.anims.play(this._context._animations.moveDown, true);
 
+        // Animation handling
+        if(this._context._facingUp){
+            this._context.anims.play(this._context._animations.moveUp, true);
+        }
+        else {
+            this._context.anims.play(this._context._animations.moveDown, true);
+        }
+
+        // Orientation handling
         if((this._context._input.y == 0) || (this._context.body.velocity.x != 0)){
             this._context.flipX = ((this._context.body.velocity.x) > 0) ? false : true;
         }
+        this._context._facingUp = ((this._context.body.velocity.y) < 0) ? true : false;
 
         if(this._context._input.attack){
             // Attack
