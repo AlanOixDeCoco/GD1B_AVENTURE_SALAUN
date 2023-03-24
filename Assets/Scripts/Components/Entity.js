@@ -5,10 +5,12 @@ export default class Entity extends Phaser.Physics.Arcade.Sprite {
 
         this._shadow = scene.add.image(
             this.getBottomCenter().x, 
-            this.getBottomCenter().y, 
+            this.getBottomCenter().y + OFFSET_SHADOW_Y, 
             "shadows",
             shadowIndex
         );
+
+        this._weapon = null;
     }
 
     onStart(){
@@ -17,7 +19,21 @@ export default class Entity extends Phaser.Physics.Arcade.Sprite {
     }
 
     update(){
+        
+    }
+
+    lateUpdate(){
         this._shadow.x = this.getBottomCenter().x;
-        this._shadow.y = this.getBottomCenter().y;
+        this._shadow.y = this.getBottomCenter().y + OFFSET_SHADOW_Y;
+
+        if(this._weapon){
+
+        }
+    }
+
+    Attack(){
+        if(this._weapon){
+            this._weapon.Fire();
+        }
     }
 }

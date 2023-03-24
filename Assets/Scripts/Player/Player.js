@@ -37,6 +37,7 @@ export default class Player extends Entity {
     
     update(time){
         super.update();
+
         if(this._gamepad) {
             if(this._gamepad.leftStick.x != 0){
                 this._input.x = this._gamepad.leftStick.x > 0 ? 1 : -1;
@@ -59,6 +60,8 @@ export default class Player extends Entity {
         this._input.moving = !((Math.abs(this._input.x) + Math.abs(this._input.y)) == 0);
 
         this._stateMachine.UpdateState();
+
+        super.lateUpdate();
     }
 
     //#region Keyboard
@@ -285,4 +288,5 @@ export default class Player extends Entity {
         };
     }
     //#endregion
+
 }

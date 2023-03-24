@@ -26,6 +26,9 @@ const LAYER_ENTITIES = 10;
 const LAYER_SHADOWS = 1;
 const LAYER_GROUND = 0;
 
+// Offsets
+const OFFSET_SHADOW_Y = 1;
+
 // Gamepad buttons
 const BUTTON_ATTACK = 0;
 const BUTTON_BOXING = 1;
