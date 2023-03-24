@@ -38,8 +38,20 @@ export default class Player extends Entity {
     update(time){
         super.update();
         if(this._gamepad) {
-            this._input.x = this._gamepad.leftStick.length() > 0.1 ? this._gamepad.leftStick.x : 0;
-            this._input.y = this._gamepad.leftStick.length() > 0.1 ? this._gamepad.leftStick.y : 0;
+            if(this._gamepad.leftStick.x != 0){
+                this._input.x = this._gamepad.leftStick.x > 0 ? 1 : -1;
+            }
+            else if((this._gamepad.left - this._gamepad.right) == 0) this._input.x = 0;
+
+            if(this._gamepad.leftStick.y != 0){
+                if(this._gamepad.leftStick.y > AXIS_THRESHOLD_VERTICAL){
+                    this._input.y = 1;
+                }
+                else if(this._gamepad.leftStick.y < -AXIS_THRESHOLD_VERTICAL){
+                    this._input.y = -1;
+                }
+            }
+            else if((this._gamepad.up - this._gamepad.down) == 0) this._input.y = 0;
             this.CalculateJoystickMovement();
         }
 
@@ -142,11 +154,6 @@ export default class Player extends Entity {
             right: this._gamepad[BUTTON_RIGHT],
         };
 
-        this._movementJoystick = {
-            x: AXIS_LX,
-            y: AXIS_LY,
-        }
-
         this._actionButtons = {
             attack: this._gamepad[BUTTON_ATTACK],
             grappling: this._gamepad[BUTTON_GRAPPLING],
@@ -227,7 +234,7 @@ export default class Player extends Entity {
     }
 
     CalculateJoystickMovement(){
-        this._input.movement = new Phaser.Math.Vector2(this._input.x, this._input.y);
+        this._input.movement = new Phaser.Math.Vector2(this._input.x, this._input.y).normalize();
     }
     //#endregion
 
@@ -237,13 +244,13 @@ export default class Player extends Entity {
         this.scene.anims.create({
             key: 'player_idle_down',
             frames: this.scene.anims.generateFrameNumbers('player', {start:0, end:3}),
-            frameRate: 6,
+            frameRate: 4,
             repeat: -1
         });
         this.scene.anims.create({
             key: 'player_idle_up',
             frames: this.scene.anims.generateFrameNumbers('player', {start:6, end:9}),
-            frameRate: 6,
+            frameRate: 4,
             repeat: -1
         });
         //#endregion

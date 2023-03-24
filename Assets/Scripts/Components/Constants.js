@@ -35,6 +35,5 @@ const BUTTON_RIGHT = 15;
 const BUTTON_UP = 12;
 const BUTTON_DOWN = 13;
 
-// Gamepad Axis
-const AXIS_LX = 0;
-const AXIS_LY = 1;
+// Gamepad Axis threshold
+const AXIS_THRESHOLD_VERTICAL = 0.5;
