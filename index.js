@@ -10,3 +10,5 @@ function onResizeWindow(){
 }
 
 onResizeWindow();
+
+//alert('Placeholder player sprites from "Enter The Gungeon"');

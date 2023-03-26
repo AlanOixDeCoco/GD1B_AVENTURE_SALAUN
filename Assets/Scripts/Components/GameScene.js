@@ -7,6 +7,10 @@ export default class GameScene extends Phaser.Scene{
         this._gameManager._sceneStats.currentScene.name = name;
 
         this._currentRoom = {x: 0, y: 0};
+
+        this._entities = [];
+        this._pickups = [];
+        this._weapons = [];
     }
 
     // Stops the game loop and move the camera
@@ -78,5 +82,12 @@ export default class GameScene extends Phaser.Scene{
     }
 
     update(){
+        this._entities.forEach(entity => {
+            entity.update();
+        });
+
+        this._pickups.forEach(pickup => {
+            pickup.update();
+        });
     };
 }

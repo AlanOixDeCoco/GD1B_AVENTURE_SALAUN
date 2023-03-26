@@ -1,15 +1,19 @@
 import GameScene from "../Components/GameScene.js";
 import Player from "../Player/Player.js";
+import Revolver from "../Weapons/Revolver.js";
 
 export default class Level001 extends GameScene{
     constructor(gameManager){
-        super(gameManager, "level001", "Level 1");
+        super(gameManager, LEVEL_KEY_001, LEVEL_NAME_001);
     }
 
     preload(){
         this.load.image('testMap', 'Assets/Sprites/testMap.png');
-        this.load.spritesheet("player", "./Assets/Sprites/playerSpritesheet.png", {frameWidth: 16, frameHeight: 24});
-        this.load.spritesheet("shadows", "./Assets/Sprites/shadows.png", {frameWidth: 32, frameHeight: 8});
+
+        this.load.spritesheet(SPRITE_PLAYER, "./Assets/Sprites/playerSpritesheet.png", {frameWidth: 18, frameHeight: 26});
+        this.load.spritesheet(SPRITE_SHADOWS, "./Assets/Sprites/shadows.png", {frameWidth: 32, frameHeight: 8});
+
+        this.load.image(SPRITE_WEAPON_REVOLVER, "./Assets/Sprites/weapon_revolver.png");
     }
 
     create(){
@@ -18,14 +22,15 @@ export default class Level001 extends GameScene{
         this._camera.setBackgroundColor(0x333333);
 
         // Create a test map
-        //this._testMap = this.add.image(0, 0, "testMap").setOrigin(0, 0);
+        this._testMap = this.add.image(0, 0, "testMap").setOrigin(0, 0);
         
         // Create a player
-        this._player = new Player(this, 32, 32, "player");
+        var player = new Player(this, 118, 56, SPRITE_PLAYER);
+        this._entities.push(player);
+
     }
 
     update(time, deltaTime){
         super.update();
-        this._player.update();
     }
 }

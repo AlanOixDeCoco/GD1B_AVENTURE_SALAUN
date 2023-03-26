@@ -1,4 +1,5 @@
 import Entity from "../Components/Entity.js";
+import Revolver from "../Weapons/Revolver.js";
 import PlayerStateMachine from "./PlayerStateMachine.js";
 import { IdlePlayerState } from "./PlayerStates.js";
 
@@ -7,6 +8,10 @@ export default class Player extends Entity {
         super(scene, x, y, spriteKey, 0);
 
         this._speed = PLAYER_SPEED;
+
+        this._weapon = null;
+        // weapon anchor = offset from top-left player sprite
+        this._weaponAnchor = new Phaser.Math.Vector2(4, 8);
 
         this._input = {
             x: 0,
@@ -33,6 +38,15 @@ export default class Player extends Entity {
         this._stateMachine = new PlayerStateMachine(this, new IdlePlayerState(this));
 
         this.onStart();
+    }
+
+    onStart(){
+        super.onStart();
+
+        this.body.setSize(9, 16);
+        this.body.setOffset(4.5, 9);
+
+        this._weapon = new Revolver(this.scene, this);
     }
     
     update(time){
@@ -62,6 +76,20 @@ export default class Player extends Entity {
         this._stateMachine.UpdateState();
 
         super.lateUpdate();
+
+        this._weapon?.update(this);
+    }
+
+    lateUpdate(){
+        super.lateUpdate();
+    }
+
+    setWeapon(weapon){
+        this._weapon = weapon;
+    }
+
+    ThrowWeapon(){
+        this._weapon = null;
     }
 
     //#region Keyboard

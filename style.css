@@ -10,7 +10,7 @@ html, body {
 }
 
 #game_viewport{
-    background: #00000000;
+    position: absolute;
 }
 
 canvas {

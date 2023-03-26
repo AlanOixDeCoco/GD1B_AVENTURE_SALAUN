@@ -1,5 +1,5 @@
 // Debug mode
-const DEBUG = false;
+const DEBUG = true;
 
 // Inputs
 const INPUT_ZERO_TOLERANCE = 0.1;
@@ -22,6 +22,7 @@ const PLAYER_SPEED = 80; // px.s-1
 const INITIAL_HEALTH = 3;
 
 // Sprite layers depth
+const LAYER_WEAPONS = 11;
 const LAYER_ENTITIES = 10;
 const LAYER_SHADOWS = 1;
 const LAYER_GROUND = 0;
@@ -40,3 +41,23 @@ const BUTTON_DOWN = 13;
 
 // Gamepad Axis threshold
 const AXIS_THRESHOLD_VERTICAL = 0.5;
+
+// Sprites name
+const SPRITE_PLAYER = "player";
+const SPRITE_ENNEMY = "ennemy";
+const SPRITE_BOSS = "boss";
+
+const SPRITE_SHADOWS = "shadows"
+
+const SPRITE_WEAPON_REVOLVER = "weapon_revolver";
+const SPRITE_WEAPON_RIFLE = "weapon_rifle";
+
+// Levels keys
+const LEVEL_KEY_001 = "level_001";
+const LEVEL_KEY_002 = "level_002";
+const LEVEL_KEY_BOSS = "level_boss";
+
+// Levels name
+const LEVEL_NAME_001 = "Usine d'ordinateurs";
+const LEVEL_NAME_002 = "Open space";
+const LEVEL_NAME_BOSS = "Bureau du boss";

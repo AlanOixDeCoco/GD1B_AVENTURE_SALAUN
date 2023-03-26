@@ -3,7 +3,7 @@ import Player from "../Player/Player.js";
 
 export default class Level002 extends GameScene{
     constructor(gameManager){
-        super(gameManager, "level002", "Level 2");
+        super(gameManager, LEVEL_KEY_002, LEVEL_NAME_002);
 
         this._currentRoom = {x: 0, y: 0};
     }
