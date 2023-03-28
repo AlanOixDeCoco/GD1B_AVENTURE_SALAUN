@@ -1,17 +1,17 @@
 import Entity from "../Components/Entity.js";
-import Revolver from "../Weapons/Revolver.js";
+import { Revolver, Rifle } from "../Weapons/Weapons.js";
 import PlayerStateMachine from "./PlayerStateMachine.js";
 import { IdlePlayerState } from "./PlayerStates.js";
 
 export default class Player extends Entity {
-    constructor(scene, x, y, spriteKey){
-        super(scene, x, y, spriteKey, 0);
+    constructor(scene, x, y){
+        super(scene, x, y, SPRITE_PLAYER, 0);
 
         this._speed = PLAYER_SPEED;
 
         this._weapon = null;
         // weapon anchor = offset from top-left player sprite
-        this._weaponAnchor = new Phaser.Math.Vector2(4, 8);
+        this._weaponAnchor = new Phaser.Math.Vector2(4, 7);
 
         this._input = {
             x: 0,
@@ -26,8 +26,6 @@ export default class Player extends Entity {
             glove: false,
         }
 
-        this._facingUp == false;
-
         this._animations = this.CreateAnimations();
 
         //#region Inputs setup
@@ -38,15 +36,16 @@ export default class Player extends Entity {
         this._stateMachine = new PlayerStateMachine(this, new IdlePlayerState(this));
 
         this.onStart();
+
+        this._weapon = new Rifle(this.scene, this);
+        this._weapon.update();
     }
 
     onStart(){
         super.onStart();
 
-        this.body.setSize(9, 16);
-        this.body.setOffset(4.5, 9);
-
-        this._weapon = new Revolver(this.scene, this);
+        this.body.setSize(8, 18);
+        this.body.setOffset(5, 9);
     }
     
     update(time){
@@ -73,11 +72,9 @@ export default class Player extends Entity {
 
         this._input.moving = !((Math.abs(this._input.x) + Math.abs(this._input.y)) == 0);
 
+        if(this._input.attack) this._weapon.Fire();
+
         this._stateMachine.UpdateState();
-
-        super.lateUpdate();
-
-        this._weapon?.update(this);
     }
 
     lateUpdate(){
@@ -115,7 +112,7 @@ export default class Player extends Entity {
 
         // Action keys
         this._actionKeys = this.scene.input.keyboard.addKeys({
-            attack: Phaser.Input.Keyboard.KeyCodes.X,
+            attack: Phaser.Input.Keyboard.KeyCodes.SPACE,
             grappling: Phaser.Input.Keyboard.KeyCodes.C,
             glove: Phaser.Input.Keyboard.KeyCodes.V,
         });
@@ -131,8 +128,8 @@ export default class Player extends Entity {
         .context = this;
 
         this._actionKeys.glove
-        .on('down', this.onGlove)
-        .on('up', this.onGlove)
+        .on('down', this.onBoxing)
+        .on('up', this.onBoxing)
         .context = this;
     }
 
@@ -245,14 +242,17 @@ export default class Player extends Entity {
 
     //#region onAction events
     onAttack(evt){
+        if(DEBUG) console.log("Attack key triggered!");
         evt.context._input.attack = evt.isDown;
     }
 
     onGrappling(evt){
+        if(DEBUG) console.log("Grappling key triggered!");
         evt.context._input.grappling = evt.isDown;
     }
 
-    onGlove(evt){
+    onBoxing(evt){
+        if(DEBUG) console.log("Boxing key triggered!");
         evt.context._input.glove = evt.isDown;
     }
     //#endregion
@@ -266,6 +266,21 @@ export default class Player extends Entity {
 
     CalculateJoystickMovement(){
         this._input.movement = new Phaser.Math.Vector2(this._input.x, this._input.y).normalize();
+    }
+
+    ResetInputs(){
+        this._input = {
+            x: 0,
+            y: 0,
+            movement: new Phaser.Math.Vector2(0, 0),
+            up: false,
+            down: false,
+            left: false,
+            right: false,
+            attack: false,
+            grappling: false,
+            glove: false,
+        };
     }
     //#endregion
 

@@ -51,7 +51,8 @@ export class MovingPlayerState extends State {
             return;
         }
         //#endregion
-    
+
+        // Set velocity
         this._context.body.setVelocity(
             this._context._input.movement.x * this._context._speed,
             this._context._input.movement.y * this._context._speed
@@ -71,9 +72,8 @@ export class MovingPlayerState extends State {
         }
         this._context._facingUp = ((this._context.body.velocity.y) < 0) ? true : false;
 
-        if(this._context._input.attack){
-            // Attack
-        }
+        // Update equiped weapon
+        this._context._weapon?.update(this);
     }
 }
 
