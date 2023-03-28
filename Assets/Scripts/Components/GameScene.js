@@ -7,12 +7,33 @@ export default class GameScene extends Phaser.Scene{
         this._gameManager._sceneStats.currentScene.name = name;
 
         this._currentRoom = {x: 0, y: 0};
-    }
+
+        this._playerSpawn = {x: 0, y: 0};
+    };
+
+    init(data){
+        
+    };
+
+    preload(){
+        this.load.image('tileset', "./Assets/Maps/Placeholder.png");
+
+        this.load.spritesheet(SPRITE_PLAYER, "./Assets/Sprites/playerSpritesheet.png", {frameWidth: 20, frameHeight: 28});
+        this.load.spritesheet(SPRITE_SHADOWS, "./Assets/Sprites/shadows.png", {frameWidth: 32, frameHeight: 8});
+
+        this.load.image(SPRITE_WEAPON_REVOLVER, "./Assets/Sprites/weapon_revolver.png");
+        this.load.image(SPRITE_WEAPON_RIFLE, "./Assets/Sprites/weapon_rifle.png");
+        this.load.image(SPRITE_BULLET, "./Assets/Sprites/bullet.png");
+    };
 
     create() {
         this._entities = this.add.group();
         this._pickups = this.add.group();
-    }
+    };
+
+    SwitchScene(nextScene, data){
+        this.scene.switch(nextScene, data);
+    };
 
     // Stops the game loop and move the camera
     SwitchScreen(player, camera, direction){
@@ -91,7 +112,7 @@ export default class GameScene extends Phaser.Scene{
         }
 
         player._weapon?.update();
-    }
+    };
 
     update(){
         this._entities.getChildren().forEach(entity => {

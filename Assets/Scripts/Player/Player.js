@@ -37,7 +37,7 @@ export default class Player extends Entity {
 
         this.onStart();
 
-        this._weapon = new Rifle(this.scene, this);
+        this._weapon = new Revolver(this.scene, this);
         this._weapon.update();
     }
 
@@ -249,6 +249,8 @@ export default class Player extends Entity {
     onGrappling(evt){
         if(DEBUG) console.log("Grappling key triggered!");
         evt.context._input.grappling = evt.isDown;
+
+        evt.context.scene.SwitchScene(LEVEL_KEY_002);
     }
 
     onBoxing(evt){

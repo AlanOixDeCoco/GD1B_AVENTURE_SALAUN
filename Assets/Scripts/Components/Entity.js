@@ -1,6 +1,7 @@
 export default class Entity extends Phaser.Physics.Arcade.Sprite {
     constructor(scene, x, y, spriteKey, shadowIndex = 0){
         super(scene, x, y, spriteKey, 0);
+        
         scene.physics.world.enable(this);
 
         if(shadowIndex >= 0){

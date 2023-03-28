@@ -8,15 +8,9 @@ export default class Level001 extends GameScene{
     }
 
     preload(){
-        this.load.tilemapTiledJSON(LEVEL_KEY_001, "./Assets/Maps/Level001/Level-001.tmj");
-        this.load.image('tileset', "./Assets/Maps/Placeholder.png");
-
-        this.load.spritesheet(SPRITE_PLAYER, "./Assets/Sprites/playerSpritesheet.png", {frameWidth: 20, frameHeight: 28});
-        this.load.spritesheet(SPRITE_SHADOWS, "./Assets/Sprites/shadows.png", {frameWidth: 32, frameHeight: 8});
-
-        this.load.image(SPRITE_WEAPON_REVOLVER, "./Assets/Sprites/weapon_revolver.png");
-        this.load.image(SPRITE_WEAPON_RIFLE, "./Assets/Sprites/weapon_rifle.png");
-        this.load.image(SPRITE_BULLET, "./Assets/Sprites/bullet.png");
+        super.preload();
+        
+        this.load.tilemapTiledJSON(LEVEL_KEY_001, "./Assets/Maps/Level-001.tmj");
     }
 
     create(){
@@ -42,22 +36,16 @@ export default class Level001 extends GameScene{
         };
 
         // Create a player
-        this._player = new Player(this, 118, 56);
+        this._player = new Player(this, 80, 80);
+        this._camera.setScroll(TILE_SIZE, TILE_SIZE);
 
         // create a test entity
-        this._entities.add(new Entity(this, 100, 100, SPRITE_ENNEMY, -1));
         this._entities.add(new Entity(this, 200, 100, SPRITE_ENNEMY, -1));
-        this._entities.add(new Entity(this, 300, 100, SPRITE_ENNEMY, -1));
-        this._entities.add(new Entity(this, 400, 100, SPRITE_ENNEMY, -1));
-        this._entities.add(new Entity(this, 500, 100, SPRITE_ENNEMY, -1));
-        this._entities.add(new Entity(this, 600, 100, SPRITE_ENNEMY, -1));
 
         // Create the collisions
         this._layers.walls.setCollisionByProperty({collides: true});
         this.physics.add.collider([this._entities, this._player], this._layers.walls, () => { console.log("Collides!"); });
         this.physics.add.collider(this._player, this._entities, () => { console.log("Collides!"); });
-
-        this._camera.setScroll(TILE_SIZE, TILE_SIZE);
     }
 
     update(time, deltaTime){

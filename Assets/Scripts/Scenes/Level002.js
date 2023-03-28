@@ -1,3 +1,4 @@
+import Entity from "../Components/Entity.js";
 import GameScene from "../Components/GameScene.js";
 import Player from "../Player/Player.js";
 
@@ -9,14 +10,48 @@ export default class Level002 extends GameScene{
     }
 
     preload(){
+        super.preload();
         
+        this.load.tilemapTiledJSON(LEVEL_KEY_002, "./Assets/Maps/Level-002.tmj");
     }
 
     create(){
-        this.cameras.add(0, 0, GAME_WIDTH, GAME_HEIGHT, true);
-        this.cameras.main.setBackgroundColor(0x8888FF);
+        super.create();
+
+        // Create scene camera
+        this._camera = this.cameras.add(0, 0, GAME_WIDTH, GAME_HEIGHT, true);
+        this._camera.setBackgroundColor(0x333333);
+
+        // Create a the map
+        this._tilemap = this.add.tilemap(LEVEL_KEY_002);
+        this._tileset = this._tilemap.addTilesetImage('Placeholder', 'tileset');
+
+        this._layers = {
+            ground: this._tilemap.createLayer(
+                "Ground",
+                this._tileset,
+            ).setDepth(LAYER_GROUND),
+            walls: this._tilemap.createLayer(
+                "Walls",
+                this._tileset
+            ).setDepth(LAYER_WALLS),
+        };
+
+        // Create a player
+        this._player = new Player(this, 784, 80);
+        this._camera.setScroll(TILE_SIZE * 35, TILE_SIZE);
+
+        // create a test entity
+        this._entities.add(new Entity(this, 700, 100, SPRITE_ENNEMY, -1));
+
+        // Create the collisions
+        this._layers.walls.setCollisionByProperty({collides: true});
+        this.physics.add.collider([this._entities, this._player], this._layers.walls, () => { console.log("Collides!"); });
+        this.physics.add.collider(this._player, this._entities, () => { console.log("Collides!"); });
     }
 
     update(time, deltaTime){
+        super.update();
+        this._player.update();
     }
 }

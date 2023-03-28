@@ -1,6 +1,7 @@
 //#region imports
 import GameManager from "./Components/GameManager.js";
 import Level001 from "./Scenes/Level001.js";
+import Level002 from "./Scenes/Level002.js";
 //#endregion
 
 let gameManager = new GameManager();
@@ -22,6 +23,7 @@ const config = {
     },
     scene: [
         new Level001(gameManager),
+        new Level002(gameManager)
     ],
     input: {
         gamepad: true,
