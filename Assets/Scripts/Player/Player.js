@@ -26,8 +26,6 @@ export default class Player extends Entity {
             glove: false,
         }
 
-        this._animations = this.CreateAnimations();
-
         //#region Inputs setup
         this.AssignKeyboardEvents();
         this.AssignGamepadEvents();
@@ -43,9 +41,6 @@ export default class Player extends Entity {
 
     onStart(){
         super.onStart();
-
-        this.body.setSize(8, 18);
-        this.body.setOffset(5, 9);
     }
     
     update(time){
@@ -71,8 +66,6 @@ export default class Player extends Entity {
 
 
         this._input.moving = !((Math.abs(this._input.x) + Math.abs(this._input.y)) == 0);
-
-        if(this._input.attack) this._weapon.Fire();
 
         this._stateMachine.UpdateState();
     }
@@ -291,13 +284,13 @@ export default class Player extends Entity {
         //#region IDLE animations
         this.scene.anims.create({
             key: 'player_idle_down',
-            frames: this.scene.anims.generateFrameNumbers('player', {start:0, end:3}),
+            frames: this.scene.anims.generateFrameNumbers(SPRITE_PLAYER, {start:0, end:3}),
             frameRate: 4,
             repeat: -1
         });
         this.scene.anims.create({
             key: 'player_idle_up',
-            frames: this.scene.anims.generateFrameNumbers('player', {start:6, end:9}),
+            frames: this.scene.anims.generateFrameNumbers(SPRITE_PLAYER, {start:6, end:9}),
             frameRate: 4,
             repeat: -1
         });
@@ -306,13 +299,13 @@ export default class Player extends Entity {
         //#region MOVE animations
         this.scene.anims.create({
             key: 'player_move_down',
-            frames: this.scene.anims.generateFrameNumbers('player', {start:12, end:17}),
+            frames: this.scene.anims.generateFrameNumbers(SPRITE_PLAYER, {start:12, end:17}),
             frameRate: 8,
             repeat: -1
         });
         this.scene.anims.create({
             key: 'player_move_up',
-            frames: this.scene.anims.generateFrameNumbers('player', {start:18, end:23}),
+            frames: this.scene.anims.generateFrameNumbers(SPRITE_PLAYER, {start:18, end:23}),
             frameRate: 8,
             repeat: -1
         });

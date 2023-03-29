@@ -21,13 +21,17 @@ export default class GameScene extends Phaser.Scene{
         this.load.spritesheet(SPRITE_PLAYER, "./Assets/Sprites/playerSpritesheet.png", {frameWidth: 20, frameHeight: 28});
         this.load.spritesheet(SPRITE_SHADOWS, "./Assets/Sprites/shadows.png", {frameWidth: 32, frameHeight: 8});
 
+        this.load.image(SPRITE_ENEMY_DETECTION_RANGE, "./Assets/Sprites/Enemies/enemyDetectionRange.png");
+
         this.load.image(SPRITE_WEAPON_REVOLVER, "./Assets/Sprites/weapon_revolver.png");
         this.load.image(SPRITE_WEAPON_RIFLE, "./Assets/Sprites/weapon_rifle.png");
         this.load.image(SPRITE_BULLET, "./Assets/Sprites/bullet.png");
+
+        this.load.spritesheet(SPRITE_ENEMY, "./Assets/Sprites/Enemies/enemySpritesheet.png", {frameWidth: 20, frameHeight: 28});
     };
 
     create() {
-        this._entities = this.add.group();
+        this._enemies = this.add.group();
         this._pickups = this.add.group();
     };
 
@@ -112,16 +116,15 @@ export default class GameScene extends Phaser.Scene{
         }
 
         player._weapon?.update();
+        player.update();
     };
 
     update(){
-        this._entities.getChildren().forEach(entity => {
-            entity.update();
-        });
+        this._player?.update();
 
-        //this._pickups.forEach(pickup => {
-        //    pickup.update();
-        //});
+        this._enemies.getChildren().forEach(enemy => {
+            enemy.update();
+        });
 
         if(this._player){
             if(this._player.x < this._camera.scrollX){

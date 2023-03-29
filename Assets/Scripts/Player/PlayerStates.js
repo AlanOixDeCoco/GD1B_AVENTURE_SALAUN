@@ -29,9 +29,7 @@ export class IdlePlayerState extends State {
         }
         //#endregion
 
-        if(this._context._input.attack){
-            // Attack
-        }
+        if(this._context._input.attack) this._context._weapon?.Fire();
     }
 }
 
@@ -74,6 +72,8 @@ export class MovingPlayerState extends State {
 
         // Update equiped weapon
         this._context._weapon?.update(this);
+
+        if(this._context._input.attack) this._context._weapon?.Fire();
     }
 }
 

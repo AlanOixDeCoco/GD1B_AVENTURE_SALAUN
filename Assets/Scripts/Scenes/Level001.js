@@ -1,5 +1,7 @@
 import Entity from "../Components/Entity.js";
 import GameScene from "../Components/GameScene.js";
+import Enemy from "../Enemies/Enemy.js";
+import Ennemy from "../Enemies/Enemy.js";
 import Player from "../Player/Player.js";
 
 export default class Level001 extends GameScene{
@@ -40,16 +42,18 @@ export default class Level001 extends GameScene{
         this._camera.setScroll(TILE_SIZE, TILE_SIZE);
 
         // create a test entity
-        this._entities.add(new Entity(this, 200, 100, SPRITE_ENNEMY, -1));
+        this._enemies.add(new Enemy(this, 200, 100, SPRITE_ENEMY, 1, this._player));
 
         // Create the collisions
         this._layers.walls.setCollisionByProperty({collides: true});
-        this.physics.add.collider([this._entities, this._player], this._layers.walls, () => { console.log("Collides!"); });
-        this.physics.add.collider(this._player, this._entities, () => { console.log("Collides!"); });
+        this.physics.add.collider([this._enemies, this._player], this._layers.walls);
+        this.physics.add.collider(this._player, this._enemies, () => {
+            if(DEBUG) console.log("Player collides with enemy!");
+            this._player._weapon?.update();
+        });
     }
 
     update(time, deltaTime){
         super.update();
-        this._player.update();
     }
 }

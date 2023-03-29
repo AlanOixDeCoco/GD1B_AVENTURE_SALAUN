@@ -4,6 +4,10 @@ export default class Entity extends Phaser.Physics.Arcade.Sprite {
         
         scene.physics.world.enable(this);
 
+        this._health = ENTITY_HEALTH;
+
+        this._invincible = false;
+
         if(shadowIndex >= 0){
             this._shadow = scene.add.image(
                 this.getBottomCenter().x, 
@@ -17,6 +21,8 @@ export default class Entity extends Phaser.Physics.Arcade.Sprite {
 
         this._weaponAnchor = {x: 0, y: 0};
 
+        this._animations = this.CreateAnimations();
+
         this.onStart();
     }
 
@@ -26,8 +32,12 @@ export default class Entity extends Phaser.Physics.Arcade.Sprite {
     }
 
     onStart(){
+        this.body.setSize(8, 18);
+        this.body.setOffset(5, 9);
+        
         this.scene.add.existing(this);
         this.setDepth(LAYER_ENTITIES);
+        this.setBounce(0);
     }
 
     update(){
@@ -55,4 +65,40 @@ export default class Entity extends Phaser.Physics.Arcade.Sprite {
 
         return origin;
     }
+
+    CreateAnimations(){
+    }
+
+    setHealth(health){
+        this._health = health;
+    }
+
+    TakeDamage(amount, invincibleDuration){
+        if(this._invincible) return;
+
+        this._health -= amount;
+        if(this._health <= 0){
+            this.destroy();
+        }
+
+        this._invincible = true;
+        
+        this._invincibility = setInterval(() => {
+            if(this.alpha > 0){
+                this.setAlpha(0);
+            }
+            else {
+                this.clearAlpha();
+            }
+            
+        }, INVINCIBLE_BLINK_INTERVAL, this);
+
+        setTimeout(() => {
+            this._invincible = false;
+            this.clearAlpha();
+            clearInterval(this._invincibility);
+        }, INVINCIBLE_DURATION_ENEMY);
+    }
+
+
 }

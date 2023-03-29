@@ -1,5 +1,5 @@
 // Debug mode
-const DEBUG = true;
+const DEBUG = false;
 
 // Inputs
 const INPUT_ZERO_TOLERANCE = 0.1;
@@ -20,13 +20,27 @@ const CAMERA_ROOM_TRANSITION_V_FACTOR = 1;
 
 const BULLET_LIFETIME = 3000; // milliseconds
 
-const INVINCIBLE_DURATION = 1.5 * 1000;
+const INVINCIBLE_DURATION_PLAYER = 1000; // ms
+const INVINCIBLE_DURATION_ENEMY = 200; // ms
+const INVINCIBLE_BLINK_INTERVAL = 100; // ms
+
+// Entities
+const ENTITY_HEALTH = 1;
 
 // Player
 const PLAYER_SPEED = 128; // px.s-1
-const INITIAL_HEALTH = 3;
+const INITIAL_HEALTH = 5;
+
+// Enemies
+const ENEMY_SPEED = 64;
+const ENEMIES_DRAG = 2000;
+const ENEMY_RANGE_DETECTION_DELAY = 100; // ms
+const ENEMY_HIT_DETECTION_DELAY = 2000;
+const ENEMY_HEALTH = 3;
 
 // Sprite layers depth
+const LAYER_DEBUG = 100;
+
 const LAYER_WEAPONS_TOP = 11;
 const LAYER_ENTITIES = 10;
 const LAYER_WEAPONS_BOTTOM = 9;
@@ -40,7 +54,7 @@ const LAYER_GROUND = 0;
 
 // Offsets
 const OFFSET_SHADOW_Y = 0;
-const OFFSET_BULLET_SPAWN = 16;
+const OFFSET_BULLET_SPAWN = 8;
 
 // Gamepad buttons
 const BUTTON_ATTACK = 0;
@@ -56,8 +70,10 @@ const AXIS_THRESHOLD_VERTICAL = 0.5;
 
 // Sprites name
 const SPRITE_PLAYER = "player";
-const SPRITE_ENNEMY = "ennemy";
+const SPRITE_ENEMY = "enemy";
 const SPRITE_BOSS = "boss";
+
+const SPRITE_ENEMY_DETECTION_RANGE = "enemy_detection_range";
 
 const SPRITE_SHADOWS = "shadows"
 
@@ -74,6 +90,3 @@ const LEVEL_KEY_BOSS = "level_boss";
 const LEVEL_NAME_001 = "Usine d'ordinateurs";
 const LEVEL_NAME_002 = "Open space";
 const LEVEL_NAME_BOSS = "Bureau du boss";
-
-// Physics
-const ENNEMIES_DRAG = 2000;
