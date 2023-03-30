@@ -1,7 +1,7 @@
 import Bullet from "./Bullet.js";
 
 export default class Weapon extends Phaser.Physics.Arcade.Sprite{
-    constructor(scene, parent, pivot, sprite, bulletsPerSecond, bulletSpeed, bulletDamage){
+    constructor(scene, parent, pivot, sprite, bulletsPerSecond, bulletSpeed, bulletDamage, ammos=5){
         super(scene, parent.getWeaponOrigin.x, parent.getWeaponOrigin.y, sprite);
 
         this._pivot = pivot;
@@ -17,9 +17,16 @@ export default class Weapon extends Phaser.Physics.Arcade.Sprite{
 
         this._bullets = [];
         this._bulletSpeed = bulletSpeed;
+
+        this._ammos = ammos;
     }
     
     Fire(){
+        if(this._ammos <= 0){
+            console.log("No ammo left!");
+            return;
+        }
+
         if(this.scene.time.now > this._nextBulletTime){
             this._nextBulletTime = this.scene.time.now + ((1 / this._bulletsPerSecond) * 1000);
 
@@ -30,6 +37,7 @@ export default class Weapon extends Phaser.Physics.Arcade.Sprite{
                 this._bulletSpeed,
                 this._bulletDamage
             ));
+            this._ammos--;
 
             if(DEBUG) console.log(`Fire weapon!`);
         }

@@ -35,7 +35,7 @@ export default class Player extends Entity {
 
         this.onStart();
 
-        this._weapon = new Revolver(this.scene, this);
+        this._weapon = new Rifle(this.scene, this);
         this._weapon.update();
     }
 

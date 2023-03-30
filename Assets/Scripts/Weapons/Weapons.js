@@ -2,12 +2,12 @@ import Weapon from "./Weapon.js";
 
 export class Revolver extends Weapon{
     constructor(scene, parent){
-        super(scene, parent, new Phaser.Math.Vector2(4, 7), SPRITE_WEAPON_REVOLVER, 4, 300, 2);
+        super(scene, parent, new Phaser.Math.Vector2(4, 7), SPRITE_WEAPON_REVOLVER, 4, 300, 2, 20);
     }
 }
 
 export class Rifle extends Weapon{
     constructor(scene, parent){
-        super(scene, parent, new Phaser.Math.Vector2(6, 6), SPRITE_WEAPON_RIFLE, 6, 200, 1);
+        super(scene, parent, new Phaser.Math.Vector2(6, 6), SPRITE_WEAPON_RIFLE, 6, 200, 1, 10);
     }
 }

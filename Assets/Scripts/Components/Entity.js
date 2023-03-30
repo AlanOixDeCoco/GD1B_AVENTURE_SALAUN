@@ -76,6 +76,8 @@ export default class Entity extends Phaser.Physics.Arcade.Sprite {
     TakeDamage(amount, invincibleDuration){
         if(this._invincible) return;
 
+        this.scene._camera.shake(CAMERA_SHAKE_HIT_DURATION, CAMERA_SHAKE_HIT_INTENSITY * amount);
+
         this._health -= amount;
         if(this._health <= 0){
             this.destroy();
@@ -97,8 +99,6 @@ export default class Entity extends Phaser.Physics.Arcade.Sprite {
             this._invincible = false;
             this.clearAlpha();
             clearInterval(this._invincibility);
-        }, INVINCIBLE_DURATION_ENEMY);
+        }, invincibleDuration);
     }
-
-
 }
