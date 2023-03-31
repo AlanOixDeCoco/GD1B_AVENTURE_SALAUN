@@ -29,10 +29,21 @@ export default class Level001 extends GameScene{
                 "Ground",
                 this._tileset,
             ).setDepth(LAYER_GROUND),
+
             walls: this._tilemap.createLayer(
                 "Walls",
                 this._tileset
             ).setDepth(LAYER_WALLS),
+
+            conveyorsBot: this._tilemap.createLayer(
+                "ConveyorsBottom",
+                this._tileset
+            ).setDepth(LAYER_CONVEYORS_BOTTOM),
+
+            conveyorsTop: this._tilemap.createLayer(
+                "ConveyorsTop",
+                this._tileset
+            ).setDepth(LAYER_CONVEYORS_TOP),
         };
 
         // Create a player
@@ -46,7 +57,13 @@ export default class Level001 extends GameScene{
 
         // Create the collisions
         this._layers.walls.setCollisionByProperty({collides: true});
-        this.physics.add.collider([this._enemies, this._player], this._layers.walls);
+        this._layers.conveyorsBot.setCollisionByProperty({collides: true});
+        this._layers.conveyorsTop.setCollisionByProperty({collides: true});
+
+        // Apply the collisions
+        this.physics.add.collider([this._enemies, this._player], [this._layers.walls, this._layers.conveyorsBot, this._layers.conveyorsTop]);
+        this.physics.add.collider([this._enemies, this._player], this._layers.conveyorsBot); 
+        //this.physics.add.collider([this._enemies, this._player], this._layers.conveyorsTop); 
 
         super.afterCreate();
     }

@@ -1,5 +1,5 @@
 // Debug mode
-const DEBUG = true;
+const DEBUG = false;
 
 // Inputs
 const INPUT_ZERO_TOLERANCE = 0.1;
@@ -25,6 +25,10 @@ const INVINCIBLE_DURATION_PLAYER = 1000; // ms
 const INVINCIBLE_DURATION_ENEMY = 200; // ms
 const INVINCIBLE_BLINK_INTERVAL = 100; // ms
 
+const WEAPON_DEFAULT_RELOAD_DURATION = 1000; // ms
+const WEAPON_RIFLE_RELOAD_DURATION = 2000; // ms
+const WEAPON_REVOLVER_RELOAD_DURATION = 1000; // ms
+
 // Camera
 const CAMERA_SHAKE_HIT_DURATION = 100; // ms
 const CAMERA_SHAKE_HIT_INTENSITY = 0.02;
@@ -39,14 +43,18 @@ const PLAYER_HEALTH = 5;
 // Enemies
 const ENEMY_SPEED = 64;
 const ENEMIES_DRAG = 2000;
-const ENEMY_RANGE_DETECTION_DELAY = 1000; // ms
+const ENEMY_RANGE_DETECTION_DELAY = 100; // ms
+const ENEMY_DETECTED_RANGE_FACTOR = 1.4;
 const ENEMY_HIT_DETECTION_DELAY = 2000;
 const ENEMY_HEALTH = 3;
 const ENEMY_ATTACK_DELAY = {min: 1000, max: 3000};
 const ENEMY_DAMAGE_COLLIDE = 1;
+const ENEMY_MINIMUM_AMMOS = 5;
 
 // Sprite layers depth
 const LAYER_DEBUG = 100;
+
+const LAYER_FLOATING_UI = 20;
 
 const LAYER_WEAPONS_TOP = 11;
 const LAYER_ENTITIES = 10;
@@ -54,12 +62,15 @@ const LAYER_WEAPONS_BOTTOM = 9;
 const LAYER_BULLETS = 8;
 
 const LAYER_OBSTACLES = 5;
+const LAYER_CONVEYORS_TOP = 4;
+const LAYER_CONVEYORS_BOTTOM = 3;
 const LAYER_WALLS = 2;
 
 const LAYER_SHADOWS = 1;
 const LAYER_GROUND = 0;
 
 // Offsets
+const OFFSET_FLOATING_UI_Y = -8;
 const OFFSET_SHADOW_Y = 0;
 const OFFSET_SHADOW_PICKUP_Y = 4;
 const OFFSET_BULLET_SPAWN = 0;
@@ -89,6 +100,9 @@ const SPRITE_SHADOWS = "shadows"
 const SPRITE_WEAPON_REVOLVER = "weapon_revolver";
 const SPRITE_WEAPON_RIFLE = "weapon_rifle";
 const SPRITE_BULLET = "bullet";
+
+// Floating UI Sprites
+const SPRITE_FLOATING_UI = "floating_ui";
 
 // Levels keys
 const LEVEL_KEY_001 = "level_001";

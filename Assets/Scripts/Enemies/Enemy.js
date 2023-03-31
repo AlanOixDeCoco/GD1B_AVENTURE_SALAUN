@@ -1,5 +1,5 @@
 import Entity from "../Components/Entity.js";
-import { Rifle } from "../Weapons/Weapons.js";
+import { Revolver, Rifle } from "../Weapons/Weapons.js";
 import EnemyStateMachine from "./EnemyStateMachine.js";
 import { IdleEnemyState } from "./EnemyStates.js";
 
@@ -31,7 +31,7 @@ export default class Enemy extends Entity {
 
         this.onStart();
 
-        this._weapon = new Rifle(this.scene, this);
+        this._weapon = new Revolver(this.scene, this);
         this._weapon.update();
     }
 
@@ -114,7 +114,7 @@ export default class Enemy extends Entity {
     }
 
     Attack(){
-        if(this._weapon.getAmmos() <= 0){
+        if(this._weapon.getAmmos() <= ENEMY_MINIMUM_AMMOS){
             this._weapon.Reload();
         }
 

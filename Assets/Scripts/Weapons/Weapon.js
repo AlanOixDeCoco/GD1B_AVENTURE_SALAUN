@@ -2,7 +2,7 @@ import Pickup from "../Pickups/Pickup.js";
 import Bullet from "./Bullet.js";
 
 export default class Weapon extends Phaser.Physics.Arcade.Sprite{
-    constructor(scene, parent, pivot, sprite, bulletsPerSecond, bulletSpeed, bulletDamage, maxAmmos=5){
+    constructor(scene, parent, pivot, sprite, bulletsPerSecond, bulletSpeed, bulletDamage, maxAmmos=5, reloadTime=2000){
         super(scene, parent.getWeaponOrigin.x, parent.getWeaponOrigin.y, sprite);
 
         this._pivot = pivot;
@@ -47,6 +47,7 @@ export default class Weapon extends Phaser.Physics.Arcade.Sprite{
     }
 
     Reload(){
+        this._nextBulletTime = this.scene.time.now + ((1 / this._bulletsPerSecond) * 1000);
         console.log("Reload weapon!");
         this._ammos = this._maxAmmos;
     }

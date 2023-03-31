@@ -11,6 +11,8 @@ export class IdleEnemyState extends State {
         this._context._detectionCircle.x = this._context.x;
         this._context._detectionCircle.y = this._context.y;
 
+        this._context._detectionCircle.setScale(1);
+
         this._context.body.setVelocity(0, 0);
 
         // animations
@@ -31,6 +33,8 @@ export class IdleEnemyState extends State {
             if(this._context._facingUp) this._context.anims.play(this._context._animations.idleUp, true);
             else this._context.anims.play(this._context._animations.idleDown, true);
         }
+
+        this._context.HideFloatingUI();
     }
 
     Update(){
@@ -60,6 +64,8 @@ export class DetectedEnemyState extends State{
         this._context._detectionCircle.x = this._context.x;
         this._context._detectionCircle.y = this._context.y;
 
+        this._context._detectionCircle.setScale(ENEMY_DETECTED_RANGE_FACTOR);
+
         this._context.body.setVelocity(0, 0);
 
         if(this._context._facingUp){
@@ -68,6 +74,8 @@ export class DetectedEnemyState extends State{
         else {
             this._context.anims.play(this._context._animations.idleDown);
         }
+
+        this._context.ShowFloatingUI(this._context._floatingUIAnimations.exclamation);
     }
 
     Update(){

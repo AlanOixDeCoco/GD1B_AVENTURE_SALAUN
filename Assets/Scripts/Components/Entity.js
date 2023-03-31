@@ -17,6 +17,12 @@ export default class Entity extends Phaser.Physics.Arcade.Sprite {
             );
         }
 
+        this._floatingUI = scene.add.sprite(
+            this.getTopCenter().x, 
+            this.getTopCenter().y + OFFSET_FLOATING_UI_Y, 
+            SPRITE_FLOATING_UI,
+        ).setDepth(LAYER_FLOATING_UI).setVisible(false);
+
         this._facingUp == false;
 
         this._weapon = null;
@@ -25,6 +31,8 @@ export default class Entity extends Phaser.Physics.Arcade.Sprite {
 
         this._animations = this.CreateAnimations();
 
+        this._floatingUIAnimations = this.CreateFloatingUIAnimations();
+
         this.onStart();
     }
 
@@ -32,6 +40,7 @@ export default class Entity extends Phaser.Physics.Arcade.Sprite {
         super.destroy();
         this._shadow?.destroy();
         this._weapon?.destroy();
+        this._floatingUI.destroy();
     }
 
     onStart(){
@@ -48,6 +57,8 @@ export default class Entity extends Phaser.Physics.Arcade.Sprite {
             this._shadow.x = this.getBottomCenter().x;
             this._shadow.y = this.getBottomCenter().y + OFFSET_SHADOW_Y;
         }
+        this._floatingUI.x = this.getTopCenter().x;
+        this._floatingUI.y = this.getTopCenter().y + OFFSET_FLOATING_UI_Y;
     }
 
     Attack(target){
@@ -69,11 +80,17 @@ export default class Entity extends Phaser.Physics.Arcade.Sprite {
         return origin;
     }
 
-    CreateAnimations(){
-    }
-
     setHealth(health){
         this._health = health;
+    }
+
+    ShowFloatingUI(anim){
+        this._floatingUI.setVisible(true);
+        this._floatingUI.anims.play(anim, true);
+    }
+
+    HideFloatingUI(){
+        this._floatingUI.setVisible(false);
     }
 
     TakeDamage(amount, invincibleDuration){
@@ -109,4 +126,42 @@ export default class Entity extends Phaser.Physics.Arcade.Sprite {
     Kill(){
         console.log("Entity died!");
     }
+
+    //#region FloatingUI Animations
+    CreateFloatingUIAnimations(){
+        //#region UI animations
+        this.scene.anims.create({
+            key: "floating_ui_exclamation",
+            frames: this.scene.anims.generateFrameNumbers(SPRITE_FLOATING_UI, {start:0, end:3}),
+            frameRate: 4,
+            repeat: -1
+        });
+
+        this.scene.anims.create({
+            key: "floating_ui_pick",
+            frames: this.scene.anims.generateFrameNumbers(SPRITE_FLOATING_UI, {start:4, end:7}),
+            frameRate: 4,
+            repeat: -1
+        });
+
+        this.scene.anims.create({
+            key: "floating_ui_noammo",
+            frames: this.scene.anims.generateFrameNumbers(SPRITE_FLOATING_UI, {start:8, end:11}),
+            frameRate: 6,
+            repeat: 0
+        });
+
+        // events
+        this._floatingUI.on(Phaser.Animations.Events.ANIMATION_COMPLETE_KEY + 'floating_ui_noammo', () => {
+            this.HideFloatingUI();
+        });
+
+        //#endregion
+        return {
+            exclamation: "floating_ui_exclamation",
+            pick: "floating_ui_pick",
+            noammo: "floating_ui_noammo",
+        };
+    }
+    //#endregion
 }

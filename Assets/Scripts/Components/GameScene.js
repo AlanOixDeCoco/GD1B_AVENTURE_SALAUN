@@ -28,6 +28,8 @@ export default class GameScene extends Phaser.Scene{
         this.load.image(SPRITE_BULLET, "./Assets/Sprites/bullet.png");
 
         this.load.spritesheet(SPRITE_ENEMY, "./Assets/Sprites/Enemies/enemySpritesheet.png", {frameWidth: 20, frameHeight: 28});
+
+        this.load.spritesheet(SPRITE_FLOATING_UI, "./Assets/Sprites/floatingUI.png", {frameWidth: 18, frameHeight: 18});
     };
 
     create() {
@@ -75,7 +77,7 @@ export default class GameScene extends Phaser.Scene{
                     }
                 }, timeInterval, camera, targetX, movement);
 
-                player.setPosition(player.x - 2 * ROOM_H_OFFSET, player.y);
+                player.setPosition(player.x - ROOM_H_OFFSET, player.y);
 
                 this._currentRoom.x--;
                 break;
@@ -91,7 +93,7 @@ export default class GameScene extends Phaser.Scene{
                     }
                 }, timeInterval, camera, targetX, movement);
 
-                player.setPosition(player.x + 2 * ROOM_H_OFFSET, player.y);
+                player.setPosition(player.x + ROOM_H_OFFSET, player.y);
 
                 this._currentRoom.x++;
                 break;
@@ -107,7 +109,7 @@ export default class GameScene extends Phaser.Scene{
                     }
                 }, timeInterval, camera, targetY, movement);
 
-                player.setPosition(player.x, player.y - 2 * ROOM_V_OFFSET);
+                player.setPosition(player.x, player.y - ROOM_V_OFFSET);
 
                 this._currentRoom.y--;
                 break;
@@ -123,7 +125,7 @@ export default class GameScene extends Phaser.Scene{
                     }
                 }, timeInterval, camera, targetY, movement);
 
-                player.setPosition(player.x, player.y + 2 * ROOM_V_OFFSET);
+                player.setPosition(player.x, player.y + ROOM_V_OFFSET);
 
                 this._currentRoom.y++;
                 break;

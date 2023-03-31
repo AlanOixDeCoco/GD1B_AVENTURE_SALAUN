@@ -81,13 +81,12 @@ export default class Player extends Entity {
         super.lateUpdate();
     }
 
-    Shoot(target){
+    Attack(target){
         if(this._weapon?.getAmmos() <= 0){
-            this._weapon.Throw();
-            this._weapon = null;
+            this.ShowFloatingUI(this._floatingUIAnimations.noammo);
         }
 
-        super.Shoot(target);
+        super.Attack(target);
     }
 
     Pick(pickup){
