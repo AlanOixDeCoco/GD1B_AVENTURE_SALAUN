@@ -1,5 +1,5 @@
 export default class Bullet extends Phaser.Physics.Arcade.Sprite {
-    constructor(scene, x, y, direction, speed, damage){
+    constructor(scene, x, y, direction, speed, damage, target){
         super(scene, x + (direction.x * OFFSET_BULLET_SPAWN), y + (direction.y * OFFSET_BULLET_SPAWN), SPRITE_BULLET);
         
         scene.physics.world.enable(this);
@@ -8,8 +8,7 @@ export default class Bullet extends Phaser.Physics.Arcade.Sprite {
 
         scene.physics.add.collider(this, scene._layers.walls, () => { this.destroy(); });
 
-        scene.physics.add.collider(this, scene._enemies, (bullet, entity) => { 
-            console.log("Collides with entity!"); 
+        scene.physics.add.overlap(this, target, (bullet, entity) => {
             bullet.destroy();
             entity.TakeDamage(damage);
         });

@@ -1,7 +1,8 @@
+import Pickup from "../Pickups/Pickup.js";
 import Bullet from "./Bullet.js";
 
 export default class Weapon extends Phaser.Physics.Arcade.Sprite{
-    constructor(scene, parent, pivot, sprite, bulletsPerSecond, bulletSpeed, bulletDamage, ammos=5){
+    constructor(scene, parent, pivot, sprite, bulletsPerSecond, bulletSpeed, bulletDamage, maxAmmos=5){
         super(scene, parent.getWeaponOrigin.x, parent.getWeaponOrigin.y, sprite);
 
         this._pivot = pivot;
@@ -18,10 +19,11 @@ export default class Weapon extends Phaser.Physics.Arcade.Sprite{
         this._bullets = [];
         this._bulletSpeed = bulletSpeed;
 
-        this._ammos = ammos;
+        this._maxAmmos = maxAmmos;
+        this._ammos = this._maxAmmos;
     }
     
-    Fire(){
+    Fire(target){
         if(this._ammos <= 0){
             console.log("No ammo left!");
             return;
@@ -35,13 +37,31 @@ export default class Weapon extends Phaser.Physics.Arcade.Sprite{
                 this.x, this.y, 
                 new Phaser.Math.Vector2(1, 0).rotate(this.rotation),
                 this._bulletSpeed,
-                this._bulletDamage
+                this._bulletDamage,
+                target
             ));
             this._ammos--;
 
-            if(DEBUG) console.log(`Fire weapon!`);
+            if(DEBUG) console.log(`Fire weapon! (${this._ammos}/${this._maxAmmos})`);
         }
+    }
 
+    Reload(){
+        console.log("Reload weapon!");
+        this._ammos = this._maxAmmos;
+    }
+
+    getAmmos() {
+        return this._ammos;
+    }
+
+    setAmmos(amount){
+        this._ammos = amount;
+    }
+
+    Throw(pickup = new Pickup(this.scene, this.x, this.y)){
+        this.scene._pickups.add(pickup);
+        this.destroy();
     }
 
     update(){

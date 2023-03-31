@@ -48,7 +48,11 @@ export default class Level002 extends GameScene{
         // Create the collisions
         this._layers.walls.setCollisionByProperty({collides: true});
         this.physics.add.collider([this._enemies, this._player], this._layers.walls, () => { console.log("Collides!"); });
-        this.physics.add.collider(this._player, this._enemies, () => { console.log("Collides!"); });
+        this.physics.add.collider(this._player, this._enemies, () => {
+            if(DEBUG) console.log("Player collides with enemy!");
+            this._player._weapon?.update();
+            this._player.TakeDamage(ENEMY_DAMAGE_COLLIDE, INVINCIBLE_DURATION_PLAYER);
+        });
     }
 
     update(time, deltaTime){

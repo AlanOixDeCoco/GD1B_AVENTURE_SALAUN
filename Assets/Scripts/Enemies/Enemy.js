@@ -1,4 +1,7 @@
 import Entity from "../Components/Entity.js";
+import { Rifle } from "../Weapons/Weapons.js";
+import EnemyStateMachine from "./EnemyStateMachine.js";
+import { IdleEnemyState } from "./EnemyStates.js";
 
 export default class Enemy extends Entity {
     constructor(scene, x, y, spriteKey, shadowIndex, player){
@@ -21,6 +24,15 @@ export default class Enemy extends Entity {
         scene.physics.add.overlap(this._detectionCircle, this._player, (self, evt) => { this.onPlayerDetected(this, evt) });
 
         this._health = ENEMY_HEALTH;
+
+        this._nextAttackTime = 0;
+
+        this._stateMachine = new EnemyStateMachine(this, new IdleEnemyState(this));
+
+        this.onStart();
+
+        this._weapon = new Rifle(this.scene, this);
+        this._weapon.update();
     }
 
     onStart(){
@@ -30,38 +42,7 @@ export default class Enemy extends Entity {
     update(){
         super.update();
 
-        this._detectionCircle.x = this.x;
-        this._detectionCircle.y = this.y;
-
-        // Animation handling
-        if(this._facingUp){
-            this.anims.play(this._animations.moveUp, true);
-        }
-        else {
-            this.anims.play(this._animations.moveDown, true);
-        }
-
-        // Orientation handling
-        if((this.body.velocity.y == 0) || (this.body.velocity.x != 0)){
-            this.flipX = ((this.body.velocity.x) >= 0) ? false : true;
-        }
-        this._facingUp = ((this.body.velocity.y) < 0) ? true : false;
-
-        if(this.body.velocity.length() == 0) {
-            if(this._facingUp) this.anims.play(this._animations.idleUp, true);
-            else this.anims.play(this._animations.idleDown, true);
-        }
-
-        // Update equiped weapon
-        this._weapon?.update(this);
-
-        // Move towards target
-        if(this.scene.time.now < this._detectionDelay){
-            this.setVelocity(this._targetDirection.x * this._speed, this._targetDirection.y * this._speed);
-        }
-        else {
-            this.setVelocity(0, 0);
-        }
+        this._stateMachine.UpdateState();
     }
 
     destroy(){
@@ -130,5 +111,18 @@ export default class Enemy extends Entity {
     TakeDamage(amount){
         this.DetectPlayer(ENEMY_HIT_DETECTION_DELAY);
         super.TakeDamage(amount, INVINCIBLE_DURATION_ENEMY);
+    }
+
+    Attack(){
+        if(this._weapon.getAmmos() <= 0){
+            this._weapon.Reload();
+        }
+
+        super.Attack(this.scene._player);
+    }
+
+    Kill(){
+        this._weapon.Throw();
+        this.destroy();
     }
 }

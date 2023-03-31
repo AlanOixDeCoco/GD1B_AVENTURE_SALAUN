@@ -35,6 +35,20 @@ export default class GameScene extends Phaser.Scene{
         this._pickups = this.add.group();
     };
 
+    afterCreate(){
+        this.physics.add.collider(this._player, this._enemies, () => {
+            if(DEBUG) console.log("Player collides with enemy!");
+            this._player._weapon?.update();
+            this._player.TakeDamage(ENEMY_DAMAGE_COLLIDE, INVINCIBLE_DURATION_PLAYER);
+        });
+
+        this.physics.add.overlap(this._player, this._pickups, (player, pickup) => {
+            if(this._player._input.interact){
+                player.Pick(pickup);
+            }
+        });
+    }
+
     SwitchScene(nextScene, data){
         this.scene.switch(nextScene, data);
     };
@@ -124,6 +138,10 @@ export default class GameScene extends Phaser.Scene{
 
         this._enemies.getChildren().forEach(enemy => {
             enemy.update();
+        });
+
+        this._pickups.getChildren().forEach(pickup => {
+            pickup.update();
         });
 
         if(this._player){

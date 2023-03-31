@@ -1,5 +1,5 @@
 // Debug mode
-const DEBUG = false;
+const DEBUG = true;
 
 // Inputs
 const INPUT_ZERO_TOLERANCE = 0.1;
@@ -19,6 +19,7 @@ const CAMERA_ROOM_TRANSITION_H_FACTOR = 2;
 const CAMERA_ROOM_TRANSITION_V_FACTOR = 1;
 
 const BULLET_LIFETIME = 3000; // milliseconds
+const EMPTY_WEAPON_LIFETIME = 3000; // ms
 
 const INVINCIBLE_DURATION_PLAYER = 1000; // ms
 const INVINCIBLE_DURATION_ENEMY = 200; // ms
@@ -33,14 +34,16 @@ const ENTITY_HEALTH = 1;
 
 // Player
 const PLAYER_SPEED = 128; // px.s-1
-const INITIAL_HEALTH = 5;
+const PLAYER_HEALTH = 5;
 
 // Enemies
 const ENEMY_SPEED = 64;
 const ENEMIES_DRAG = 2000;
-const ENEMY_RANGE_DETECTION_DELAY = 100; // ms
+const ENEMY_RANGE_DETECTION_DELAY = 1000; // ms
 const ENEMY_HIT_DETECTION_DELAY = 2000;
 const ENEMY_HEALTH = 3;
+const ENEMY_ATTACK_DELAY = {min: 1000, max: 3000};
+const ENEMY_DAMAGE_COLLIDE = 1;
 
 // Sprite layers depth
 const LAYER_DEBUG = 100;
@@ -58,12 +61,14 @@ const LAYER_GROUND = 0;
 
 // Offsets
 const OFFSET_SHADOW_Y = 0;
-const OFFSET_BULLET_SPAWN = 8;
+const OFFSET_SHADOW_PICKUP_Y = 4;
+const OFFSET_BULLET_SPAWN = 0;
 
 // Gamepad buttons
 const BUTTON_ATTACK = 0;
-const BUTTON_BOXING = 1;
-const BUTTON_GRAPPLING = 2;
+const BUTTON_INTERACT = 2;
+const BUTTON_DROP = 3;
+const BUTTON_SPECIAL = 1;
 const BUTTON_LEFT = 14;
 const BUTTON_RIGHT = 15;
 const BUTTON_UP = 12;

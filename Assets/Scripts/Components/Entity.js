@@ -19,7 +19,9 @@ export default class Entity extends Phaser.Physics.Arcade.Sprite {
 
         this._facingUp == false;
 
-        this._weaponAnchor = {x: 0, y: 0};
+        this._weapon = null;
+        // weapon anchor = offset from top-left player sprite
+        this._weaponAnchor = new Phaser.Math.Vector2(4, 7);
 
         this._animations = this.CreateAnimations();
 
@@ -29,6 +31,7 @@ export default class Entity extends Phaser.Physics.Arcade.Sprite {
     destroy(){
         super.destroy();
         this._shadow?.destroy();
+        this._weapon?.destroy();
     }
 
     onStart(){
@@ -47,9 +50,9 @@ export default class Entity extends Phaser.Physics.Arcade.Sprite {
         }
     }
 
-    Attack(){
+    Attack(target){
         if(this._weapon){
-            this._weapon.Fire();
+            this._weapon.Fire(target);
         }
     }
 
@@ -79,8 +82,9 @@ export default class Entity extends Phaser.Physics.Arcade.Sprite {
         this.scene._camera.shake(CAMERA_SHAKE_HIT_DURATION, CAMERA_SHAKE_HIT_INTENSITY * amount);
 
         this._health -= amount;
+
         if(this._health <= 0){
-            this.destroy();
+            this.Kill();
         }
 
         this._invincible = true;
@@ -100,5 +104,9 @@ export default class Entity extends Phaser.Physics.Arcade.Sprite {
             this.clearAlpha();
             clearInterval(this._invincibility);
         }, invincibleDuration);
+    }
+
+    Kill(){
+        console.log("Entity died!");
     }
 }

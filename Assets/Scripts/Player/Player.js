@@ -1,4 +1,6 @@
 import Entity from "../Components/Entity.js";
+import Pickup from "../Pickups/Pickup.js";
+import { pickupTypes } from "../Pickups/Pickups.js";
 import { Revolver, Rifle } from "../Weapons/Weapons.js";
 import PlayerStateMachine from "./PlayerStateMachine.js";
 import { IdlePlayerState } from "./PlayerStates.js";
@@ -8,10 +10,8 @@ export default class Player extends Entity {
         super(scene, x, y, SPRITE_PLAYER, 0);
 
         this._speed = PLAYER_SPEED;
-
-        this._weapon = null;
-        // weapon anchor = offset from top-left player sprite
-        this._weaponAnchor = new Phaser.Math.Vector2(4, 7);
+        
+        this._health = PLAYER_HEALTH;
 
         this._input = {
             x: 0,
@@ -22,8 +22,9 @@ export default class Player extends Entity {
             left: false,
             right: false,
             attack: false,
-            grappling: false,
-            glove: false,
+            interact: false,
+            drop: false,
+            special: false
         }
 
         //#region Inputs setup
@@ -46,6 +47,7 @@ export default class Player extends Entity {
     update(time){
         super.update();
 
+        //#region Inputs handling
         if(this._gamepad) {
             if(this._gamepad.leftStick.x != 0){
                 this._input.x = this._gamepad.leftStick.x > 0 ? 1 : -1;
@@ -64,22 +66,53 @@ export default class Player extends Entity {
             this.CalculateJoystickMovement();
         }
 
-
         this._input.moving = !((Math.abs(this._input.x) + Math.abs(this._input.y)) == 0);
+        //#endregion
 
         this._stateMachine.UpdateState();
+
+        if((this._weapon) && this._input.drop){
+            this._weapon.Throw();
+            this._weapon = null;
+        }
     }
 
     lateUpdate(){
         super.lateUpdate();
     }
 
-    setWeapon(weapon){
-        this._weapon = weapon;
+    Shoot(target){
+        if(this._weapon?.getAmmos() <= 0){
+            this._weapon.Throw();
+            this._weapon = null;
+        }
+
+        super.Shoot(target);
     }
 
-    ThrowWeapon(){
-        this._weapon = null;
+    Pick(pickup){
+        this._input.interact = false;
+        switch(pickup._pickupType){
+            case pickupTypes.revolver:
+                if(this._weapon) this._weapon.Throw();
+                this._weapon = new Revolver(this.scene, this);
+                this._weapon.setAmmos(pickup._properties.ammos);
+                break;
+            case pickupTypes.rifle:
+                if(this._weapon) this._weapon.Throw();
+                this._weapon = new Rifle(this.scene, this);
+                this._weapon.setAmmos(pickup._properties.ammos);
+                break;
+            default:
+                console.log("Unknown pickup obkect!");
+                break;
+        }
+        pickup.destroy();
+        this._weapon.update();
+    }
+
+    Kill(){
+        console.log("Player died!");
     }
 
     //#region Keyboard
@@ -106,8 +139,9 @@ export default class Player extends Entity {
         // Action keys
         this._actionKeys = this.scene.input.keyboard.addKeys({
             attack: Phaser.Input.Keyboard.KeyCodes.SPACE,
-            grappling: Phaser.Input.Keyboard.KeyCodes.C,
-            glove: Phaser.Input.Keyboard.KeyCodes.V,
+            interact: Phaser.Input.Keyboard.KeyCodes.E,
+            drop: Phaser.Input.Keyboard.KeyCodes.F,
+            special: Phaser.Input.Keyboard.KeyCodes.G,
         });
         
         this._actionKeys.attack
@@ -115,14 +149,19 @@ export default class Player extends Entity {
         .on('up', this.onAttack)
         .context = this;
 
-        this._actionKeys.grappling
-        .on('down', this.onGrappling)
-        .on('up', this.onGrappling)
+        this._actionKeys.interact
+        .on('down', this.onInteract)
+        .on('up', this.onInteract)
         .context = this;
 
-        this._actionKeys.glove
-        .on('down', this.onBoxing)
-        .on('up', this.onBoxing)
+        this._actionKeys.drop
+        .on('down', this.onDrop)
+        .on('up', this.onDrop)
+        .context = this;
+
+        this._actionKeys.special
+        .on('down', this.onSpecial)
+        .on('up', this.onSpecial)
         .context = this;
     }
 
@@ -168,19 +207,6 @@ export default class Player extends Entity {
         console.log("Controller connected!");
 
         // see https://phaser.io/examples/v3/view/input/gamepad/gamepad-debug to identify the buttons indexes
-        this._movementButtons = {
-            up: this._gamepad[BUTTON_UP],
-            down: this._gamepad[BUTTON_DOWN],
-            left: this._gamepad[BUTTON_LEFT],
-            right: this._gamepad[BUTTON_RIGHT],
-        };
-
-        this._actionButtons = {
-            attack: this._gamepad[BUTTON_ATTACK],
-            grappling: this._gamepad[BUTTON_GRAPPLING],
-            glove: this._gamepad[BUTTON_BOXING],
-        };
-
         this._gamepad.on('down', () => {
             this.onGamepadButtonDown(this);
         });
@@ -207,8 +233,9 @@ export default class Player extends Entity {
             left: false,
             right: false,
             attack: false,
-            grappling: false,
-            glove: false,
+            interact: false,
+            drop: false,
+            special: false
         };
     }
 
@@ -218,14 +245,19 @@ export default class Player extends Entity {
     onGamepadButtonDown(context){
         if(context._gamepad == null) return;
 
-        context._input.up = context._gamepad.up;
-        context._input.down = context._gamepad.down;
-        context._input.left = context._gamepad.left;
-        context._input.right = context._gamepad.right;
+        context._input.up = context._gamepad.isButtonDown(BUTTON_UP);
+        context._input.down = context._gamepad.isButtonDown(BUTTON_DOWN);
+        context._input.left = context._gamepad.isButtonDown(BUTTON_LEFT);
+        context._input.right = context._gamepad.isButtonDown(BUTTON_RIGHT);
 
-        context._input.attack = context._gamepad.attack;
-        context._input.grappling = context._gamepad.grappling;
-        context._input.boxing = context._gamepad.boxing;
+        context._input.attack = context._gamepad.isButtonDown(BUTTON_ATTACK);
+
+        if(context._gamepad.isButtonDown(BUTTON_INTERACT)){
+            context._input.interact = context._gamepad.isButtonDown(BUTTON_INTERACT);
+        }
+
+        context._input.drop = context._gamepad.isButtonDown(BUTTON_DROP);
+        context._input.special = context._gamepad.isButtonDown(BUTTON_SPECIAL);
 
         context.CalculateButtonMovement();
     }
@@ -235,20 +267,19 @@ export default class Player extends Entity {
 
     //#region onAction events
     onAttack(evt){
-        if(DEBUG) console.log("Attack key triggered!");
         evt.context._input.attack = evt.isDown;
     }
 
-    onGrappling(evt){
-        if(DEBUG) console.log("Grappling key triggered!");
-        evt.context._input.grappling = evt.isDown;
-
-        evt.context.scene.SwitchScene(LEVEL_KEY_002);
+    onInteract(evt){
+        evt.context._input.interact = evt.isDown;
     }
 
-    onBoxing(evt){
-        if(DEBUG) console.log("Boxing key triggered!");
-        evt.context._input.glove = evt.isDown;
+    onDrop(evt){
+        evt.context._input.drop = evt.isDown;
+    }
+
+    onSpecial(evt){
+        evt.context._input.special = evt.isDown;
     }
     //#endregion
 
