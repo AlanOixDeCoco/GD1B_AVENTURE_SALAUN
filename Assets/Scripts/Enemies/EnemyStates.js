@@ -66,15 +66,6 @@ export class DetectedEnemyState extends State{
 
         this._context._detectionCircle.setScale(ENEMY_DETECTED_RANGE_FACTOR);
 
-        this._context.body.setVelocity(0, 0);
-
-        if(this._context._facingUp){
-            this._context.anims.play(this._context._animations.idleUp);
-        }
-        else {
-            this._context.anims.play(this._context._animations.idleDown);
-        }
-
         this._context.ShowFloatingUI(this._context._floatingUIAnimations.exclamation);
     }
 
@@ -103,6 +94,14 @@ export class DetectedEnemyState extends State{
             
             var delay = ENEMY_ATTACK_DELAY.min + (Math.random() * (ENEMY_ATTACK_DELAY.max - ENEMY_ATTACK_DELAY.min));
             this._context._nextAttackTime = this._context.scene.time.now + delay;
+        }
+
+        // animations
+        if(this._context._facingUp){
+            this._context.anims.play(this._context._animations.moveUp, true);
+        }
+        else {
+            this._context.anims.play(this._context._animations.moveDown, true);
         }
     }
 }

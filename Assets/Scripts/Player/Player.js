@@ -6,12 +6,12 @@ import PlayerStateMachine from "./PlayerStateMachine.js";
 import { IdlePlayerState } from "./PlayerStates.js";
 
 export default class Player extends Entity {
-    constructor(scene, x, y){
+    constructor(scene, x, y, properties){
         super(scene, x, y, SPRITE_PLAYER, 0);
 
         this._speed = PLAYER_SPEED;
         
-        this._health = PLAYER_HEALTH;
+        this._health = properties.health;
 
         this._input = {
             x: 0,
@@ -27,6 +27,46 @@ export default class Player extends Entity {
             special: false
         }
 
+        this._ui = {
+            playerAnimation: this.scene.add.sprite(
+                POS_UI_PLAYER_ANIMATION.x,
+                POS_UI_PLAYER_ANIMATION.y,
+                SPRITE_PLAYER,
+                0
+            ).setOrigin(0).setDepth(LAYER_UI).setScrollFactor(0),
+
+            hearths: [
+            ],
+
+            ammosBackground: this.scene.add.sprite(
+                POS_UI_AMMOS_BG.x,
+                POS_UI_AMMOS_BG.y,
+                SPRITE_AMMOS_BG_UI,
+                0
+            ).setOrigin(0).setDepth(LAYER_UI).setScrollFactor(0),
+
+            ammosTextCurrent: this.scene.add.bitmapText(
+                POS_UI_AMMOS_CURRENT_TEXT.x, 
+                POS_UI_AMMOS_CURRENT_TEXT.y, 
+                'CursedScript', 
+                '00', 
+                FONT_SIZE_X1
+            ).setOrigin(0).setDepth(LAYER_UI_TEXT).setScrollFactor(0).setTint(COLOR_AMMOS_NORMAL_AMMOS).setDropShadow(0, 1),
+
+            ammosTextMax: this.scene.add.bitmapText(
+                POS_UI_AMMOS_MAX_TEXT.x,
+                POS_UI_AMMOS_MAX_TEXT.y,
+                'CursedScript', 
+                '/00', 
+                FONT_SIZE_X1
+            ).setOrigin(0).setDepth(LAYER_UI_TEXT).setScrollFactor(0).setTint(COLOR_AMMOS_MAX).setDropShadow(0, 1),
+        };
+
+        this._uiAnimations = this.CreateUIAnimations();
+
+        this.UpdateHearthUI();
+        
+
         //#region Inputs setup
         this.AssignKeyboardEvents();
         this.AssignGamepadEvents();
@@ -36,8 +76,23 @@ export default class Player extends Entity {
 
         this.onStart();
 
-        this._weapon = new Rifle(this.scene, this);
-        this._weapon.update();
+        this._weapon = null;
+
+        switch(properties.weapon.type){
+            case pickupTypes.revolver:
+                this._weapon = new Revolver(this.scene, this);
+                break;
+            case pickupTypes.rifle:
+                this._weapon = new Rifle(this.scene, this);
+                break;
+            default:
+                break;
+        }
+        if(properties.weapon.ammos != null){
+            this._weapon?.setAmmos(properties.weapon.ammos);
+        }
+
+        this._weapon?.update();
     }
 
     onStart(){
@@ -75,10 +130,85 @@ export default class Player extends Entity {
             this._weapon.Throw();
             this._weapon = null;
         }
+
+        this.UpdateAmmosUI();
     }
 
     lateUpdate(){
         super.lateUpdate();
+    }
+
+    UpdateHearthUI(){
+        this._ui.hearths.forEach(hearth => {
+            hearth.destroy();
+        });
+
+        this._ui.hearths = [];
+
+        for(var i = 0; i < (this._health - 0.5); i++){
+            this._ui.hearths.push(
+                this.scene.add.sprite(
+                    POS_UI_HEARTHS.x + (i * SPACING_UI_HEARTHS),
+                    POS_UI_HEARTHS.y,
+                    SPRITE_HEARTH_UI,
+                    0
+                ).setOrigin(0).setDepth(LAYER_UI).setScrollFactor(0)
+            );
+        }
+        if(this._health % 1 > 0){
+            this._ui.hearths.push(
+                this.scene.add.sprite(
+                    POS_UI_HEARTHS.x + (this._ui.hearths.length * SPACING_UI_HEARTHS),
+                    POS_UI_HEARTHS.y,
+                    SPRITE_HEARTH_UI,
+                    1
+                ).setOrigin(0).setDepth(LAYER_UI).setScrollFactor(0).anims.play(this._uiAnimations.hearthHalf)
+            );
+        }
+    }
+
+    UpdateAmmosUI(){
+        this._ui.ammosBackground.setVisible(this._weapon);
+        this._ui.ammosTextCurrent.setVisible(this._weapon);
+        this._ui.ammosTextMax.setVisible(this._weapon);
+
+        if(!this._weapon) {
+            return;
+        }
+
+        // Text content
+        var currentAmmosText = String(this._weapon.getAmmos());
+        if(currentAmmosText.length < 2){
+            currentAmmosText = "0" + currentAmmosText;
+        }
+
+        var maxAmmosText = String(this._weapon.getMaxAmmos());
+        if(maxAmmosText.length < 2){
+            maxAmmosText = "0" + maxAmmosText;
+        }
+        maxAmmosText = "/" + maxAmmosText;
+
+        // Change text color
+        if(this._weapon.getAmmos() <= 0){
+            this._ui.ammosTextCurrent.setTint(COLOR_AMMOS_NO_AMMO);
+        }
+        else if(this._weapon.getAmmos() <= LOW_AMMOS_AMOUNT){
+            this._ui.ammosTextCurrent.setTint(COLOR_AMMOS_LOW_AMMOS);
+        }
+        else {
+            this._ui.ammosTextCurrent.setTint(COLOR_AMMOS_NORMAL_AMMOS);
+        }
+
+        // Assign text content
+        this._ui.ammosTextCurrent.setText(currentAmmosText);
+        this._ui.ammosTextMax.setText(maxAmmosText);
+    }
+
+    TakeDamage(amount, invincibleDuration){
+        super.TakeDamage(amount / 2, invincibleDuration);
+        this.scene._gameManager.setHealth(this._health);
+
+        this.UpdateHearthUI();
     }
 
     Attack(target){
@@ -87,6 +217,8 @@ export default class Player extends Entity {
         }
 
         super.Attack(target);
+
+        this.scene._gameManager.setWeapon({type: this._weapon._weaponType, ammos: this._weapon._ammos});
     }
 
     Pick(pickup){
@@ -95,23 +227,28 @@ export default class Player extends Entity {
             case pickupTypes.revolver:
                 if(this._weapon) this._weapon.Throw();
                 this._weapon = new Revolver(this.scene, this);
-                this._weapon.setAmmos(pickup._properties.ammos);
+                if(pickup._properties?.ammos) this._weapon.setAmmos(pickup._properties.ammos);
+                this.scene._gameManager.setHealth(this._health);
                 break;
             case pickupTypes.rifle:
                 if(this._weapon) this._weapon.Throw();
                 this._weapon = new Rifle(this.scene, this);
-                this._weapon.setAmmos(pickup._properties.ammos);
+                if(pickup._properties?.ammos) this._weapon.setAmmos(pickup._properties.ammos);
                 break;
             default:
-                console.log("Unknown pickup obkect!");
+                console.log("Unknown pickup object!");
                 break;
         }
+        
         pickup.destroy();
         this._weapon.update();
+        this.scene._gameManager.setWeapon({type: this._weapon._weaponType, ammos: this._weapon._ammos});
     }
 
     Kill(){
         console.log("Player died!");
+
+        this.scene.SwitchScene(GAMEOVERSCENE_KEY);
     }
 
     //#region Keyboard
@@ -279,6 +416,8 @@ export default class Player extends Entity {
 
     onSpecial(evt){
         evt.context._input.special = evt.isDown;
+
+        evt.context.scene.SwitchScene(LEVEL_KEY_002);
     }
     //#endregion
 
@@ -353,6 +492,29 @@ export default class Player extends Entity {
             
             boxingUp: "player_boxing_up",
             boxingDown: "player_boxing_down",
+        };
+    }
+
+    CreateUIAnimations(){
+        //#region Hearth animations
+        this.scene.anims.create({
+            key: 'ui_hearth_full',
+            frames: this.scene.anims.generateFrameNumbers(SPRITE_HEARTH_UI, {start:0, end:0}),
+            frameRate: 4,
+            repeat: -1
+        });
+
+        this.scene.anims.create({
+            key: 'ui_hearth_half',
+            frames: this.scene.anims.generateFrameNumbers(SPRITE_HEARTH_UI, {start:1, end:1}),
+            frameRate: 4,
+            repeat: -1
+        });
+        //#endregion
+
+        return {
+            hearthFull: "ui_hearth_full",
+            hearthHalf: "ui_hearth_half",
         };
     }
     //#endregion

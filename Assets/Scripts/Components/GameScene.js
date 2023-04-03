@@ -29,12 +29,22 @@ export default class GameScene extends Phaser.Scene{
 
         this.load.spritesheet(SPRITE_ENEMY, "./Assets/Sprites/Enemies/enemySpritesheet.png", {frameWidth: 20, frameHeight: 28});
 
-        this.load.spritesheet(SPRITE_FLOATING_UI, "./Assets/Sprites/floatingUI.png", {frameWidth: 18, frameHeight: 18});
+        this.load.spritesheet(SPRITE_FLOATING_UI, "./Assets/Sprites/UI/floatingUI.png", {frameWidth: 18, frameHeight: 18});
+        this.load.spritesheet(SPRITE_HEARTH_UI, "./Assets/Sprites/UI/ui_hearth_spritesheet.png", {frameWidth: 13, frameHeight: 12});
+        this.load.image(SPRITE_AMMOS_BG_UI, "./Assets/Sprites/UI/ui_ammos_background.png");
+
+        // importing custom fonts
+        this.load.bitmapFont('CursedScript', 'Assets/Fonts/CursedScript.png', 'Assets/Fonts/CursedScript.fnt');
     };
 
     create() {
         this._enemies = this.add.group();
         this._pickups = this.add.group();
+
+        // Create scene camera
+        this._camera = this.cameras.add(0, 0, GAME_WIDTH, GAME_HEIGHT, true);
+        this._camera.setBackgroundColor(0x333333);
+        this._camera.setRoundPixels(true);
     };
 
     afterCreate(){
@@ -138,11 +148,11 @@ export default class GameScene extends Phaser.Scene{
     update(){
         this._player?.update();
 
-        this._enemies.getChildren().forEach(enemy => {
+        this._enemies?.getChildren().forEach(enemy => {
             enemy.update();
         });
 
-        this._pickups.getChildren().forEach(pickup => {
+        this._pickups?.getChildren().forEach(pickup => {
             pickup.update();
         });
 

@@ -31,8 +31,8 @@ export default class Enemy extends Entity {
 
         this.onStart();
 
-        this._weapon = new Revolver(this.scene, this);
-        this._weapon.update();
+        //this._weapon = new Rifle(this.scene, this);
+        this._weapon?.update();
     }
 
     onStart(){
@@ -114,7 +114,7 @@ export default class Enemy extends Entity {
     }
 
     Attack(){
-        if(this._weapon.getAmmos() <= ENEMY_MINIMUM_AMMOS){
+        if(this._weapon?.getAmmos() <= ENEMY_MINIMUM_AMMOS){
             this._weapon.Reload();
         }
 
@@ -122,7 +122,7 @@ export default class Enemy extends Entity {
     }
 
     Kill(){
-        this._weapon.Throw();
+        this._weapon?.Throw();
         this.destroy();
     }
 }

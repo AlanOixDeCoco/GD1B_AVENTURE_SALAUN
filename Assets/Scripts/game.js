@@ -1,5 +1,7 @@
 //#region imports
 import GameManager from "./Components/GameManager.js";
+import BossLevel from "./Scenes/BossLevel.js";
+import GameOverScene from "./Scenes/GameOverScene.js";
 import Level001 from "./Scenes/Level001.js";
 import Level002 from "./Scenes/Level002.js";
 //#endregion
@@ -23,7 +25,11 @@ const config = {
     },
     scene: [
         new Level001(gameManager),
-        new Level002(gameManager)
+        new Level002(gameManager),
+
+        new BossLevel(gameManager),
+
+        new GameOverScene(gameManager)
     ],
     input: {
         gamepad: true,

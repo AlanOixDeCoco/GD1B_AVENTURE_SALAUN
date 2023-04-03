@@ -56,6 +56,10 @@ export default class Weapon extends Phaser.Physics.Arcade.Sprite{
         return this._ammos;
     }
 
+    getMaxAmmos() {
+        return this._maxAmmos;
+    }
+
     setAmmos(amount){
         this._ammos = amount;
     }

@@ -38,7 +38,7 @@ const ENTITY_HEALTH = 1;
 
 // Player
 const PLAYER_SPEED = 128; // px.s-1
-const PLAYER_HEALTH = 5;
+const PLAYER_HEALTH = 3;
 
 // Enemies
 const ENEMY_SPEED = 64;
@@ -53,6 +53,10 @@ const ENEMY_MINIMUM_AMMOS = 5;
 
 // Sprite layers depth
 const LAYER_DEBUG = 100;
+
+const LAYER_UI_TEXT = 40;
+
+const LAYER_UI = 30;
 
 const LAYER_FLOATING_UI = 20;
 
@@ -71,8 +75,8 @@ const LAYER_GROUND = 0;
 
 // Offsets
 const OFFSET_FLOATING_UI_Y = -8;
-const OFFSET_SHADOW_Y = 0;
-const OFFSET_SHADOW_PICKUP_Y = 4;
+const OFFSET_SHADOW_Y = -1;
+const OFFSET_SHADOW_PICKUP_Y = 3;
 const OFFSET_BULLET_SPAWN = 0;
 
 // Gamepad buttons
@@ -101,15 +105,43 @@ const SPRITE_WEAPON_REVOLVER = "weapon_revolver";
 const SPRITE_WEAPON_RIFLE = "weapon_rifle";
 const SPRITE_BULLET = "bullet";
 
-// Floating UI Sprites
+// UI Sprites
 const SPRITE_FLOATING_UI = "floating_ui";
+const SPRITE_HEARTH_UI = "hearth_ui";
+const SPRITE_AMMOS_BG_UI = "ammos_bg_ui";
+
+// UI Positions
+const POS_UI_PLAYER_ANIMATION = {x: 6, y: 6};
+
+const POS_UI_HEARTHS = {x: 25, y: 8};
+const SPACING_UI_HEARTHS = 13;
+
+const POS_UI_AMMOS_BG = {x: 26, y: 21};
+
+const POS_UI_AMMOS_CURRENT_TEXT = {x: 40, y: 19};
+const POS_UI_AMMOS_MAX_TEXT = {x: 54, y: 19};
 
 // Levels keys
 const LEVEL_KEY_001 = "level_001";
 const LEVEL_KEY_002 = "level_002";
 const LEVEL_KEY_BOSS = "level_boss";
+const LEVEL_KEY_UI = "level_ui";
+
+const GAMEOVERSCENE_KEY = "gameover_scene";
 
 // Levels name
 const LEVEL_NAME_001 = "Usine d'ordinateurs";
 const LEVEL_NAME_002 = "Open space";
 const LEVEL_NAME_BOSS = "Bureau du boss";
+
+// Fonts
+const FONT_SIZE_X1 = 12;
+const FONT_SIZE_X2 = 24;
+const FONT_SIZE_X3 = 36;
+
+const COLOR_AMMOS_MAX = 0xFFFFFF;
+const COLOR_AMMOS_NORMAL_AMMOS = 0xffd800;
+const COLOR_AMMOS_LOW_AMMOS = 0xFF8800;
+const COLOR_AMMOS_NO_AMMO = 0xFF0000;
+
+const LOW_AMMOS_AMOUNT = 4;
