@@ -1,5 +1,5 @@
 // Debug mode
-const DEBUG = false;
+const DEBUG = true;
 
 // Inputs
 const INPUT_ZERO_TOLERANCE = 0.1;
@@ -17,6 +17,8 @@ const ROOM_V_OFFSET = 16;
 const CAMERA_ROOM_TRANSITION_SPEED = 256; // px/s
 const CAMERA_ROOM_TRANSITION_H_FACTOR = 2;
 const CAMERA_ROOM_TRANSITION_V_FACTOR = 1;
+const CAMERA_FADE_OUT_DURATION = 1000; // ms
+const CAMERA_FADE_IN_DURATION = 1000;
 
 const BULLET_LIFETIME = 3000; // milliseconds
 const EMPTY_WEAPON_LIFETIME = 3000; // ms
@@ -38,6 +40,7 @@ const ENTITY_HEALTH = 1;
 
 // Player
 const PLAYER_SPEED = 128; // px.s-1
+//const PLAYER_SPEED = 512; // px.s-1
 const PLAYER_HEALTH = 3;
 
 // Enemies
@@ -111,15 +114,15 @@ const SPRITE_HEARTH_UI = "hearth_ui";
 const SPRITE_AMMOS_BG_UI = "ammos_bg_ui";
 
 // UI Positions
-const POS_UI_PLAYER_ANIMATION = {x: 6, y: 6};
+const POS_UI_PLAYER_ANIMATION = {x: 0, y: 3};
 
 const POS_UI_HEARTHS = {x: 25, y: 8};
 const SPACING_UI_HEARTHS = 13;
 
-const POS_UI_AMMOS_BG = {x: 26, y: 21};
+const POS_UI_AMMOS_BG = {x: 28, y: 22};
 
-const POS_UI_AMMOS_CURRENT_TEXT = {x: 40, y: 19};
-const POS_UI_AMMOS_MAX_TEXT = {x: 54, y: 19};
+const POS_UI_AMMOS_CURRENT_TEXT = {x: 42, y: 20};
+const POS_UI_AMMOS_MAX_TEXT = {x: 56, y: 20};
 
 // Levels keys
 const LEVEL_KEY_001 = "level_001";

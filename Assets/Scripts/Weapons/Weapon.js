@@ -93,7 +93,7 @@ export default class Weapon extends Phaser.Physics.Arcade.Sprite{
             this.setDepth(LAYER_WEAPONS_TOP);
         }
         else {
-            this.setDepth(LAYER_WEAPONS_BOTTOM);
+            this.setDepth(LAYER_WEAPONS_TOP);
         }
     }
 }

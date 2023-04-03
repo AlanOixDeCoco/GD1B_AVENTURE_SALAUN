@@ -43,7 +43,7 @@ export default class Level002 extends GameScene{
         this._camera.setScroll(TILE_SIZE * 35, TILE_SIZE);
 
         // create a test entity
-        this._enemies.add(new Enemy(this, 700, 100, SPRITE_ENEMY, -1, this._player));
+        //this._enemies.add(new Enemy(this, 700, 100, SPRITE_ENEMY, -1, this._player));
 
         // Create the collisions
         this._layers.walls.setCollisionByProperty({collides: true});

@@ -2,7 +2,10 @@ import Pickup from "./Pickup.js";
 
 export const pickupTypes = {
     revolver: 0,
-    rifle: 1
+    rifle: 1,
+    halfHearth: 2,
+    hearth: 3,
+    newHearth: 4,
 }
 
 export class RevolverPickup extends Pickup{

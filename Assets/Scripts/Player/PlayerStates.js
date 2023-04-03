@@ -13,11 +13,11 @@ export class IdlePlayerState extends State {
 
         this._context.body.setVelocity(0, 0);
 
-        if(this._context._facingUp){
-            this._context.anims.play(this._context._animations.idleUp);
+        if(this._context._weapon){
+            this._context.anims.play(this._context._animations.idleWeapon);
         }
         else {
-            this._context.anims.play(this._context._animations.idleDown);
+            this._context.anims.play(this._context._animations.idle);
         }
     }
 
@@ -57,11 +57,11 @@ export class MovingPlayerState extends State {
         );
 
         // Animation handling
-        if(this._context._facingUp){
-            this._context.anims.play(this._context._animations.moveUp, true);
+        if(this._context._weapon){
+            this._context.anims.play(this._context._animations.moveWeapon, true);
         }
         else {
-            this._context.anims.play(this._context._animations.moveDown, true);
+            this._context.anims.play(this._context._animations.move, true);
         }
 
         // Orientation handling

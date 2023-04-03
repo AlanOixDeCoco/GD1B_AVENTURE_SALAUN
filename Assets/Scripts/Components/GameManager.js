@@ -13,6 +13,19 @@ export default class GameManager{
         this._sceneStats = {
             currentScene: {key: "", name: ""},
         };
+
+        this._scenesData = {
+            level001: {
+                completed: false,
+                doors: [false, false, false, false],
+                cards: [false, false],
+                pickups: [false, ]
+            },
+            level002: {
+                doors: [false, false, false, false],
+                cards: [false, false],
+            },
+        }
     }
 
     setHealth(health){

@@ -6,6 +6,10 @@ export default class GameOverScene extends GameScene{
     }
 
     create(){
+        super.create();
+
+        this._camera.setBackgroundColor(0x000000);
+
         this.add.bitmapText(
             GAME_WIDTH / 2, 
             (GAME_HEIGHT / 2) - 12, 

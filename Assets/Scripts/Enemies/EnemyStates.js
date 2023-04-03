@@ -27,6 +27,7 @@ export class IdleEnemyState extends State {
         if((this._context.body.velocity.y == 0) || (this._context.body.velocity.x != 0)){
             this._context.flipX = ((this._context.body.velocity.x) >= 0) ? false : true;
         }
+
         this._context._facingUp = ((this._context.body.velocity.y) < 0) ? true : false;
 
         if(this._context.body.velocity.length() == 0) {
@@ -94,6 +95,11 @@ export class DetectedEnemyState extends State{
             
             var delay = ENEMY_ATTACK_DELAY.min + (Math.random() * (ENEMY_ATTACK_DELAY.max - ENEMY_ATTACK_DELAY.min));
             this._context._nextAttackTime = this._context.scene.time.now + delay;
+        }
+
+        // Orientation handling
+        if((this._context.body.velocity.y == 0) || (this._context.body.velocity.x != 0)){
+            this._context.flipX = ((this._context.body.velocity.x) >= 0) ? false : true;
         }
 
         // animations

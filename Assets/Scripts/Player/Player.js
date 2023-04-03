@@ -9,9 +9,13 @@ export default class Player extends Entity {
     constructor(scene, x, y, properties){
         super(scene, x, y, SPRITE_PLAYER, 0);
 
+        // weapon anchor = offset from top-left player sprite
+        this._weaponAnchor = new Phaser.Math.Vector2(-4, 0);
+
         this._speed = PLAYER_SPEED;
         
         this._health = properties.health;
+        this._maxHealth = properties.health;
 
         this._input = {
             x: 0,
@@ -97,6 +101,9 @@ export default class Player extends Entity {
 
     onStart(){
         super.onStart();
+
+        this.body.setSize(12, 18);
+        this.body.setOffset(10, 12);
     }
     
     update(time){
@@ -218,7 +225,12 @@ export default class Player extends Entity {
 
         super.Attack(target);
 
-        this.scene._gameManager.setWeapon({type: this._weapon._weaponType, ammos: this._weapon._ammos});
+        if(this.weapon) this.scene._gameManager.setWeapon({type: this._weapon._weaponType, ammos: this._weapon._ammos});
+    }
+
+    Heal(amount){
+        this._health += amount;
+        if(this._health > this._maxHealth) this._health = this._maxHealth;
     }
 
     Pick(pickup){
@@ -227,13 +239,23 @@ export default class Player extends Entity {
             case pickupTypes.revolver:
                 if(this._weapon) this._weapon.Throw();
                 this._weapon = new Revolver(this.scene, this);
-                if(pickup._properties?.ammos) this._weapon.setAmmos(pickup._properties.ammos);
+                if(pickup._properties?.ammos != null) this._weapon.setAmmos(pickup._properties.ammos);
                 this.scene._gameManager.setHealth(this._health);
                 break;
             case pickupTypes.rifle:
                 if(this._weapon) this._weapon.Throw();
                 this._weapon = new Rifle(this.scene, this);
-                if(pickup._properties?.ammos) this._weapon.setAmmos(pickup._properties.ammos);
+                if(pickup._properties?.ammos != null) this._weapon.setAmmos(pickup._properties.ammos);
+                break;
+            case pickupTypes.halfHearth:
+                this.Heal(0.5);
+                break;
+            case pickupTypes.hearth:
+                this.Heal(1);
+                break;
+            case pickupTypes.newHearth:
+                this._maxHealth += 1;
+                this._health = this._maxHealth;
                 break;
             default:
                 console.log("Unknown pickup object!");
@@ -247,8 +269,13 @@ export default class Player extends Entity {
 
     Kill(){
         console.log("Player died!");
+        this.update = () => {};
 
-        this.scene.SwitchScene(GAMEOVERSCENE_KEY);
+        this.scene._camera.fadeOut(CAMERA_FADE_OUT_DURATION, 0, 0, 0, () => {
+            setTimeout(() => {
+                this.scene.SwitchScene(GAMEOVERSCENE_KEY);
+            }, CAMERA_FADE_OUT_DURATION);
+        });
     }
 
     //#region Keyboard
@@ -452,14 +479,14 @@ export default class Player extends Entity {
     CreateAnimations(){
         //#region IDLE animations
         this.scene.anims.create({
-            key: 'player_idle_down',
-            frames: this.scene.anims.generateFrameNumbers(SPRITE_PLAYER, {start:0, end:3}),
+            key: 'player_idle_weapon',
+            frames: this.scene.anims.generateFrameNumbers(SPRITE_PLAYER, {start:0, end:5}),
             frameRate: 4,
             repeat: -1
         });
         this.scene.anims.create({
-            key: 'player_idle_up',
-            frames: this.scene.anims.generateFrameNumbers(SPRITE_PLAYER, {start:6, end:9}),
+            key: 'player_idle',
+            frames: this.scene.anims.generateFrameNumbers(SPRITE_PLAYER, {start:6, end:11}),
             frameRate: 4,
             repeat: -1
         });
@@ -467,13 +494,13 @@ export default class Player extends Entity {
 
         //#region MOVE animations
         this.scene.anims.create({
-            key: 'player_move_down',
+            key: 'player_move_weapon',
             frames: this.scene.anims.generateFrameNumbers(SPRITE_PLAYER, {start:12, end:17}),
             frameRate: 8,
             repeat: -1
         });
         this.scene.anims.create({
-            key: 'player_move_up',
+            key: 'player_move',
             frames: this.scene.anims.generateFrameNumbers(SPRITE_PLAYER, {start:18, end:23}),
             frameRate: 8,
             repeat: -1
@@ -481,17 +508,14 @@ export default class Player extends Entity {
         //#endregion
 
         return {
-            idleUp: "player_idle_up",
-            idleDown: "player_idle_down",
+            idleWeapon: "player_idle_weapon",
+            idle: "player_idle",
             
-            moveUp: "player_move_up",
-            moveDown: "player_move_down",
+            moveWeapon: "player_move_weapon",
+            move: "player_move",
             
-            grapplingUp: "player_grappling_up",
-            grapplingDown: "player_grappling_down",
-            
-            boxingUp: "player_boxing_up",
-            boxingDown: "player_boxing_down",
+            grapplingWeapon: "player_grappling_up",
+            grappling: "player_grappling_down",
         };
     }
 

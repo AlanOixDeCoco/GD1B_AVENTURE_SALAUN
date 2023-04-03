@@ -26,8 +26,9 @@ export default class Entity extends Phaser.Physics.Arcade.Sprite {
         this._facingUp == false;
 
         this._weapon = null;
+
         // weapon anchor = offset from top-left player sprite
-        this._weaponAnchor = new Phaser.Math.Vector2(4, 7);
+        this._weaponAnchor = new Phaser.Math.Vector2(-8, 0);
 
         this._animations = this.CreateAnimations();
 
@@ -44,9 +45,6 @@ export default class Entity extends Phaser.Physics.Arcade.Sprite {
     }
 
     onStart(){
-        this.body.setSize(8, 18);
-        this.body.setOffset(5, 9);
-        
         this.scene.add.existing(this);
         this.setDepth(LAYER_ENTITIES);
         this.setBounce(0);
