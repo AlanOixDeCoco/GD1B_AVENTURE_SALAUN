@@ -2,6 +2,8 @@ export default class Pickup extends Phaser.Physics.Arcade.Sprite {
     constructor(scene, x, y, spriteKey = "", pickupType, properties){
         super(scene, x, y, spriteKey);
 
+        scene.physics.world.enable(this);
+
         this._properties = properties;
 
         this._pickupType = pickupType;
@@ -13,10 +15,9 @@ export default class Pickup extends Phaser.Physics.Arcade.Sprite {
             0
         );
 
-        this.scene.add.existing(this);
         this.setDepth(LAYER_WEAPONS_BOTTOM);
-
-        scene.physics.world.enable(this);
+        
+        this.scene.add.existing(this);
     }
 
     update(){

@@ -10,6 +10,8 @@ export default class Enemy extends Entity {
         this._player = player;
         this._playerDetected = false;
         this._detectionDelay = scene.time.now;
+
+        this._weaponAnchor = new Phaser.Math.Vector2(2, 4);
         
         this._speed = ENEMY_SPEED;
 
@@ -31,12 +33,15 @@ export default class Enemy extends Entity {
 
         this.onStart();
 
-        //this._weapon = new Rifle(this.scene, this);
+        this._weapon = new Revolver(this.scene, this);
         this._weapon?.update();
     }
 
     onStart(){
         super.onStart();
+
+        this.body.setSize(12, 22);
+        this.body.setOffset(10, 8);
     }
 
     update(){
@@ -53,14 +58,14 @@ export default class Enemy extends Entity {
     CreateAnimations(){
         //#region IDLE animations
         this.scene.anims.create({
-            key: 'enemy_idle_down',
-            frames: this.scene.anims.generateFrameNumbers(SPRITE_ENEMY, {start:0, end:3}),
+            key: 'enemy_idle_weapon',
+            frames: this.scene.anims.generateFrameNumbers(SPRITE_ENEMY, {start:0, end:5}),
             frameRate: 4,
             repeat: -1
         });
         this.scene.anims.create({
-            key: 'enemy_idle_up',
-            frames: this.scene.anims.generateFrameNumbers(SPRITE_ENEMY, {start:6, end:9}),
+            key: 'enemy_idle',
+            frames: this.scene.anims.generateFrameNumbers(SPRITE_ENEMY, {start:6, end:11}),
             frameRate: 4,
             repeat: -1
         });
@@ -68,13 +73,13 @@ export default class Enemy extends Entity {
 
         //#region MOVE animations
         this.scene.anims.create({
-            key: 'enemy_move_down',
+            key: 'enemy_move_weapon',
             frames: this.scene.anims.generateFrameNumbers(SPRITE_ENEMY, {start:12, end:17}),
             frameRate: 8,
             repeat: -1
         });
         this.scene.anims.create({
-            key: 'enemy_move_up',
+            key: 'enemy_move',
             frames: this.scene.anims.generateFrameNumbers(SPRITE_ENEMY, {start:18, end:23}),
             frameRate: 8,
             repeat: -1
@@ -82,17 +87,11 @@ export default class Enemy extends Entity {
         //#endregion
 
         return {
-            idleUp: "enemy_idle_up",
-            idleDown: "enemy_idle_down",
+            idle: "enemy_idle",
+            idleWeapon: "enemy_idle_weapon",
             
-            moveUp: "enemy_move_up",
-            moveDown: "enemy_move_down",
-            
-            grapplingUp: "enemy_grappling_up",
-            grapplingDown: "enemy_grappling_down",
-            
-            boxingUp: "enemy_boxing_up",
-            boxingDown: "enemy_boxing_down",
+            move: "enemy_move",
+            moveWeapon: "enemy_move_weapon",
         };
     }
 

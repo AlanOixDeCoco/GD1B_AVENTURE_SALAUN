@@ -18,13 +18,17 @@ export default class GameScene extends Phaser.Scene{
     preload(){
         this.load.image('tileset', "./Assets/Maps/Placeholder.png");
 
-        this.load.spritesheet(SPRITE_PLAYER, "./Assets/Sprites/playerSpritesheetV2.png", {frameWidth: 32, frameHeight: 32});
+        this.load.spritesheet(SPRITE_PLAYER, "./Assets/Sprites/playerSpritesheetV2.png", {frameWidth: 40, frameHeight: 40});
         this.load.spritesheet(SPRITE_SHADOWS, "./Assets/Sprites/shadows.png", {frameWidth: 32, frameHeight: 8});
 
         this.load.image(SPRITE_ENEMY_DETECTION_RANGE, "./Assets/Sprites/Enemies/enemyDetectionRange.png");
 
         this.load.image(SPRITE_WEAPON_REVOLVER, "./Assets/Sprites/weapon_revolver.png");
+        this.load.image(SPRITE_WEAPON_REVOLVER_PICKUP, "./Assets/Sprites/weapon_revolver_pickup.png");
+
         this.load.image(SPRITE_WEAPON_RIFLE, "./Assets/Sprites/weapon_rifle.png");
+        this.load.image(SPRITE_WEAPON_RIFLE_PICKUP, "./Assets/Sprites/weapon_rifle_pickup.png");
+
         this.load.image(SPRITE_BULLET, "./Assets/Sprites/bullet.png");
 
         this.load.spritesheet(SPRITE_ENEMY, "./Assets/Sprites/Enemies/enemySpritesheetV2.png", {frameWidth: 32, frameHeight: 32});
@@ -53,8 +57,7 @@ export default class GameScene extends Phaser.Scene{
             this._player._weapon?.update();
             this._player.TakeDamage(ENEMY_DAMAGE_COLLIDE, INVINCIBLE_DURATION_PLAYER);
         },
-        (player) => { return !player._invincible; }
-    );
+        (player) => { return !player._invincible; });
 
         this.physics.add.overlap(this._player, this._pickups, (player, pickup) => {
             if(this._player._input.interact){
@@ -158,19 +161,19 @@ export default class GameScene extends Phaser.Scene{
             pickup.update();
         });
 
-        if(this._player){
-            if(this._player.x < this._camera.scrollX){
-                this.SwitchScreen(this._player, this._camera, "left");
-            }
-            else if(this._player.x > this._camera.scrollX + GAME_WIDTH){
-                this.SwitchScreen(this._player, this._camera, "right");
-            }
-            if(this._player.y < this._camera.scrollY){
-                this.SwitchScreen(this._player, this._camera, "up");
-            }
-            else if(this._player.y > this._camera.scrollY + GAME_HEIGHT){
-                this.SwitchScreen(this._player, this._camera, "down");
-            }
-        }
+        //if(this._player){
+        //    if(this._player.x < this._camera.scrollX){
+        //        this.SwitchScreen(this._player, this._camera, "left");
+        //    }
+        //    else if(this._player.x > this._camera.scrollX + GAME_WIDTH){
+        //        this.SwitchScreen(this._player, this._camera, "right");
+        //    }
+        //    if(this._player.y < this._camera.scrollY){
+        //        this.SwitchScreen(this._player, this._camera, "up");
+        //    }
+        //    else if(this._player.y > this._camera.scrollY + GAME_HEIGHT){
+        //        this.SwitchScreen(this._player, this._camera, "down");
+        //    }
+        //}
     };
 }

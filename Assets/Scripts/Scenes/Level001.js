@@ -1,6 +1,6 @@
 import GameScene from "../Components/GameScene.js";
 import Enemy from "../Enemies/Enemy.js";
-import { RevolverPickup } from "../Pickups/Pickups.js";
+import { RevolverPickup, RiflePickup } from "../Pickups/Pickups.js";
 import Player from "../Player/Player.js";
 
 export default class Level001 extends GameScene{
@@ -44,11 +44,16 @@ export default class Level001 extends GameScene{
         };
 
         // Create a player
-        this._player = new Player(this, 80, 80, {health: this._gameManager._playerStats.health, weapon: this._gameManager._playerStats.weapon});
+        this._player = new Player(this, 80, 80, {health: this._gameManager._playerStats.health});
         this._camera.setScroll(TILE_SIZE, TILE_SIZE);
 
+        // Followed by the camera
+        this._camera.startFollow(this._player);
+        this._camera.setLerp(0.1);
+        this._camera.setBounds(0, 0, 119 * TILE_SIZE, 90 * TILE_SIZE);
+
         // Create a weapon pickup
-        this._pickups.add(new RevolverPickup(this, 150, 100));
+        this._pickups.add(new RiflePickup(this, 150, 100));
 
         // create a test entity
         this._enemies.add(new Enemy(this, 200, 100, SPRITE_ENEMY, 1, this._player));

@@ -1,5 +1,5 @@
 // Debug mode
-const DEBUG = true;
+const DEBUG = false;
 
 // Inputs
 const INPUT_ZERO_TOLERANCE = 0.1;
@@ -105,7 +105,9 @@ const SPRITE_ENEMY_DETECTION_RANGE = "enemy_detection_range";
 const SPRITE_SHADOWS = "shadows"
 
 const SPRITE_WEAPON_REVOLVER = "weapon_revolver";
+const SPRITE_WEAPON_REVOLVER_PICKUP = "weapon_revolver_pickup";
 const SPRITE_WEAPON_RIFLE = "weapon_rifle";
+const SPRITE_WEAPON_RIFLE_PICKUP = "weapon_rifle_pickup";
 const SPRITE_BULLET = "bullet";
 
 // UI Sprites

@@ -41,7 +41,7 @@ export default class Entity extends Phaser.Physics.Arcade.Sprite {
         super.destroy();
         this._shadow?.destroy();
         this._weapon?.destroy();
-        this._floatingUI.destroy();
+        this._floatingUI?.destroy();
     }
 
     onStart(){

@@ -11,6 +11,9 @@ export class IdlePlayerState extends State {
         this._context.x = Math.round(this._context.x);
         this._context.y = Math.round(this._context.y);
 
+        // Update equiped weapon
+        this._context._weapon?.update(this);
+
         this._context.body.setVelocity(0, 0);
 
         if(this._context._weapon){

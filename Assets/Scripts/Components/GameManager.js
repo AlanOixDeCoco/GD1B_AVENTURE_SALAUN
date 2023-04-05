@@ -6,7 +6,7 @@ export default class GameManager{
             health: PLAYER_HEALTH,
             weapon: {
                 type: null,
-                ammos: null
+                ammos: 0
             },
         };
 

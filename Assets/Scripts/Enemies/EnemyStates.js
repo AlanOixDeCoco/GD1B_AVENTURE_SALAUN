@@ -16,23 +16,11 @@ export class IdleEnemyState extends State {
         this._context.body.setVelocity(0, 0);
 
         // animations
-        if(this._context._facingUp){
-            this._context.anims.play(this._context._animations.idleUp);
+        if(this._context._weapon){
+            this._context.anims.play(this._context._animations.idleWeapon);
         }
         else {
-            this._context.anims.play(this._context._animations.idleDown);
-        }
-
-        // Orientation handling
-        if((this._context.body.velocity.y == 0) || (this._context.body.velocity.x != 0)){
-            this._context.flipX = ((this._context.body.velocity.x) >= 0) ? false : true;
-        }
-
-        this._context._facingUp = ((this._context.body.velocity.y) < 0) ? true : false;
-
-        if(this._context.body.velocity.length() == 0) {
-            if(this._context._facingUp) this._context.anims.play(this._context._animations.idleUp, true);
-            else this._context.anims.play(this._context._animations.idleDown, true);
+            this._context.anims.play(this._context._animations.idle);
         }
 
         this._context.HideFloatingUI();
@@ -103,11 +91,11 @@ export class DetectedEnemyState extends State{
         }
 
         // animations
-        if(this._context._facingUp){
-            this._context.anims.play(this._context._animations.moveUp, true);
+        if(this._context._weapon){
+            this._context.anims.play(this._context._animations.moveWeapon, true);
         }
         else {
-            this._context.anims.play(this._context._animations.moveDown, true);
+            this._context.anims.play(this._context._animations.move, true);
         }
     }
 }

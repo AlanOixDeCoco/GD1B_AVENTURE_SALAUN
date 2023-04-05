@@ -7,10 +7,10 @@ import { IdlePlayerState } from "./PlayerStates.js";
 
 export default class Player extends Entity {
     constructor(scene, x, y, properties){
-        super(scene, x, y, SPRITE_PLAYER, 0);
+        super(scene, x, y, SPRITE_PLAYER, 1);
 
         // weapon anchor = offset from top-left player sprite
-        this._weaponAnchor = new Phaser.Math.Vector2(-4, 0);
+        this._weaponAnchor = new Phaser.Math.Vector2(2, 4);
 
         this._speed = PLAYER_SPEED;
         
@@ -36,7 +36,7 @@ export default class Player extends Entity {
                 POS_UI_PLAYER_ANIMATION.x,
                 POS_UI_PLAYER_ANIMATION.y,
                 SPRITE_PLAYER,
-                0
+                6
             ).setOrigin(0).setDepth(LAYER_UI).setScrollFactor(0),
 
             hearths: [
@@ -82,18 +82,17 @@ export default class Player extends Entity {
 
         this._weapon = null;
 
-        switch(properties.weapon.type){
+        switch(this.scene._gameManager._playerStats.weapon.type){
             case pickupTypes.revolver:
                 this._weapon = new Revolver(this.scene, this);
+                this._weapon.setAmmos(this.scene._gameManager._playerStats.weapon.ammos);
                 break;
             case pickupTypes.rifle:
                 this._weapon = new Rifle(this.scene, this);
+                this._weapon.setAmmos(this.scene._gameManager._playerStats.weapon.ammos);
                 break;
             default:
                 break;
-        }
-        if(properties.weapon.ammos != null){
-            this._weapon?.setAmmos(properties.weapon.ammos);
         }
 
         this._weapon?.update();
@@ -102,8 +101,8 @@ export default class Player extends Entity {
     onStart(){
         super.onStart();
 
-        this.body.setSize(12, 18);
-        this.body.setOffset(10, 12);
+        this.body.setSize(16, 14);
+        this.body.setOffset(11, 24);
     }
     
     update(time){
@@ -225,7 +224,7 @@ export default class Player extends Entity {
 
         super.Attack(target);
 
-        if(this.weapon) this.scene._gameManager.setWeapon({type: this._weapon._weaponType, ammos: this._weapon._ammos});
+        if(this._weapon) this.scene._gameManager.setWeapon({type: this._weapon._weaponType, ammos: this._weapon._ammos});
     }
 
     Heal(amount){
@@ -240,7 +239,6 @@ export default class Player extends Entity {
                 if(this._weapon) this._weapon.Throw();
                 this._weapon = new Revolver(this.scene, this);
                 if(pickup._properties?.ammos != null) this._weapon.setAmmos(pickup._properties.ammos);
-                this.scene._gameManager.setHealth(this._health);
                 break;
             case pickupTypes.rifle:
                 if(this._weapon) this._weapon.Throw();
@@ -443,8 +441,6 @@ export default class Player extends Entity {
 
     onSpecial(evt){
         evt.context._input.special = evt.isDown;
-
-        evt.context.scene.SwitchScene(LEVEL_KEY_002);
     }
     //#endregion
 
@@ -479,30 +475,30 @@ export default class Player extends Entity {
     CreateAnimations(){
         //#region IDLE animations
         this.scene.anims.create({
-            key: 'player_idle_weapon',
-            frames: this.scene.anims.generateFrameNumbers(SPRITE_PLAYER, {start:0, end:5}),
-            frameRate: 4,
+            key: 'player_idle',
+            frames: this.scene.anims.generateFrameNumbers(SPRITE_PLAYER, {start:0, end:9}),
+            frameRate: 10,
             repeat: -1
         });
         this.scene.anims.create({
-            key: 'player_idle',
-            frames: this.scene.anims.generateFrameNumbers(SPRITE_PLAYER, {start:6, end:11}),
-            frameRate: 4,
+            key: 'player_idle_weapon',
+            frames: this.scene.anims.generateFrameNumbers(SPRITE_PLAYER, {start:10, end:19}),
+            frameRate: 10,
             repeat: -1
         });
         //#endregion
 
         //#region MOVE animations
         this.scene.anims.create({
-            key: 'player_move_weapon',
-            frames: this.scene.anims.generateFrameNumbers(SPRITE_PLAYER, {start:12, end:17}),
-            frameRate: 8,
+            key: 'player_move',
+            frames: this.scene.anims.generateFrameNumbers(SPRITE_PLAYER, {start:0, end:9}),
+            frameRate: 16,
             repeat: -1
         });
         this.scene.anims.create({
-            key: 'player_move',
-            frames: this.scene.anims.generateFrameNumbers(SPRITE_PLAYER, {start:18, end:23}),
-            frameRate: 8,
+            key: 'player_move_weapon',
+            frames: this.scene.anims.generateFrameNumbers(SPRITE_PLAYER, {start:10, end:19}),
+            frameRate: 16,
             repeat: -1
         });
         //#endregion
@@ -540,6 +536,17 @@ export default class Player extends Entity {
             hearthFull: "ui_hearth_full",
             hearthHalf: "ui_hearth_half",
         };
+    }
+
+    destroy(){
+        super.destroy();
+        this._ui.playerAnimation.destroy();
+        this._ui.ammosBackground.destroy();
+        this._ui.ammosTextCurrent.destroy();
+        this._ui.ammosTextMax.destroy();
+        this._ui.hearths.forEach((hearth) => {
+            hearth.destroy();
+        });
     }
     //#endregion
 

@@ -10,12 +10,12 @@ export const pickupTypes = {
 
 export class RevolverPickup extends Pickup{
     constructor(scene, x, y, properties){
-        super(scene, x, y, SPRITE_WEAPON_REVOLVER, pickupTypes.revolver, properties);
+        super(scene, x, y, SPRITE_WEAPON_REVOLVER_PICKUP, pickupTypes.revolver, properties);
     }
 }
 
 export class RiflePickup extends Pickup{
     constructor(scene, x, y, properties){
-        super(scene, x, y, SPRITE_WEAPON_RIFLE, pickupTypes.rifle, properties);
+        super(scene, x, y, SPRITE_WEAPON_RIFLE_PICKUP, pickupTypes.rifle, properties);
     }
 }

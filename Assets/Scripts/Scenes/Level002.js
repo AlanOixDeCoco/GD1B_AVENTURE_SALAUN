@@ -39,7 +39,7 @@ export default class Level002 extends GameScene{
         };
 
         // Create a player
-        this._player = new Player(this, 784, 80, {health: this._gameManager._playerStats.health, weapon: this._gameManager._playerStats.weapon});
+        this._player = new Player(this, 784, 80, {health: this._gameManager._playerStats.health});
         this._camera.setScroll(TILE_SIZE * 35, TILE_SIZE);
 
         // create a test entity
