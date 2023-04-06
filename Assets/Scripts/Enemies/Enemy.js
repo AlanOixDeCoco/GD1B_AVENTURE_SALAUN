@@ -1,7 +1,7 @@
 import Entity from "../Components/Entity.js";
 import { Revolver, Rifle } from "../Weapons/Weapons.js";
 import EnemyStateMachine from "./EnemyStateMachine.js";
-import { IdleEnemyState } from "./EnemyStates.js";
+import { DetectedEnemyState, IdleEnemyState } from "./EnemyStates.js";
 
 export default class Enemy extends Entity {
     constructor(scene, x, y, spriteKey, shadowIndex, player){
@@ -29,7 +29,7 @@ export default class Enemy extends Entity {
 
         this._nextAttackTime = 0;
 
-        this._stateMachine = new EnemyStateMachine(this, new IdleEnemyState(this));
+        this._stateMachine = new EnemyStateMachine(this, new DetectedEnemyState(this));
 
         this.onStart();
 
@@ -58,30 +58,30 @@ export default class Enemy extends Entity {
     CreateAnimations(){
         //#region IDLE animations
         this.scene.anims.create({
-            key: 'enemy_idle_weapon',
-            frames: this.scene.anims.generateFrameNumbers(SPRITE_ENEMY, {start:0, end:5}),
-            frameRate: 4,
+            key: 'enemy_idle',
+            frames: this.scene.anims.generateFrameNumbers(SPRITE_ENEMY, {start:0, end:4}),
+            frameRate: 3,
             repeat: -1
         });
         this.scene.anims.create({
-            key: 'enemy_idle',
-            frames: this.scene.anims.generateFrameNumbers(SPRITE_ENEMY, {start:6, end:11}),
-            frameRate: 4,
+            key: 'enemy_idle_weapon',
+            frames: this.scene.anims.generateFrameNumbers(SPRITE_ENEMY, {start:10, end:14}),
+            frameRate: 3,
             repeat: -1
         });
         //#endregion
 
         //#region MOVE animations
         this.scene.anims.create({
-            key: 'enemy_move_weapon',
-            frames: this.scene.anims.generateFrameNumbers(SPRITE_ENEMY, {start:12, end:17}),
-            frameRate: 8,
+            key: 'enemy_move',
+            frames: this.scene.anims.generateFrameNumbers(SPRITE_ENEMY, {start:20, end:29}),
+            frameRate: 10,
             repeat: -1
         });
         this.scene.anims.create({
-            key: 'enemy_move',
-            frames: this.scene.anims.generateFrameNumbers(SPRITE_ENEMY, {start:18, end:23}),
-            frameRate: 8,
+            key: 'enemy_move_weapon',
+            frames: this.scene.anims.generateFrameNumbers(SPRITE_ENEMY, {start:30, end:39}),
+            frameRate: 10,
             repeat: -1
         });
         //#endregion

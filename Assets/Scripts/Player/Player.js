@@ -3,7 +3,7 @@ import Pickup from "../Pickups/Pickup.js";
 import { pickupTypes } from "../Pickups/Pickups.js";
 import { Revolver, Rifle } from "../Weapons/Weapons.js";
 import PlayerStateMachine from "./PlayerStateMachine.js";
-import { IdlePlayerState } from "./PlayerStates.js";
+import { IdlePlayerState, MovingPlayerState } from "./PlayerStates.js";
 
 export default class Player extends Entity {
     constructor(scene, x, y, properties){
@@ -36,7 +36,7 @@ export default class Player extends Entity {
                 POS_UI_PLAYER_ANIMATION.x,
                 POS_UI_PLAYER_ANIMATION.y,
                 SPRITE_PLAYER,
-                6
+                0
             ).setOrigin(0).setDepth(LAYER_UI).setScrollFactor(0),
 
             hearths: [
@@ -76,7 +76,7 @@ export default class Player extends Entity {
         this.AssignGamepadEvents();
         //#endregion
 
-        this._stateMachine = new PlayerStateMachine(this, new IdlePlayerState(this));
+        this._stateMachine = new PlayerStateMachine(this, new MovingPlayerState(this));
 
         this.onStart();
 
@@ -476,14 +476,14 @@ export default class Player extends Entity {
         //#region IDLE animations
         this.scene.anims.create({
             key: 'player_idle',
-            frames: this.scene.anims.generateFrameNumbers(SPRITE_PLAYER, {start:0, end:9}),
-            frameRate: 10,
+            frames: this.scene.anims.generateFrameNumbers(SPRITE_PLAYER, {start:0, end:4}),
+            frameRate: 3,
             repeat: -1
         });
         this.scene.anims.create({
             key: 'player_idle_weapon',
-            frames: this.scene.anims.generateFrameNumbers(SPRITE_PLAYER, {start:10, end:19}),
-            frameRate: 10,
+            frames: this.scene.anims.generateFrameNumbers(SPRITE_PLAYER, {start:10, end:14}),
+            frameRate: 3,
             repeat: -1
         });
         //#endregion
@@ -491,14 +491,14 @@ export default class Player extends Entity {
         //#region MOVE animations
         this.scene.anims.create({
             key: 'player_move',
-            frames: this.scene.anims.generateFrameNumbers(SPRITE_PLAYER, {start:0, end:9}),
-            frameRate: 16,
+            frames: this.scene.anims.generateFrameNumbers(SPRITE_PLAYER, {start:20, end:29}),
+            frameRate: 14,
             repeat: -1
         });
         this.scene.anims.create({
             key: 'player_move_weapon',
-            frames: this.scene.anims.generateFrameNumbers(SPRITE_PLAYER, {start:10, end:19}),
-            frameRate: 16,
+            frames: this.scene.anims.generateFrameNumbers(SPRITE_PLAYER, {start:30, end:39}),
+            frameRate: 14,
             repeat: -1
         });
         //#endregion

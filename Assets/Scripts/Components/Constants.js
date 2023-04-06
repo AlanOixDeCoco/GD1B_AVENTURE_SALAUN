@@ -116,15 +116,15 @@ const SPRITE_HEARTH_UI = "hearth_ui";
 const SPRITE_AMMOS_BG_UI = "ammos_bg_ui";
 
 // UI Positions
-const POS_UI_PLAYER_ANIMATION = {x: 0, y: 3};
+const POS_UI_PLAYER_ANIMATION = {x: -4, y: -5};
 
 const POS_UI_HEARTHS = {x: 25, y: 8};
 const SPACING_UI_HEARTHS = 13;
 
-const POS_UI_AMMOS_BG = {x: 28, y: 22};
+const POS_UI_AMMOS_BG = {x: 26, y: 22};
 
-const POS_UI_AMMOS_CURRENT_TEXT = {x: 42, y: 20};
-const POS_UI_AMMOS_MAX_TEXT = {x: 56, y: 20};
+const POS_UI_AMMOS_CURRENT_TEXT = {x: 40, y: 20};
+const POS_UI_AMMOS_MAX_TEXT = {x: 54, y: 20};
 
 // Levels keys
 const LEVEL_KEY_001 = "level_001";

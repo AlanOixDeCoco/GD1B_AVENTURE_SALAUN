@@ -56,9 +56,9 @@ export default class Level001 extends GameScene{
         this._pickups.add(new RiflePickup(this, 150, 100));
 
         // create a test entity
-        this._enemies.add(new Enemy(this, 200, 100, SPRITE_ENEMY, 1, this._player));
-        this._enemies.add(new Enemy(this, 300, 100, SPRITE_ENEMY, 1, this._player));
-        this._enemies.add(new Enemy(this, 400, 100, SPRITE_ENEMY, 1, this._player));
+        //this._enemies.add(new Enemy(this, 200, 100, SPRITE_ENEMY, 1, this._player));
+        //this._enemies.add(new Enemy(this, 300, 100, SPRITE_ENEMY, 1, this._player));
+        //this._enemies.add(new Enemy(this, 400, 100, SPRITE_ENEMY, 1, this._player));
 
         // Create the collisions
         this._layers.walls.setCollisionByProperty({collides: true});

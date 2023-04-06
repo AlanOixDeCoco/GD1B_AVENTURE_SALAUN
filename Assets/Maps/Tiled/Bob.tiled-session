@@ -1,0 +1,41 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "Level-001.tmx",
+    "expandedProjectPaths": [
+        "."
+    ],
+    "fileStates": {
+        "": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Level-001.tmx": {
+            "scale": 0.25,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 774,
+                "y": 54
+            }
+        },
+        "Level-001.tmx#Tileset": {
+            "scaleInDock": 1
+        }
+    },
+    "last.imagePath": "D:/Git/GD1B_AVENTURE_SALAUN/Assets/Maps",
+    "openFiles": [
+        "Level-001.tmx"
+    ],
+    "project": "Bob.tiled-project",
+    "property.type": "bool",
+    "recentFiles": [
+        "Level-001.tmx"
+    ],
+    "tileset.embedInMap": true,
+    "tileset.tileSize": {
+        "height": 16,
+        "width": 16
+    }
+}

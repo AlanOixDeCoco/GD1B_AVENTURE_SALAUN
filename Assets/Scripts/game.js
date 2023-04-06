@@ -10,7 +10,7 @@ let gameManager = new GameManager();
 
 // #region GAME CONFIGURATION
 const config = {
-    type: Phaser.CANVAS,
+    type: Phaser.WEBGL,
     width: 256, height: 144,
     parent: 'game_viewport',
     physics: {
@@ -20,9 +20,7 @@ const config = {
             debug: DEBUG
         }
     },
-    render: {
-        antialias: false
-    },
+    pixelArt: true,
     scene: [
         new Level001(gameManager),
         new Level002(gameManager),
