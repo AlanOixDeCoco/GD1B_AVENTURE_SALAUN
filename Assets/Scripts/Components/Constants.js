@@ -1,5 +1,5 @@
 // Debug mode
-const DEBUG = false;
+const DEBUG = true;
 
 // Inputs
 const INPUT_ZERO_TOLERANCE = 0.1;
@@ -57,27 +57,35 @@ const ENEMY_MINIMUM_AMMOS = 5;
 // Sprite layers depth
 const LAYER_DEBUG = 100;
 
-const LAYER_UI_TEXT = 40;
+// UI layers
+const LAYER_UI_TEXT = 210;
+const LAYER_UI = 200;
 
-const LAYER_UI = 30;
+const LAYER_FLOATING_UI = 150;
 
-const LAYER_FLOATING_UI = 20;
+// Moving parts mayers
+const LAYER_WEAPONS_TOP = 55;
+const LAYER_ENTITIES = 45;
+const LAYER_WEAPONS_BOTTOM = 44;
+const LAYER_BULLETS = 90;
 
-const LAYER_WEAPONS_TOP = 11;
-const LAYER_ENTITIES = 10;
-const LAYER_WEAPONS_BOTTOM = 9;
-const LAYER_BULLETS = 8;
+const LAYER_SHADOWS = 5;
 
-const LAYER_OBSTACLES = 5;
-const LAYER_CONVEYORS_TOP = 4;
-const LAYER_CONVEYORS_BOTTOM = 3;
-const LAYER_WALLS = 2;
-
-const LAYER_SHADOWS = 1;
+// Map layers
+const LAYER_DOORS = 80;
+const LAYER_WALLS_FRONT = 70;
+const LAYER_DECORATIONS = 68;
+const LAYER_FENCES_FRONT = 65;
+const LAYER_OBSTACLES = 60;
+const LAYER_CONVEYORS_FRONT = 50;
+const LAYER_CONVEYORS_BACK = 40;
+const LAYER_FENCES_BACK = 30;
+const LAYER_WALLS_BACK = 20;
+const LAYER_VOID = 10;
 const LAYER_GROUND = 0;
 
 // Offsets
-const OFFSET_FLOATING_UI_Y = -8;
+const OFFSET_FLOATING_UI_Y = -0;
 const OFFSET_SHADOW_Y = -1;
 const OFFSET_SHADOW_PICKUP_Y = 3;
 const OFFSET_BULLET_SPAWN = 0;

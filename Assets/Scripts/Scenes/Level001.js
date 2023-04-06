@@ -19,28 +19,58 @@ export default class Level001 extends GameScene{
 
         // Create a the map
         this._tilemap = this.add.tilemap(LEVEL_KEY_001);
-        this._tileset = this._tilemap.addTilesetImage('Placeholder', 'tileset');
+        this._tileset = this._tilemap.addTilesetImage('Tileset', 'tileset');
 
         this._layers = {
+            void: this._tilemap.createLayer(
+                "Void",
+                this._tileset,
+            ).setDepth(LAYER_VOID),
+
+            wallsBack: this._tilemap.createLayer(
+                "WallsBack",
+                this._tileset,
+            ).setDepth(LAYER_WALLS_BACK),
+
             ground: this._tilemap.createLayer(
                 "Ground",
                 this._tileset,
             ).setDepth(LAYER_GROUND),
 
-            walls: this._tilemap.createLayer(
-                "Walls",
-                this._tileset
-            ).setDepth(LAYER_WALLS),
+            collider: this._tilemap.createLayer(
+                "Collider",
+                this._tileset,
+            ).setDepth(-100),
 
-            conveyorsBot: this._tilemap.createLayer(
-                "ConveyorsBottom",
-                this._tileset
-            ).setDepth(LAYER_CONVEYORS_BOTTOM),
+            fences: this._tilemap.createLayer(
+                "FencesBack",
+                this._tileset,
+            ).setDepth(LAYER_FENCES_BACK),
 
-            conveyorsTop: this._tilemap.createLayer(
-                "ConveyorsTop",
+            conveyorsBack: this._tilemap.createLayer(
+                "ConveyorsBack",
                 this._tileset
-            ).setDepth(LAYER_CONVEYORS_TOP),
+            ).setDepth(LAYER_CONVEYORS_BACK),
+
+            conveyorsFront: this._tilemap.createLayer(
+                "ConveyorsFront",
+                this._tileset
+            ).setDepth(LAYER_CONVEYORS_FRONT),
+
+            fences: this._tilemap.createLayer(
+                "FencesFront",
+                this._tileset,
+            ).setDepth(LAYER_FENCES_FRONT),
+
+            decorations: this._tilemap.createLayer(
+                "Decorations",
+                this._tileset
+            ).setDepth(LAYER_DECORATIONS),
+
+            wallsFront: this._tilemap.createLayer(
+                "WallsFront",
+                this._tileset
+            ).setDepth(LAYER_WALLS_FRONT),
         };
 
         // Create a player
@@ -53,7 +83,7 @@ export default class Level001 extends GameScene{
         this._camera.setBounds(0, 0, 119 * TILE_SIZE, 90 * TILE_SIZE);
 
         // Create a weapon pickup
-        this._pickups.add(new RiflePickup(this, 150, 100));
+        this._pickups.add(new RiflePickup(this, 100, 100));
 
         // create a test entity
         //this._enemies.add(new Enemy(this, 200, 100, SPRITE_ENEMY, 1, this._player));
@@ -61,14 +91,12 @@ export default class Level001 extends GameScene{
         //this._enemies.add(new Enemy(this, 400, 100, SPRITE_ENEMY, 1, this._player));
 
         // Create the collisions
-        this._layers.walls.setCollisionByProperty({collides: true});
-        this._layers.conveyorsBot.setCollisionByProperty({collides: true});
-        this._layers.conveyorsTop.setCollisionByProperty({collides: true});
+        this._layers.collider.setCollisionByProperty({collides: true});
+        this._layers.conveyorsFront.setCollisionByProperty({collides: true});
+        this._layers.decorations.setCollisionByProperty({collides: true});
 
         // Apply the collisions
-        this.physics.add.collider([this._enemies, this._player], [this._layers.walls, this._layers.conveyorsBot, this._layers.conveyorsTop]);
-        this.physics.add.collider([this._enemies, this._player], this._layers.conveyorsBot); 
-        //this.physics.add.collider([this._enemies, this._player], this._layers.conveyorsTop); 
+        this.physics.add.collider([this._enemies, this._player], [this._layers.collider, this._layers.conveyorsFront, this._layers.conveyorsBack]);
 
         super.afterCreate();
     }

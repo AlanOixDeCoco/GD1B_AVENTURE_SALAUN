@@ -16,7 +16,7 @@ export default class GameScene extends Phaser.Scene{
     };
 
     preload(){
-        this.load.image('tileset', "./Assets/Maps/Placeholder.png");
+        this.load.image('tileset', "./Assets/Maps/tileset.png");
 
         this.load.spritesheet(SPRITE_PLAYER, "./Assets/Sprites/playerSpritesheetV2.png", {frameWidth: 40, frameHeight: 40});
         this.load.spritesheet(SPRITE_SHADOWS, "./Assets/Sprites/shadows.png", {frameWidth: 32, frameHeight: 8});

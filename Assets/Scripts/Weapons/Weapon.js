@@ -35,7 +35,7 @@ export default class Weapon extends Phaser.Physics.Arcade.Sprite{
             this._bullets.push(new Bullet(
                 this.scene, 
                 this.x, this.y, 
-                new Phaser.Math.Vector2(1, 0).rotate(Math.PI * this.flipX),
+                new Phaser.Math.Vector2(1, 0).rotate(this.rotation),
                 this._bulletSpeed,
                 this._bulletDamage,
                 target
@@ -87,14 +87,14 @@ export default class Weapon extends Phaser.Physics.Arcade.Sprite{
         this.x = Math.round(origin.x);
         this.y = Math.round(origin.y);
 
-        //this.setRotation(origin.direction.angle());
+        this.setRotation(origin.direction.angle());
 
 
         if(origin.direction.x > 0){
-            this.setFlipX(false);
+            this.setFlipY(false);
         }
         if(origin.direction.x < 0){
-            this.setFlipX(true);
+            this.setFlipY(true);
         }
         if(origin.direction.y >= 0){
             this.setDepth(LAYER_WEAPONS_TOP);

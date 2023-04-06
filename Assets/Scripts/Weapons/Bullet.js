@@ -6,7 +6,9 @@ export default class Bullet extends Phaser.Physics.Arcade.Sprite {
         this.scene.add.existing(this);
         this.setDepth(LAYER_BULLETS);
 
-        scene.physics.add.collider(this, scene._layers.walls, () => { this.destroy(); });
+        scene.physics.add.collider(this, scene._layers.collider, () => { this.destroy(); });
+
+        scene.physics.add.collider(this, scene._layers.decorations, () => { this.destroy(); });
 
         scene.physics.add.overlap(this, target, (bullet, entity) => {
             bullet.destroy();
