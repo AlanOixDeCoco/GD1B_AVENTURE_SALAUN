@@ -81,8 +81,8 @@ const LAYER_CONVEYORS_FRONT = 50;
 const LAYER_CONVEYORS_BACK = 40;
 const LAYER_FENCES_BACK = 30;
 const LAYER_WALLS_BACK = 20;
-const LAYER_VOID = 10;
-const LAYER_GROUND = 0;
+const LAYER_GROUND = 10;
+const LAYER_VOID = 0;
 
 // Offsets
 const OFFSET_FLOATING_UI_Y = -0;
