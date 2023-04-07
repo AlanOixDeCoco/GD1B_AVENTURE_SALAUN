@@ -6,8 +6,6 @@ export class IdlePlayerState extends State {
     }
 
     onEnterState(){
-        if(DEBUG) console.log("Enter Idle State!\n");
-
         this._context.x = Math.round(this._context.x);
         this._context.y = Math.round(this._context.y);
 
@@ -42,7 +40,7 @@ export class MovingPlayerState extends State {
     }
 
     onEnterState(){
-        if(DEBUG) console.log("Enter Moving State!\n");
+        
     }
 
     Update(){

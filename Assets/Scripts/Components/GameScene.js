@@ -16,6 +16,8 @@ export default class GameScene extends Phaser.Scene{
     };
 
     preload(){
+        this.load.image('window_vignette', "./Assets/Images/window_vignette.png");
+
         this.load.image('tileset', "./Assets/Maps/tileset.png");
 
         this.load.spritesheet(SPRITE_PLAYER, "./Assets/Sprites/playerSpritesheetV2.png", {frameWidth: 40, frameHeight: 40});
@@ -42,6 +44,8 @@ export default class GameScene extends Phaser.Scene{
     };
 
     create() {
+        this._windowVignette = this.add.image(0, 0, "window_vignette").setOrigin(0, 0).setDepth(1000).setScrollFactor(0);
+
         this._enemies = this.add.group();
         this._pickups = this.add.group();
 

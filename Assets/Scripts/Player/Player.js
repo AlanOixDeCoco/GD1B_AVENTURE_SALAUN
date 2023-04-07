@@ -101,8 +101,8 @@ export default class Player extends Entity {
     onStart(){
         super.onStart();
 
-        this.body.setSize(16, 20);
-        this.body.setOffset(11, 14);
+        this.body.setSize(14, 20);
+        this.body.setOffset(13, 14);
     }
     
     update(time){
