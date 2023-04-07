@@ -3,7 +3,7 @@ import GameManager from "./Components/GameManager.js";
 import BossLevel from "./Scenes/BossLevel.js";
 import GameOverScene from "./Scenes/GameOverScene.js";
 import Level001 from "./Scenes/Level001.js";
-import Level002 from "./Scenes/Level002.js";
+import StartScene from "./Scenes/StartScene.js";
 //#endregion
 
 let gameManager = new GameManager();
@@ -22,8 +22,9 @@ const config = {
     },
     pixelArt: true,
     scene: [
+        new StartScene(gameManager),
+        
         new Level001(gameManager),
-        new Level002(gameManager),
 
         new BossLevel(gameManager),
 

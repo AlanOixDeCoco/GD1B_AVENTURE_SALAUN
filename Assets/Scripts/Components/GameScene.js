@@ -53,6 +53,7 @@ export default class GameScene extends Phaser.Scene{
         this._camera = this.cameras.add(0, 0, GAME_WIDTH, GAME_HEIGHT, true);
         this._camera.setBackgroundColor(0x333333);
         this._camera.setRoundPixels(true);
+        this._camera.fadeIn(CAMERA_FADE_IN_DURATION);
     };
 
     afterCreate(){
