@@ -282,8 +282,8 @@ export default class Player extends Entity {
         }
         
         pickup.destroy();
-        this._weapon.update();
-        this.scene._gameManager.setWeapon({type: this._weapon._weaponType, ammos: this._weapon._ammos});
+        this._weapon?.update();
+        this.scene._gameManager.setWeapon({type: this._weapon?._weaponType, ammos: this._weapon?._ammos});
     }
 
     Kill(){
