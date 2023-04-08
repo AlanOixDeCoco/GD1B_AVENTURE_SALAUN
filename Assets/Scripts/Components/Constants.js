@@ -1,5 +1,5 @@
 // Debug mode
-const DEBUG = true;
+const DEBUG = false;
 
 // Inputs
 const INPUT_ZERO_TOLERANCE = 0.1;

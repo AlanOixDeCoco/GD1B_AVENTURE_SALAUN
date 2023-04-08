@@ -88,7 +88,7 @@ export default class GameScene extends Phaser.Scene{
                 console.log("Interact with access card door!");
                 if(this._player._accessCards > 0){
                     door.OpenDoor();
-                    this._player._accessCardDoors--;
+                    this._player._accessCards--;
                 }
             }
         });
