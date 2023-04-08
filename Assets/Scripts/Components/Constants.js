@@ -1,5 +1,5 @@
 // Debug mode
-const DEBUG = false;
+const DEBUG = true;
 
 // Inputs
 const INPUT_ZERO_TOLERANCE = 0.1;
@@ -138,6 +138,8 @@ const SPRITE_NEW_HEARTH_PICKUP = "new_hearth_pickup";
 
 const SPRITE_ACCESS_CARD_PICKUP = "access_card_pickup";
 const SPRITE_BOSS_CARD_PICKUP = "boss_card_pickup";
+
+const SPRITE_GRAPPLE_PICKUP = "grapple_pickup";
 
 // UI Sprites
 const SPRITE_FLOATING_UI = "floating_ui";

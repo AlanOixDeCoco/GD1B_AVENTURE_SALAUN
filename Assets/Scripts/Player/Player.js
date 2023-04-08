@@ -18,7 +18,9 @@ export default class Player extends Entity {
         this._maxHealth = properties.health;
 
         this._accessCards = 0;
-        this._bossCard = 0;
+        this._bossCards = 0;
+
+        this._hasGrapple = false;
 
         this._input = {
             x: 0,
@@ -272,8 +274,13 @@ export default class Player extends Entity {
                 console.log("Pick an access card!");
                 break;
             case pickupTypes.bossCard:
-                this._bossCard++;
+                this._bossCards++;
                 console.log("Pick a boss card!");
+                break;
+
+            case pickupTypes.grapple:
+                this._hasGrapple = true;
+                console.log("Pick the grapple!");
                 break;
 
             default:

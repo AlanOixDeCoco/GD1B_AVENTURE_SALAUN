@@ -8,6 +8,7 @@ export const pickupTypes = {
     newHearth: 4,
     accessCard: 5,
     bossCard: 6,
+    grapple: 7,
 }
 
 export class RevolverPickup extends Pickup{
@@ -49,5 +50,11 @@ export class AccessCardPickup extends Pickup{
 export class BossCardPickup extends Pickup{
     constructor(scene, x, y){
         super(scene, x, y, SPRITE_BOSS_CARD_PICKUP, pickupTypes.bossCard);
+    }
+}
+
+export class GrapplePickup extends Pickup{
+    constructor(scene, x, y){
+        super(scene, x, y, SPRITE_GRAPPLE_PICKUP, pickupTypes.grapple);
     }
 }

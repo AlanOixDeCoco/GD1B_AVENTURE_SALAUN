@@ -39,7 +39,7 @@ export class HorizontalAccessCardDoor extends AccessCardDoor {
 
     OpenDoor(){
         this._opened = true;
-        
+
         this._backSprite.anims.play('open_horizontal_access_door', true);
 
         setTimeout(() => {
@@ -70,6 +70,32 @@ export class VerticalAccessCardDoor extends AccessCardDoor {
         this._opened = true;
 
         this._frontSprite.anims.play('open_vertical_access_door', true);
+
+        setTimeout(() => {
+            super.OpenDoor();
+        }, 500);
+    }
+}
+
+export class HorizontalBossDoor extends AccessCardDoor {
+    constructor(scene, x, y){
+        super(scene, x, y + TILE_SIZE);
+
+        this._backSprite = scene.add.sprite(x, y + (TILE_SIZE / 2), SPRITE_HORIZONTAL_BOSS_DOOR, 0).setOrigin(0, 0).setDepth(LAYER_WALLS_FRONT);
+        this.scene.add.existing(this._backSprite);
+
+        this.scene.anims.create({
+            key: 'open_horizontal_boss_door',
+            frames: this.scene.anims.generateFrameNumbers(SPRITE_HORIZONTAL_BOSS_DOOR, {start:0, end:3}),
+            frameRate: 8,
+            repeat: 0
+        });
+    }
+
+    OpenDoor(){
+        this._opened = true;
+        
+        this._backSprite.anims.play('open_horizontal_boss_door', true);
 
         setTimeout(() => {
             super.OpenDoor();

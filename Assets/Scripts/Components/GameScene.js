@@ -25,6 +25,7 @@ export default class GameScene extends Phaser.Scene{
         this.load.image(SPRITE_VERTICAL_BREAKABLE_DOOR_FRONT, "./Assets/Sprites/vertical_breakableDoor_front.png");
         this.load.spritesheet(SPRITE_HORIZONTAL_ACCESS_CARD_DOOR, "./Assets/Sprites/horizontal_accessCardDoor_spritesheet.png", {frameWidth: 32, frameHeight: 34});
         this.load.spritesheet(SPRITE_VERTICAL_ACCESS_CARD_DOOR, "./Assets/Sprites/vertical_accessCardDoor_spritesheet.png", {frameWidth: 4, frameHeight: 48});
+        this.load.spritesheet(SPRITE_HORIZONTAL_BOSS_DOOR, "./Assets/Sprites/horizontal_bossDoor_spritesheet.png", {frameWidth: 32, frameHeight: 34});
 
         this.load.image(SPRITE_ENEMY_DETECTION_RANGE, "./Assets/Sprites/Enemies/enemyDetectionRange.png");
 
@@ -44,6 +45,8 @@ export default class GameScene extends Phaser.Scene{
 
         this.load.image(SPRITE_ACCESS_CARD_PICKUP, "./Assets/Sprites/accessCard_pickup.png");
         this.load.image(SPRITE_BOSS_CARD_PICKUP, "./Assets/Sprites/bossCard_pickup.png");
+
+        this.load.image(SPRITE_GRAPPLE_PICKUP, "./Assets/Sprites/grapple_pickup.png");
 
         this.load.spritesheet(SPRITE_FLOATING_UI, "./Assets/Sprites/UI/floatingUI.png", {frameWidth: 18, frameHeight: 18});
         this.load.spritesheet(SPRITE_HEARTH_UI, "./Assets/Sprites/UI/ui_hearth_spritesheet.png", {frameWidth: 13, frameHeight: 12});
@@ -98,6 +101,10 @@ export default class GameScene extends Phaser.Scene{
         this.physics.add.collider(this._player, this._bossDoors, (player, door) => {
             if(this._player._input.interact){
                 console.log("Interact with boss door!");
+                if(this._player._bossCards > 0 && !door._opened){
+                    door.OpenDoor();
+                    this._player._bossCards--;
+                }
             }
         });
     }

@@ -1,9 +1,9 @@
 import GameScene from "../Components/GameScene.js";
-import { HorizontalAccessCardDoor, VerticalAccessCardDoor } from "../Doors/AccessCardDoor.js";
+import { HorizontalAccessCardDoor, HorizontalBossDoor, VerticalAccessCardDoor } from "../Doors/AccessCardDoor.js";
 import { HorizontalBreakableDoor, VerticalBreakableDoor } from "../Doors/BreakableDoor.js";
 import Enemy from "../Enemies/Enemy.js";
 import Pickup from "../Pickups/Pickup.js";
-import { AccessCardPickup, BossCardPickup, HalfHearthPickup, HearthPickup, NewHearthPickup, RevolverPickup, RiflePickup, pickupTypes } from "../Pickups/Pickups.js";
+import { AccessCardPickup, BossCardPickup, GrapplePickup, HalfHearthPickup, HearthPickup, NewHearthPickup, RevolverPickup, RiflePickup, pickupTypes } from "../Pickups/Pickups.js";
 import Player from "../Player/Player.js";
 
 export default class Level001 extends GameScene{
@@ -102,6 +102,9 @@ export default class Level001 extends GameScene{
                 case "verticalAccessCardDoor":
                     this._accessCardDoors.add(new VerticalAccessCardDoor(this, door.x, door.y));
                     break;
+                case "horizontalBossDoor":
+                    this._bossDoors.add(new HorizontalBossDoor(this, door.x, door.y));
+                    break;
                 default:
                     break;
             }
@@ -154,6 +157,10 @@ export default class Level001 extends GameScene{
                     this._pickups.add(new BossCardPickup(this, pickup.x, pickup.y));
                     break;
                 
+                case "grapple":
+                    this._pickups.add(new GrapplePickup(this, pickup.x, pickup.y));
+                    break;
+                    
                 default:
                     break;
             }
