@@ -19,6 +19,10 @@ export default class GameScene extends Phaser.Scene{
         this.load.spritesheet(SPRITE_PLAYER, "./Assets/Sprites/playerSpritesheetV2.png", {frameWidth: 40, frameHeight: 40});
         this.load.spritesheet(SPRITE_SHADOWS, "./Assets/Sprites/shadows.png", {frameWidth: 32, frameHeight: 8});
 
+        this.load.image(SPRITE_DOOR_COLLISION, "./Assets/Sprites/door_collision.png");
+        this.load.spritesheet(SPRITE_HORIZONTAL_BREAKABLE_DOOR, "./Assets/Sprites/horizontal_breakableDoor_spritesheet.png", {frameWidth: 32, frameHeight: 64});
+
+
         this.load.image(SPRITE_ENEMY_DETECTION_RANGE, "./Assets/Sprites/Enemies/enemyDetectionRange.png");
 
         this.load.image(SPRITE_WEAPON_REVOLVER, "./Assets/Sprites/weapon_revolver.png");
@@ -35,6 +39,9 @@ export default class GameScene extends Phaser.Scene{
         this.load.image(SPRITE_HEARTH_PICKUP, "./Assets/Sprites/hearth_pickup.png");
         this.load.image(SPRITE_NEW_HEARTH_PICKUP, "./Assets/Sprites/newHearth_pickup.png");
 
+        this.load.image(SPRITE_ACCESS_CARD_PICKUP, "./Assets/Sprites/accessCard_pickup.png");
+        this.load.image(SPRITE_BOSS_CARD_PICKUP, "./Assets/Sprites/bossCard_pickup.png");
+
         this.load.spritesheet(SPRITE_FLOATING_UI, "./Assets/Sprites/UI/floatingUI.png", {frameWidth: 18, frameHeight: 18});
         this.load.spritesheet(SPRITE_HEARTH_UI, "./Assets/Sprites/UI/ui_hearth_spritesheet.png", {frameWidth: 13, frameHeight: 12});
         this.load.image(SPRITE_AMMOS_BG_UI, "./Assets/Sprites/UI/ui_ammos_background.png");
@@ -48,6 +55,9 @@ export default class GameScene extends Phaser.Scene{
 
         this._enemies = this.add.group();
         this._pickups = this.add.group();
+        this._breakableDoors = this.add.group();
+        this._accessCardDoors = this.add.group();
+        this._bossDoors = this.add.group();
 
         // Create scene camera
         this._camera = this.cameras.add(0, 0, GAME_WIDTH, GAME_HEIGHT, true);
@@ -67,6 +77,20 @@ export default class GameScene extends Phaser.Scene{
         this.physics.add.overlap(this._player, this._pickups, (player, pickup) => {
             if(this._player._input.interact){
                 player.Pick(pickup);
+            }
+        });
+
+        this.physics.add.collider(this._player, this._breakableDoors);
+
+        this.physics.add.collider(this._player, this._accessCardDoors, (player, door) => {
+            if(this._player._input.interact){
+                console.log("Interact with access card door!");
+            }
+        });
+
+        this.physics.add.collider(this._player, this._bossDoors, (player, door) => {
+            if(this._player._input.interact){
+                console.log("Interact with boss door!");
             }
         });
     }

@@ -39,3 +39,15 @@ export class NewHearthPickup extends Pickup{
         super(scene, x, y, SPRITE_NEW_HEARTH_PICKUP, pickupTypes.newHearth);
     }
 }
+
+export class AccessCardPickup extends Pickup{
+    constructor(scene, x, y){
+        super(scene, x, y, SPRITE_ACCESS_CARD_PICKUP, pickupTypes.accessCard);
+    }
+}
+
+export class BossCardPickup extends Pickup{
+    constructor(scene, x, y){
+        super(scene, x, y, SPRITE_BOSS_CARD_PICKUP, pickupTypes.bossCard);
+    }
+}

@@ -41,6 +41,9 @@ const CAMERA_SHAKE_HIT_INTENSITY = 0.02;
 // Entities
 const ENTITY_HEALTH = 1;
 
+// Doors
+const BREAKABLE_DOOR_HEALTH = 5;
+
 // Player
 const PLAYER_SPEED = 128; // px.s-1
 //const PLAYER_SPEED = 512; // px.s-1
@@ -111,6 +114,13 @@ const SPRITE_PLAYER = "player";
 const SPRITE_ENEMY = "enemy";
 const SPRITE_BOSS = "boss";
 
+const SPRITE_DOOR_COLLISION = "door_collision";
+const SPRITE_HORIZONTAL_BREAKABLE_DOOR = "horizontal_breakableDoor";
+const SPRITE_VERTICAL_BREAKABLE_DOOR = "vertical_breakableDoor";
+const SPRITE_HORIZONTAL_ACCESS_CARD_DOOR = "horizontal_accessCardDoor";
+const SPRITE_VERTICAL_ACCESS_CARD_DOOR = "vertical_accessCardDoor";
+const SPRITE_HORIZONTAL_BOSS_DOOR = "horizontal_bossDoor";
+
 const SPRITE_ENEMY_DETECTION_RANGE = "enemy_detection_range";
 
 const SPRITE_SHADOWS = "shadows"
@@ -124,6 +134,9 @@ const SPRITE_BULLET = "bullet";
 const SPRITE_HALF_HEARTH_PICKUP = "half_hearth_pickup";
 const SPRITE_HEARTH_PICKUP = "hearth_pickup";
 const SPRITE_NEW_HEARTH_PICKUP = "new_hearth_pickup";
+
+const SPRITE_ACCESS_CARD_PICKUP = "access_card_pickup";
+const SPRITE_BOSS_CARD_PICKUP = "boss_card_pickup";
 
 // UI Sprites
 const SPRITE_FLOATING_UI = "floating_ui";

@@ -17,6 +17,9 @@ export default class Player extends Entity {
         this._health = properties.health;
         this._maxHealth = properties.health;
 
+        this._accessCards = 0;
+        this._bossCard = 0;
+
         this._input = {
             x: 0,
             y: 0,
@@ -236,6 +239,9 @@ export default class Player extends Entity {
 
     Pick(pickup){
         this._input.interact = false;
+
+        if(DEBUG) console.log(pickup);
+
         switch(pickup._pickupType){
             case pickupTypes.revolver:
                 if(this._weapon) this._weapon.Throw();
@@ -247,6 +253,7 @@ export default class Player extends Entity {
                 this._weapon = new Rifle(this.scene, this);
                 if(pickup._properties?.ammos != null) this._weapon.setAmmos(pickup._properties.ammos);
                 break;
+
             case pickupTypes.halfHearth:
                 this.Heal(0.5);
                 break;
@@ -259,6 +266,14 @@ export default class Player extends Entity {
                 this.scene._gameManager.setHealth(this._health);
                 this.UpdateHearthUI();
                 break;
+
+            case pickupTypes.accessCard:
+                this._accessCards++;
+                break;
+            case pickupTypes.bossCard:
+                this._bossCard++;
+                break;
+
             default:
                 console.log("Unknown pickup object!");
                 break;

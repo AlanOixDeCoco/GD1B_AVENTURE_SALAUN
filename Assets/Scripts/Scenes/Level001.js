@@ -1,7 +1,8 @@
 import GameScene from "../Components/GameScene.js";
+import { HorizontalBreakableDoor } from "../Doors/BreakableDoor.js";
 import Enemy from "../Enemies/Enemy.js";
 import Pickup from "../Pickups/Pickup.js";
-import { HalfHearthPickup, HearthPickup, NewHearthPickup, RevolverPickup, RiflePickup, pickupTypes } from "../Pickups/Pickups.js";
+import { AccessCardPickup, BossCardPickup, HalfHearthPickup, HearthPickup, NewHearthPickup, RevolverPickup, RiflePickup, pickupTypes } from "../Pickups/Pickups.js";
 import Player from "../Player/Player.js";
 
 export default class Level001 extends GameScene{
@@ -83,22 +84,35 @@ export default class Level001 extends GameScene{
         this._camera.setLerp(0.1);
         this._camera.setBounds(0, 0, 90 * TILE_SIZE, 84 * TILE_SIZE);
 
-        // Spawn enemies
-        var enemiesObjectLayer = this._tilemap.getObjectLayer("Enemies");
-        enemiesObjectLayer.objects.forEach(enemy => {
-            if(DEBUG) console.log(`Spawning an enemy in (${enemy.x}, ${enemy.y}) : ${enemy.properties[0].name} = ${enemy.properties[0].value != "" ? enemy.properties[0].value : "none"}`);
-            switch(enemy.properties[0].value){
-                case "revolver":
-                    this._enemies.add(new Enemy(this, enemy.x, enemy.y, SPRITE_ENEMY, 1, this._player, pickupTypes.revolver));
-                    break;
-                case "rifle":
-                    this._enemies.add(new Enemy(this, enemy.x, enemy.y, SPRITE_ENEMY, 1, this._player, pickupTypes.rifle));
+        // Spawn portes
+        var doorsObjectLayer = this._tilemap.getObjectLayer("Doors");
+        doorsObjectLayer.objects.forEach(door => {
+            if(DEBUG) console.log(`Spawning a door in (${door.x}, ${door.y}) : ${door.properties[0].name} = ${door.properties[0].value}`);
+            switch(door.properties[0].value){
+                case "horizontalBreakableDoor":
+                    this._breakableDoors.add(new HorizontalBreakableDoor(this, door.x, door.y));
                     break;
                 default:
-                    this._enemies.add(new Enemy(this, enemy.x, enemy.y, SPRITE_ENEMY, 1, this._player));
                     break;
             }
         });
+
+        // Spawn enemies
+        //var enemiesObjectLayer = this._tilemap.getObjectLayer("Enemies");
+        //enemiesObjectLayer.objects.forEach(enemy => {
+        //    if(DEBUG) console.log(`Spawning an enemy in (${enemy.x}, ${enemy.y}) : ${enemy.properties[0].name} = ${enemy.properties[0].value != "" ? enemy.properties[0].value : "none"}`);
+        //    switch(enemy.properties[0].value){
+        //        case "revolver":
+        //            this._enemies.add(new Enemy(this, enemy.x, enemy.y, SPRITE_ENEMY, 1, this._player, pickupTypes.revolver));
+        //            break;
+        //        case "rifle":
+        //            this._enemies.add(new Enemy(this, enemy.x, enemy.y, SPRITE_ENEMY, 1, this._player, pickupTypes.rifle));
+        //            break;
+        //        default:
+        //            this._enemies.add(new Enemy(this, enemy.x, enemy.y, SPRITE_ENEMY, 1, this._player));
+        //            break;
+        //    }
+        //});
         
 
         // Spawn pickups
@@ -124,10 +138,10 @@ export default class Level001 extends GameScene{
                     break;
 
                 case "accessCard":
-                    this._pickups.add(new Pickup(this, pickup.x, pickup.y));
+                    this._pickups.add(new AccessCardPickup(this, pickup.x, pickup.y));
                     break;
                 case "bossCard":
-                    this._pickups.add(new Pickup(this, pickup.x, pickup.y));
+                    this._pickups.add(new BossCardPickup(this, pickup.x, pickup.y));
                     break;
                 
                 default:
