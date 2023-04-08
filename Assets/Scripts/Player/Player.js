@@ -269,9 +269,11 @@ export default class Player extends Entity {
 
             case pickupTypes.accessCard:
                 this._accessCards++;
+                console.log("Pick an access card!");
                 break;
             case pickupTypes.bossCard:
                 this._bossCard++;
+                console.log("Pick a boss card!");
                 break;
 
             default:

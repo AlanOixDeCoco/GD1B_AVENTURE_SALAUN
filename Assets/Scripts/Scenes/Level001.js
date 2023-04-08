@@ -1,5 +1,6 @@
 import GameScene from "../Components/GameScene.js";
-import { HorizontalBreakableDoor } from "../Doors/BreakableDoor.js";
+import { HorizontalAccessCardDoor, VerticalAccessCardDoor } from "../Doors/AccessCardDoor.js";
+import { HorizontalBreakableDoor, VerticalBreakableDoor } from "../Doors/BreakableDoor.js";
 import Enemy from "../Enemies/Enemy.js";
 import Pickup from "../Pickups/Pickup.js";
 import { AccessCardPickup, BossCardPickup, HalfHearthPickup, HearthPickup, NewHearthPickup, RevolverPickup, RiflePickup, pickupTypes } from "../Pickups/Pickups.js";
@@ -91,6 +92,15 @@ export default class Level001 extends GameScene{
             switch(door.properties[0].value){
                 case "horizontalBreakableDoor":
                     this._breakableDoors.add(new HorizontalBreakableDoor(this, door.x, door.y));
+                    break;
+                case "verticalBreakableDoor":
+                    this._breakableDoors.add(new VerticalBreakableDoor(this, door.x, door.y));
+                    break;
+                case "horizontalAccessCardDoor":
+                    this._accessCardDoors.add(new HorizontalAccessCardDoor(this, door.x, door.y));
+                    break;
+                case "verticalAccessCardDoor":
+                    this._accessCardDoors.add(new VerticalAccessCardDoor(this, door.x, door.y));
                     break;
                 default:
                     break;

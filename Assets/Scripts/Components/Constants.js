@@ -116,7 +116,8 @@ const SPRITE_BOSS = "boss";
 
 const SPRITE_DOOR_COLLISION = "door_collision";
 const SPRITE_HORIZONTAL_BREAKABLE_DOOR = "horizontal_breakableDoor";
-const SPRITE_VERTICAL_BREAKABLE_DOOR = "vertical_breakableDoor";
+const SPRITE_VERTICAL_BREAKABLE_DOOR_FRONT = "vertical_breakableDoor_front";
+const SPRITE_VERTICAL_BREAKABLE_DOOR_BACK = "vertical_breakableDoor_back";
 const SPRITE_HORIZONTAL_ACCESS_CARD_DOOR = "horizontal_accessCardDoor";
 const SPRITE_VERTICAL_ACCESS_CARD_DOOR = "vertical_accessCardDoor";
 const SPRITE_HORIZONTAL_BOSS_DOOR = "horizontal_bossDoor";

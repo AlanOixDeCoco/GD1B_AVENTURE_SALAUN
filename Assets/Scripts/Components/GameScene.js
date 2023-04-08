@@ -21,7 +21,8 @@ export default class GameScene extends Phaser.Scene{
 
         this.load.image(SPRITE_DOOR_COLLISION, "./Assets/Sprites/door_collision.png");
         this.load.spritesheet(SPRITE_HORIZONTAL_BREAKABLE_DOOR, "./Assets/Sprites/horizontal_breakableDoor_spritesheet.png", {frameWidth: 32, frameHeight: 64});
-
+        this.load.spritesheet(SPRITE_VERTICAL_BREAKABLE_DOOR_BACK, "./Assets/Sprites/vertical_breakableDoor_spritesheet.png", {frameWidth: 32, frameHeight: 32});
+        this.load.image(SPRITE_VERTICAL_BREAKABLE_DOOR_FRONT, "./Assets/Sprites/vertical_breakableDoor_front.png");
 
         this.load.image(SPRITE_ENEMY_DETECTION_RANGE, "./Assets/Sprites/Enemies/enemyDetectionRange.png");
 
@@ -85,6 +86,10 @@ export default class GameScene extends Phaser.Scene{
         this.physics.add.collider(this._player, this._accessCardDoors, (player, door) => {
             if(this._player._input.interact){
                 console.log("Interact with access card door!");
+                if(this._player._accessCards > 0){
+                    door.OpenDoor();
+                    this._player._accessCardDoors--;
+                }
             }
         });
 

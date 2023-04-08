@@ -14,11 +14,11 @@ export class BreakableDoor extends Phaser.Physics.Arcade.Sprite {
         
         this.scene.add.existing(this);
 
-        this._frontSprite = null;
+        this._backSprite = null;
     }
 
     OpenDoor(){
-        this._frontSprite.setTexture(this._frontSprite.texture, 1);
+        this._backSprite.setTexture(this._backSprite.texture, 1);
         this.disableBody();
     }
 
@@ -35,7 +35,23 @@ export class HorizontalBreakableDoor extends BreakableDoor {
     constructor(scene, x, y){
         super(scene, x, y + TILE_SIZE);
 
-        this._frontSprite = scene.add.sprite(x, y, SPRITE_HORIZONTAL_BREAKABLE_DOOR, 0).setOrigin(0, 0).setDepth(LAYER_WALLS_FRONT);
+        this._backSprite = scene.add.sprite(x, y, SPRITE_HORIZONTAL_BREAKABLE_DOOR, 0).setOrigin(0, 0).setDepth(LAYER_WALLS_FRONT);
+        this.scene.add.existing(this._backSprite);
+    }
+}
+
+export class VerticalBreakableDoor extends BreakableDoor {
+    constructor(scene, x, y){
+        super(scene, x, y + TILE_SIZE);
+
+        this._backSprite = scene.add.sprite(x, y, SPRITE_VERTICAL_BREAKABLE_DOOR_BACK, 0).setOrigin(0, 0).setDepth(LAYER_WALLS_BACK);
+        this.scene.add.existing(this._backSprite);
+    }
+
+    OpenDoor(){
+        super.OpenDoor();
+
+        this._frontSprite = this.scene.add.sprite(this.x, this.y - TILE_SIZE, SPRITE_VERTICAL_BREAKABLE_DOOR_FRONT, 0).setOrigin(0, 0).setDepth(LAYER_WALLS_FRONT);
         this.scene.add.existing(this._frontSprite);
     }
 }
