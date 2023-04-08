@@ -14,7 +14,7 @@ export default class Entity extends Phaser.Physics.Arcade.Sprite {
                 this.getBottomCenter().y + OFFSET_SHADOW_Y, 
                 SPRITE_SHADOWS,
                 shadowIndex
-            );
+            ).setDepth(LAYER_SHADOWS);
         }
 
         this._floatingUI = scene.add.sprite(

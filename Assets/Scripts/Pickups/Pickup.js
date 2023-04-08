@@ -13,7 +13,7 @@ export default class Pickup extends Phaser.Physics.Arcade.Sprite {
             this.getBottomCenter().y + OFFSET_SHADOW_PICKUP_Y, 
             SPRITE_SHADOWS,
             0
-        );
+        ).setDepth(LAYER_SHADOWS);
 
         this.setDepth(LAYER_WEAPONS_BOTTOM);
         

@@ -1,9 +1,10 @@
 //#region imports
 import GameManager from "./Components/GameManager.js";
-import BossLevel from "./Scenes/BossLevel.js";
 import GameOverScene from "./Scenes/GameOverScene.js";
 import Level001 from "./Scenes/Level001.js";
 import StartScene from "./Scenes/StartScene.js";
+import TutoGamepadScene from "./Scenes/TutoGamepadScene.js";
+import TutoKeyboardScene from "./Scenes/TutoKeyboardScene.js";
 //#endregion
 
 let gameManager = new GameManager();
@@ -22,11 +23,12 @@ const config = {
     },
     pixelArt: true,
     scene: [
-        new StartScene(gameManager),
+        StartScene,
+
+        TutoKeyboardScene,
+        TutoGamepadScene,
         
         new Level001(gameManager),
-
-        new BossLevel(gameManager),
 
         new GameOverScene(gameManager)
     ],

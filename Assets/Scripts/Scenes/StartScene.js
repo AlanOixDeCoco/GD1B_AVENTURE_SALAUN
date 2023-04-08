@@ -14,14 +14,14 @@ export default class StartScene extends Phaser.Scene {
 
         // button animations
         this.anims.create({
-            key: 'button_up',
+            key: 'play_button_up',
             frames: this.anims.generateFrameNumbers("startmenu_playbutton", {start:0, end:0}),
             frameRate: 1,
             repeat: -1
         });
 
         this.anims.create({
-            key: 'button_down',
+            key: 'play_button_down',
             frames: this.anims.generateFrameNumbers("startmenu_playbutton", {start:1, end:1}),
             frameRate: 1,
             repeat: -1
@@ -29,16 +29,16 @@ export default class StartScene extends Phaser.Scene {
 
         this._playButton.setInteractive()
         .on("pointerover", () => {
-            this._playButton.anims.play("button_down");
+            this._playButton.anims.play("play_button_down");
         })
         .on("pointerout", () => {
-            this._playButton.anims.play("button_up");
+            this._playButton.anims.play("play_button_up");
         })
         .on("pointerdown", () => {
             setTimeout(() => {
-                this.scene.start(LEVEL_KEY_001);
+                this.scene.start("tuto_keyboard_scene");
             }, CAMERA_FADE_OUT_DURATION);
-            this.cameras.main.fadeOut(CAMERA_FADE_OUT_DURATION);
+            this.cameras.main.fadeOut(CAMERA_UI_FADE_OUT_DURATION);
         });
     }
 
