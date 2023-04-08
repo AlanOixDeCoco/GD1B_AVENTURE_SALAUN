@@ -11,10 +11,6 @@ export default class GameScene extends Phaser.Scene{
         this._playerSpawn = {x: 0, y: 0};
     };
 
-    init(data){
-        
-    };
-
     preload(){
         this.load.image('window_vignette', "./Assets/Images/window_vignette.png");
 

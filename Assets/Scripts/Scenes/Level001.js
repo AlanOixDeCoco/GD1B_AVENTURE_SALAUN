@@ -1,6 +1,6 @@
 import GameScene from "../Components/GameScene.js";
 import Enemy from "../Enemies/Enemy.js";
-import { RevolverPickup, RiflePickup } from "../Pickups/Pickups.js";
+import { RevolverPickup, RiflePickup, pickupTypes } from "../Pickups/Pickups.js";
 import Player from "../Player/Player.js";
 
 export default class Level001 extends GameScene{
@@ -80,13 +80,35 @@ export default class Level001 extends GameScene{
         // Followed by the camera
         this._camera.startFollow(this._player);
         this._camera.setLerp(0.1);
-        this._camera.setBounds(0, 0, 119 * TILE_SIZE, 90 * TILE_SIZE);
+        this._camera.setBounds(0, 0, 90 * TILE_SIZE, 84 * TILE_SIZE);
+
+        // Spawn enemies
+        var enemiesObjectLayer = this._tilemap.getObjectLayer("Enemies");
+        enemiesObjectLayer.objects.forEach(enemy => {
+            if(DEBUG) console.log(`Spawning an enemy in (${enemy.x}, ${enemy.y}) : ${enemy.properties[0].name} = ${enemy.properties[0].value != "" ? enemy.properties[0].value : "none"}`);
+            switch(enemy.properties[0].value){
+                case "revolver":
+                    this._enemies.add(new Enemy(this, enemy.x, enemy.y, SPRITE_ENEMY, 1, this._player, pickupTypes.revolver));
+                    break;
+                case "rifle":
+                    this._enemies.add(new Enemy(this, enemy.x, enemy.y, SPRITE_ENEMY, 1, this._player, pickupTypes.rifle));
+                    break;
+                default:
+                    this._enemies.add(new Enemy(this, enemy.x, enemy.y, SPRITE_ENEMY, 1, this._player));
+                    break;
+            }
+        });
+        
+
+        // Spawn pickups
 
         // Create a weapon pickup
         this._pickups.add(new RiflePickup(this, 100, 100));
 
+
+
         // create a test entity
-        //this._enemies.add(new Enemy(this, 200, 100, SPRITE_ENEMY, 1, this._player));
+        //this._enemies.add(new Enemy(this, 200, 100, SPRITE_ENEMY, 1, this._player, pickupTypes.revolver));
         //this._enemies.add(new Enemy(this, 300, 100, SPRITE_ENEMY, 1, this._player));
         //this._enemies.add(new Enemy(this, 400, 100, SPRITE_ENEMY, 1, this._player));
 

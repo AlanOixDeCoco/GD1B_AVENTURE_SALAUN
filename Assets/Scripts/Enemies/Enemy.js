@@ -1,10 +1,11 @@
 import Entity from "../Components/Entity.js";
+import { pickupTypes } from "../Pickups/Pickups.js";
 import { Revolver, Rifle } from "../Weapons/Weapons.js";
 import EnemyStateMachine from "./EnemyStateMachine.js";
 import { DetectedEnemyState, IdleEnemyState } from "./EnemyStates.js";
 
 export default class Enemy extends Entity {
-    constructor(scene, x, y, spriteKey, shadowIndex, player){
+    constructor(scene, x, y, spriteKey, shadowIndex, player, weaponType){
         super(scene, x, y, spriteKey, shadowIndex);
 
         this._player = player;
@@ -33,7 +34,17 @@ export default class Enemy extends Entity {
 
         this.onStart();
 
-        this._weapon = new Revolver(this.scene, this);
+        switch(weaponType){
+            case pickupTypes.revolver: 
+                this._weapon = new Revolver(this.scene, this);
+                break;
+            case pickupTypes.rifle:
+                this._weapon = new Rifle(this.scene, this);
+                break;
+            default:
+                break;
+        }
+
         this._weapon?.update();
     }
 
