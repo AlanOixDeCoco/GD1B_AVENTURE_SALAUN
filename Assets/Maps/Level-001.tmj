@@ -1666,11 +1666,17 @@
          "name":"Pickups",
          "objects":[
                 {
-                 "class":"newHearth",
+                 "class":"pickup",
                  "height":0,
                  "id":12,
                  "name":"",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"pickupType",
+                         "type":"string",
+                         "value":"newHearth"
+                        }],
                  "rotation":0,
                  "visible":true,
                  "width":0,
@@ -1678,11 +1684,17 @@
                  "y":368
                 }, 
                 {
-                 "class":"halfHearth",
+                 "class":"pickup",
                  "height":0,
                  "id":24,
                  "name":"",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"pickupType",
+                         "type":"string",
+                         "value":"halfHearth"
+                        }],
                  "rotation":0,
                  "visible":true,
                  "width":0,
@@ -1690,16 +1702,58 @@
                  "y":496
                 }, 
                 {
-                 "class":"hearth",
+                 "class":"pickup",
                  "height":0,
                  "id":25,
                  "name":"",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"pickupType",
+                         "type":"string",
+                         "value":"hearth"
+                        }],
                  "rotation":0,
                  "visible":true,
                  "width":0,
                  "x":832,
                  "y":400
+                }, 
+                {
+                 "class":"",
+                 "height":0,
+                 "id":104,
+                 "name":"",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"pickupType",
+                         "type":"string",
+                         "value":"revolver"
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":0,
+                 "x":160,
+                 "y":96
+                }, 
+                {
+                 "class":"pickup",
+                 "height":0,
+                 "id":105,
+                 "name":"",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"pickupType",
+                         "type":"string",
+                         "value":"rifle"
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":0,
+                 "x":504,
+                 "y":320
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -1819,7 +1873,7 @@
                  "visible":true,
                  "width":0,
                  "x":288,
-                 "y":384
+                 "y":368
                 }, 
                 {
                  "class":"enemy",
@@ -1837,7 +1891,7 @@
                  "visible":true,
                  "width":0,
                  "x":816,
-                 "y":192
+                 "y":176
                 }, 
                 {
                  "class":"enemy",
@@ -1855,7 +1909,7 @@
                  "visible":true,
                  "width":0,
                  "x":816,
-                 "y":224
+                 "y":208
                 }, 
                 {
                  "class":"enemy",
@@ -1873,7 +1927,7 @@
                  "visible":true,
                  "width":0,
                  "x":288,
-                 "y":352
+                 "y":336
                 }, 
                 {
                  "class":"enemy",
@@ -1891,7 +1945,7 @@
                  "visible":true,
                  "width":0,
                  "x":736,
-                 "y":336
+                 "y":320
                 }, 
                 {
                  "class":"enemy",
@@ -1909,7 +1963,7 @@
                  "visible":true,
                  "width":0,
                  "x":992,
-                 "y":176
+                 "y":160
                 }, 
                 {
                  "class":"enemy",
@@ -1927,7 +1981,7 @@
                  "visible":true,
                  "width":0,
                  "x":1120,
-                 "y":208
+                 "y":192
                 }, 
                 {
                  "class":"enemy",
@@ -1945,7 +1999,7 @@
                  "visible":true,
                  "width":0,
                  "x":1152,
-                 "y":112
+                 "y":96
                 }, 
                 {
                  "class":"enemy",
@@ -1963,7 +2017,7 @@
                  "visible":true,
                  "width":0,
                  "x":1216,
-                 "y":640
+                 "y":624
                 }, 
                 {
                  "class":"enemy",
@@ -1981,7 +2035,7 @@
                  "visible":true,
                  "width":0,
                  "x":1120,
-                 "y":640
+                 "y":624
                 }, 
                 {
                  "class":"enemy",
@@ -1999,7 +2053,7 @@
                  "visible":true,
                  "width":0,
                  "x":1120,
-                 "y":736
+                 "y":720
                 }, 
                 {
                  "class":"enemy",
@@ -2017,7 +2071,7 @@
                  "visible":true,
                  "width":0,
                  "x":1216,
-                 "y":736
+                 "y":720
                 }, 
                 {
                  "class":"enemy",
@@ -2035,7 +2089,7 @@
                  "visible":true,
                  "width":0,
                  "x":976,
-                 "y":624
+                 "y":608
                 }, 
                 {
                  "class":"enemy",
@@ -2053,7 +2107,7 @@
                  "visible":true,
                  "width":0,
                  "x":720,
-                 "y":640
+                 "y":624
                 }, 
                 {
                  "class":"enemy",
@@ -2071,7 +2125,7 @@
                  "visible":true,
                  "width":0,
                  "x":736,
-                 "y":512
+                 "y":496
                 }, 
                 {
                  "class":"enemy",
@@ -2089,7 +2143,7 @@
                  "visible":true,
                  "width":0,
                  "x":1360,
-                 "y":608
+                 "y":592
                 }, 
                 {
                  "class":"enemy",
@@ -2107,7 +2161,7 @@
                  "visible":true,
                  "width":0,
                  "x":960,
-                 "y":1120
+                 "y":1104
                 }, 
                 {
                  "class":"enemy",
@@ -2125,7 +2179,7 @@
                  "visible":true,
                  "width":0,
                  "x":1072,
-                 "y":1104
+                 "y":1088
                 }, 
                 {
                  "class":"enemy",
@@ -2143,7 +2197,7 @@
                  "visible":true,
                  "width":0,
                  "x":1104,
-                 "y":1168
+                 "y":1152
                 }, 
                 {
                  "class":"enemy",
@@ -2161,7 +2215,7 @@
                  "visible":true,
                  "width":0,
                  "x":1056,
-                 "y":1280
+                 "y":1264
                 }, 
                 {
                  "class":"enemy",
@@ -2179,7 +2233,7 @@
                  "visible":true,
                  "width":0,
                  "x":1088,
-                 "y":1296
+                 "y":1280
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -2188,7 +2242,7 @@
          "y":0
         }],
  "nextlayerid":25,
- "nextobjectid":104,
+ "nextobjectid":107,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.9.2",

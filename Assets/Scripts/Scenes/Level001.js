@@ -101,16 +101,20 @@ export default class Level001 extends GameScene{
         
 
         // Spawn pickups
-
-        // Create a weapon pickup
-        this._pickups.add(new RiflePickup(this, 100, 100));
-
-
-
-        // create a test entity
-        //this._enemies.add(new Enemy(this, 200, 100, SPRITE_ENEMY, 1, this._player, pickupTypes.revolver));
-        //this._enemies.add(new Enemy(this, 300, 100, SPRITE_ENEMY, 1, this._player));
-        //this._enemies.add(new Enemy(this, 400, 100, SPRITE_ENEMY, 1, this._player));
+        var pickupsObjectLayer = this._tilemap.getObjectLayer("Pickups");
+        pickupsObjectLayer.objects.forEach(pickup => {
+            if(DEBUG) console.log(`Spawning a pickup in (${pickup.x}, ${pickup.y}) : ${pickup.properties[0].name} = ${pickup.properties[0].value != "" ? pickup.properties[0].value : "none"}`);
+            switch(pickup.properties[0].value){
+                case "revolver":
+                    this._pickups.add(new RevolverPickup(this, pickup.x, pickup.y));
+                    break;
+                case "rifle":
+                    this._pickups.add(new RiflePickup(this, pickup.x, pickup.y));
+                    break;
+                default:
+                    break;
+            }
+        });
 
         // Create the collisions
         this._layers.collider.setCollisionByProperty({collides: true});
