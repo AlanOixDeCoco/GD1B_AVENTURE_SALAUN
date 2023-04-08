@@ -78,8 +78,8 @@ const LAYER_BULLETS = 90;
 const LAYER_SHADOWS = 15;
 
 // Map layers
-const LAYER_DOORS = 80;
-const LAYER_WALLS_FRONT = 70;
+const LAYER_WALLS_FRONT = 80;
+const LAYER_DOORS = 70;
 const LAYER_DECORATIONS = 68;
 const LAYER_FENCES_FRONT = 65;
 const LAYER_OBSTACLES = 60;

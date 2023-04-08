@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="90" height="84" tilewidth="16" tileheight="16" infinite="0" backgroundcolor="#ff0000" nextlayerid="25" nextobjectid="118">
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="90" height="84" tilewidth="16" tileheight="16" infinite="0" backgroundcolor="#ff0000" nextlayerid="25" nextobjectid="121">
  <editorsettings>
   <export target="../Level-001.tmj" format="json"/>
  </editorsettings>
@@ -2705,6 +2705,24 @@
   <object id="110" class="pickup" x="968" y="1272">
    <properties>
     <property name="pickupType" value="bossCard"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="118" class="pickup" x="944" y="800">
+   <properties>
+    <property name="pickupType" value="accessCard"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="119" class="pickup" x="944" y="960">
+   <properties>
+    <property name="pickupType" value="accessCard"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="120" class="pickup" x="832" y="1088">
+   <properties>
+    <property name="pickupType" value="accessCard"/>
    </properties>
    <point/>
   </object>

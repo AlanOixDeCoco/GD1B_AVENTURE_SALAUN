@@ -1808,6 +1808,60 @@
                  "width":0,
                  "x":968,
                  "y":1272
+                }, 
+                {
+                 "class":"pickup",
+                 "height":0,
+                 "id":118,
+                 "name":"",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"pickupType",
+                         "type":"string",
+                         "value":"accessCard"
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":0,
+                 "x":944,
+                 "y":800
+                }, 
+                {
+                 "class":"pickup",
+                 "height":0,
+                 "id":119,
+                 "name":"",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"pickupType",
+                         "type":"string",
+                         "value":"accessCard"
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":0,
+                 "x":944,
+                 "y":960
+                }, 
+                {
+                 "class":"pickup",
+                 "height":0,
+                 "id":120,
+                 "name":"",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"pickupType",
+                         "type":"string",
+                         "value":"accessCard"
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":0,
+                 "x":832,
+                 "y":1088
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -2386,7 +2440,7 @@
          "y":0
         }],
  "nextlayerid":25,
- "nextobjectid":118,
+ "nextobjectid":121,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.9.2",
