@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="90" height="84" tilewidth="16" tileheight="16" infinite="0" backgroundcolor="#ff0000" nextlayerid="25" nextobjectid="122">
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="90" height="84" tilewidth="16" tileheight="16" infinite="0" backgroundcolor="#ff0000" nextlayerid="25" nextobjectid="177">
  <editorsettings>
   <export target="../Level-001.tmj" format="json"/>
  </editorsettings>
@@ -2648,14 +2648,256 @@
   </object>
  </objectgroup>
  <objectgroup id="12" name="Obstacles">
-  <object id="70" class="spike" x="1280" y="672" width="16" height="16">
+  <object id="70" class="obstacle" x="1280" y="672" width="16" height="16">
    <properties>
     <property name="connectionID" type="int" value="0"/>
+    <property name="obstacleType" value="spikes"/>
    </properties>
   </object>
-  <object id="71" x="1280" y="688" width="16" height="16">
+  <object id="122" class="obstacle" x="1280" y="688" width="16" height="16">
    <properties>
     <property name="connectionID" type="int" value="0"/>
+    <property name="obstacleType" value="spikes"/>
+   </properties>
+  </object>
+  <object id="123" class="obstacle" x="912" y="1216" width="16" height="16">
+   <properties>
+    <property name="connectionID" type="int" value="1"/>
+    <property name="obstacleType" value="spikes"/>
+   </properties>
+  </object>
+  <object id="124" class="obstacle" x="928" y="1216" width="16" height="16">
+   <properties>
+    <property name="connectionID" type="int" value="1"/>
+    <property name="obstacleType" value="spikes"/>
+   </properties>
+  </object>
+  <object id="125" class="obstacle" x="944" y="1216" width="16" height="16">
+   <properties>
+    <property name="connectionID" type="int" value="1"/>
+    <property name="obstacleType" value="spikes"/>
+   </properties>
+  </object>
+  <object id="126" class="obstacle" x="976" y="1216" width="16" height="16">
+   <properties>
+    <property name="connectionID" type="int" value="1"/>
+    <property name="obstacleType" value="spikes"/>
+   </properties>
+  </object>
+  <object id="127" class="obstacle" x="960" y="1216" width="16" height="16">
+   <properties>
+    <property name="connectionID" type="int" value="1"/>
+    <property name="obstacleType" value="spikes"/>
+   </properties>
+  </object>
+  <object id="128" class="obstacle" x="992" y="1216" width="16" height="16">
+   <properties>
+    <property name="connectionID" type="int" value="1"/>
+    <property name="obstacleType" value="spikes"/>
+   </properties>
+  </object>
+  <object id="129" class="obstacle" x="1008" y="1216" width="16" height="16">
+   <properties>
+    <property name="connectionID" type="int" value="1"/>
+    <property name="obstacleType" value="spikes"/>
+   </properties>
+  </object>
+  <object id="130" class="obstacle" x="912" y="1232" width="16" height="16">
+   <properties>
+    <property name="connectionID" type="int" value="1"/>
+    <property name="obstacleType" value="spikes"/>
+   </properties>
+  </object>
+  <object id="131" class="obstacle" x="928" y="1232" width="16" height="16">
+   <properties>
+    <property name="connectionID" type="int" value="1"/>
+    <property name="obstacleType" value="spikes"/>
+   </properties>
+  </object>
+  <object id="132" class="obstacle" x="944" y="1232" width="16" height="16">
+   <properties>
+    <property name="connectionID" type="int" value="1"/>
+    <property name="obstacleType" value="spikes"/>
+   </properties>
+  </object>
+  <object id="133" class="obstacle" x="976" y="1232" width="16" height="16">
+   <properties>
+    <property name="connectionID" type="int" value="1"/>
+    <property name="obstacleType" value="spikes"/>
+   </properties>
+  </object>
+  <object id="134" class="obstacle" x="960" y="1232" width="16" height="16">
+   <properties>
+    <property name="connectionID" type="int" value="1"/>
+    <property name="obstacleType" value="spikes"/>
+   </properties>
+  </object>
+  <object id="135" class="obstacle" x="992" y="1232" width="16" height="16">
+   <properties>
+    <property name="connectionID" type="int" value="1"/>
+    <property name="obstacleType" value="spikes"/>
+   </properties>
+  </object>
+  <object id="136" class="obstacle" x="1008" y="1232" width="16" height="16">
+   <properties>
+    <property name="connectionID" type="int" value="1"/>
+    <property name="obstacleType" value="spikes"/>
+   </properties>
+  </object>
+  <object id="144" class="obstacle" x="912" y="1296" width="16" height="16">
+   <properties>
+    <property name="connectionID" type="int" value="1"/>
+    <property name="obstacleType" value="spikes"/>
+   </properties>
+  </object>
+  <object id="145" class="obstacle" x="928" y="1296" width="16" height="16">
+   <properties>
+    <property name="connectionID" type="int" value="1"/>
+    <property name="obstacleType" value="spikes"/>
+   </properties>
+  </object>
+  <object id="146" class="obstacle" x="944" y="1296" width="16" height="16">
+   <properties>
+    <property name="connectionID" type="int" value="1"/>
+    <property name="obstacleType" value="spikes"/>
+   </properties>
+  </object>
+  <object id="147" class="obstacle" x="976" y="1296" width="16" height="16">
+   <properties>
+    <property name="connectionID" type="int" value="1"/>
+    <property name="obstacleType" value="spikes"/>
+   </properties>
+  </object>
+  <object id="148" class="obstacle" x="960" y="1296" width="16" height="16">
+   <properties>
+    <property name="connectionID" type="int" value="1"/>
+    <property name="obstacleType" value="spikes"/>
+   </properties>
+  </object>
+  <object id="149" class="obstacle" x="992" y="1296" width="16" height="16">
+   <properties>
+    <property name="connectionID" type="int" value="1"/>
+    <property name="obstacleType" value="spikes"/>
+   </properties>
+  </object>
+  <object id="150" class="obstacle" x="1008" y="1296" width="16" height="16">
+   <properties>
+    <property name="connectionID" type="int" value="1"/>
+    <property name="obstacleType" value="spikes"/>
+   </properties>
+  </object>
+  <object id="158" class="obstacle" x="912" y="1312" width="16" height="16">
+   <properties>
+    <property name="connectionID" type="int" value="1"/>
+    <property name="obstacleType" value="spikes"/>
+   </properties>
+  </object>
+  <object id="159" class="obstacle" x="928" y="1312" width="16" height="16">
+   <properties>
+    <property name="connectionID" type="int" value="1"/>
+    <property name="obstacleType" value="spikes"/>
+   </properties>
+  </object>
+  <object id="160" class="obstacle" x="944" y="1312" width="16" height="16">
+   <properties>
+    <property name="connectionID" type="int" value="1"/>
+    <property name="obstacleType" value="spikes"/>
+   </properties>
+  </object>
+  <object id="161" class="obstacle" x="976" y="1312" width="16" height="16">
+   <properties>
+    <property name="connectionID" type="int" value="1"/>
+    <property name="obstacleType" value="spikes"/>
+   </properties>
+  </object>
+  <object id="162" class="obstacle" x="960" y="1312" width="16" height="16">
+   <properties>
+    <property name="connectionID" type="int" value="1"/>
+    <property name="obstacleType" value="spikes"/>
+   </properties>
+  </object>
+  <object id="163" class="obstacle" x="992" y="1312" width="16" height="16">
+   <properties>
+    <property name="connectionID" type="int" value="1"/>
+    <property name="obstacleType" value="spikes"/>
+   </properties>
+  </object>
+  <object id="164" class="obstacle" x="1008" y="1312" width="16" height="16">
+   <properties>
+    <property name="connectionID" type="int" value="1"/>
+    <property name="obstacleType" value="spikes"/>
+   </properties>
+  </object>
+  <object id="165" class="obstacle" x="912" y="1248" width="16" height="16">
+   <properties>
+    <property name="connectionID" type="int" value="1"/>
+    <property name="obstacleType" value="spikes"/>
+   </properties>
+  </object>
+  <object id="166" class="obstacle" x="928" y="1248" width="16" height="16">
+   <properties>
+    <property name="connectionID" type="int" value="1"/>
+    <property name="obstacleType" value="spikes"/>
+   </properties>
+  </object>
+  <object id="167" class="obstacle" x="912" y="1264" width="16" height="16">
+   <properties>
+    <property name="connectionID" type="int" value="1"/>
+    <property name="obstacleType" value="spikes"/>
+   </properties>
+  </object>
+  <object id="168" class="obstacle" x="928" y="1264" width="16" height="16">
+   <properties>
+    <property name="connectionID" type="int" value="1"/>
+    <property name="obstacleType" value="spikes"/>
+   </properties>
+  </object>
+  <object id="169" class="obstacle" x="992" y="1248" width="16" height="16">
+   <properties>
+    <property name="connectionID" type="int" value="1"/>
+    <property name="obstacleType" value="spikes"/>
+   </properties>
+  </object>
+  <object id="170" class="obstacle" x="1008" y="1248" width="16" height="16">
+   <properties>
+    <property name="connectionID" type="int" value="1"/>
+    <property name="obstacleType" value="spikes"/>
+   </properties>
+  </object>
+  <object id="171" class="obstacle" x="992" y="1264" width="16" height="16">
+   <properties>
+    <property name="connectionID" type="int" value="1"/>
+    <property name="obstacleType" value="spikes"/>
+   </properties>
+  </object>
+  <object id="172" class="obstacle" x="1008" y="1264" width="16" height="16">
+   <properties>
+    <property name="connectionID" type="int" value="1"/>
+    <property name="obstacleType" value="spikes"/>
+   </properties>
+  </object>
+  <object id="173" class="obstacle" x="1008" y="1280" width="16" height="16">
+   <properties>
+    <property name="connectionID" type="int" value="1"/>
+    <property name="obstacleType" value="spikes"/>
+   </properties>
+  </object>
+  <object id="174" class="obstacle" x="992" y="1280" width="16" height="16">
+   <properties>
+    <property name="connectionID" type="int" value="1"/>
+    <property name="obstacleType" value="spikes"/>
+   </properties>
+  </object>
+  <object id="175" class="obstacle" x="928" y="1280" width="16" height="16">
+   <properties>
+    <property name="connectionID" type="int" value="1"/>
+    <property name="obstacleType" value="spikes"/>
+   </properties>
+  </object>
+  <object id="176" class="obstacle" x="912" y="1280" width="16" height="16">
+   <properties>
+    <property name="connectionID" type="int" value="1"/>
+    <property name="obstacleType" value="spikes"/>
    </properties>
   </object>
  </objectgroup>

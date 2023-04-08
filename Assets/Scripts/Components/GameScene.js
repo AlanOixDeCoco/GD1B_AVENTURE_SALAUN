@@ -27,6 +27,10 @@ export default class GameScene extends Phaser.Scene{
         this.load.spritesheet(SPRITE_VERTICAL_ACCESS_CARD_DOOR, "./Assets/Sprites/vertical_accessCardDoor_spritesheet.png", {frameWidth: 4, frameHeight: 48});
         this.load.spritesheet(SPRITE_HORIZONTAL_BOSS_DOOR, "./Assets/Sprites/horizontal_bossDoor_spritesheet.png", {frameWidth: 32, frameHeight: 34});
 
+        this.load.spritesheet(SPRITE_HORIZONTAL_BOSS_DOOR, "./Assets/Sprites/horizontal_bossDoor_spritesheet.png", {frameWidth: 32, frameHeight: 34});
+
+        this.load.spritesheet(SPRITE_SPIKES, "./Assets/Sprites/spikes_spritesheet.png", {frameWidth: 16, frameHeight: 16});
+
         this.load.image(SPRITE_ENEMY_DETECTION_RANGE, "./Assets/Sprites/Enemies/enemyDetectionRange.png");
 
         this.load.image(SPRITE_WEAPON_REVOLVER, "./Assets/Sprites/weapon_revolver.png");

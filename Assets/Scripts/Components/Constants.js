@@ -1,5 +1,5 @@
 // Debug mode
-const DEBUG = true;
+const DEBUG = false;
 
 // Inputs
 const INPUT_ZERO_TOLERANCE = 0.1;
@@ -140,6 +140,8 @@ const SPRITE_ACCESS_CARD_PICKUP = "access_card_pickup";
 const SPRITE_BOSS_CARD_PICKUP = "boss_card_pickup";
 
 const SPRITE_GRAPPLE_PICKUP = "grapple_pickup";
+
+const SPRITE_SPIKES = "spikes";
 
 // UI Sprites
 const SPRITE_FLOATING_UI = "floating_ui";
