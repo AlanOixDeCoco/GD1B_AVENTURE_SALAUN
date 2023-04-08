@@ -1,5 +1,5 @@
 export default class Pickup extends Phaser.Physics.Arcade.Sprite {
-    constructor(scene, x, y, spriteKey = "", pickupType, properties){
+    constructor(scene, x, y, spriteKey = "", pickupType, properties = null){
         super(scene, x, y, spriteKey);
 
         scene.physics.world.enable(this);

@@ -1754,48 +1754,55 @@
                  "width":0,
                  "x":504,
                  "y":320
-                }],
-         "opacity":1,
-         "type":"objectgroup",
-         "visible":true,
-         "x":0,
-         "y":0
-        }, 
-        {
-         "draworder":"topdown",
-         "id":10,
-         "name":"AccessCards",
-         "objects":[
-                {
-                 "class":"accessCard",
-                 "height":0,
-                 "id":44,
-                 "name":"",
-                 "point":true,
-                 "rotation":0,
-                 "visible":true,
-                 "width":0,
-                 "x":1360,
-                 "y":720
                 }, 
                 {
-                 "class":"accessCard",
+                 "class":"pickup",
                  "height":0,
-                 "id":45,
+                 "id":108,
                  "name":"",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"pickupType",
+                         "type":"string",
+                         "value":"accessCard"
+                        }],
                  "rotation":0,
                  "visible":true,
                  "width":0,
                  "x":688,
-                 "y":224
+                 "y":216
                 }, 
                 {
-                 "class":"bossCard",
+                 "class":"pickup",
                  "height":0,
-                 "id":78,
+                 "id":109,
                  "name":"",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"pickupType",
+                         "type":"string",
+                         "value":"accessCard"
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":0,
+                 "x":1360,
+                 "y":712
+                }, 
+                {
+                 "class":"pickup",
+                 "height":0,
+                 "id":110,
+                 "name":"",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"pickupType",
+                         "type":"string",
+                         "value":"bossCard"
+                        }],
                  "rotation":0,
                  "visible":true,
                  "width":0,
@@ -2242,7 +2249,7 @@
          "y":0
         }],
  "nextlayerid":25,
- "nextobjectid":107,
+ "nextobjectid":111,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.9.2",

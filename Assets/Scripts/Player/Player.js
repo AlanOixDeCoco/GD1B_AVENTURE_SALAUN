@@ -230,6 +230,8 @@ export default class Player extends Entity {
     Heal(amount){
         this._health += amount;
         if(this._health > this._maxHealth) this._health = this._maxHealth;
+        this.scene._gameManager.setHealth(this._health);
+        this.UpdateHearthUI();
     }
 
     Pick(pickup){
@@ -254,6 +256,8 @@ export default class Player extends Entity {
             case pickupTypes.newHearth:
                 this._maxHealth += 1;
                 this._health = this._maxHealth;
+                this.scene._gameManager.setHealth(this._health);
+                this.UpdateHearthUI();
                 break;
             default:
                 console.log("Unknown pickup object!");

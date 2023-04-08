@@ -121,6 +121,10 @@ const SPRITE_WEAPON_RIFLE = "weapon_rifle";
 const SPRITE_WEAPON_RIFLE_PICKUP = "weapon_rifle_pickup";
 const SPRITE_BULLET = "bullet";
 
+const SPRITE_HALF_HEARTH_PICKUP = "half_hearth_pickup";
+const SPRITE_HEARTH_PICKUP = "hearth_pickup";
+const SPRITE_NEW_HEARTH_PICKUP = "new_hearth_pickup";
+
 // UI Sprites
 const SPRITE_FLOATING_UI = "floating_ui";
 const SPRITE_HEARTH_UI = "hearth_ui";

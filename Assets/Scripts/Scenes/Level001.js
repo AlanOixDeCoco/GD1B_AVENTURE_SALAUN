@@ -1,6 +1,7 @@
 import GameScene from "../Components/GameScene.js";
 import Enemy from "../Enemies/Enemy.js";
-import { RevolverPickup, RiflePickup, pickupTypes } from "../Pickups/Pickups.js";
+import Pickup from "../Pickups/Pickup.js";
+import { HalfHearthPickup, HearthPickup, NewHearthPickup, RevolverPickup, RiflePickup, pickupTypes } from "../Pickups/Pickups.js";
 import Player from "../Player/Player.js";
 
 export default class Level001 extends GameScene{
@@ -111,6 +112,24 @@ export default class Level001 extends GameScene{
                 case "rifle":
                     this._pickups.add(new RiflePickup(this, pickup.x, pickup.y));
                     break;
+
+                case "halfHearth":
+                    this._pickups.add(new HalfHearthPickup(this, pickup.x, pickup.y));
+                    break;
+                case "hearth":
+                    this._pickups.add(new HearthPickup(this, pickup.x, pickup.y));
+                    break;
+                case "newHearth":
+                    this._pickups.add(new NewHearthPickup(this, pickup.x, pickup.y));
+                    break;
+
+                case "accessCard":
+                    this._pickups.add(new Pickup(this, pickup.x, pickup.y));
+                    break;
+                case "bossCard":
+                    this._pickups.add(new Pickup(this, pickup.x, pickup.y));
+                    break;
+                
                 default:
                     break;
             }

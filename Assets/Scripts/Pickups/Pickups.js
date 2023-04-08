@@ -6,6 +6,8 @@ export const pickupTypes = {
     halfHearth: 2,
     hearth: 3,
     newHearth: 4,
+    accessCard: 5,
+    bossCard: 6,
 }
 
 export class RevolverPickup extends Pickup{
@@ -17,5 +19,23 @@ export class RevolverPickup extends Pickup{
 export class RiflePickup extends Pickup{
     constructor(scene, x, y, properties){
         super(scene, x, y, SPRITE_WEAPON_RIFLE_PICKUP, pickupTypes.rifle, properties);
+    }
+}
+
+export class HalfHearthPickup extends Pickup{
+    constructor(scene, x, y){
+        super(scene, x, y, SPRITE_HALF_HEARTH_PICKUP, pickupTypes.halfHearth);
+    }
+}
+
+export class HearthPickup extends Pickup{
+    constructor(scene, x, y){
+        super(scene, x, y, SPRITE_HEARTH_PICKUP, pickupTypes.hearth);
+    }
+}
+
+export class NewHearthPickup extends Pickup{
+    constructor(scene, x, y){
+        super(scene, x, y, SPRITE_NEW_HEARTH_PICKUP, pickupTypes.newHearth);
     }
 }
