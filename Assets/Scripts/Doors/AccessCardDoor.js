@@ -52,10 +52,10 @@ export class VerticalAccessCardDoor extends AccessCardDoor {
     constructor(scene, x, y){
         super(scene, x, y + TILE_SIZE);
 
-        this._backSprite = scene.add.sprite(x + 6, y, SPRITE_VERTICAL_ACCESS_CARD_DOOR, 0).setOrigin(0, 0).setDepth(LAYER_WALLS_BACK);
+        this._backSprite = scene.add.sprite(x + 14, y, SPRITE_VERTICAL_ACCESS_CARD_DOOR, 0).setOrigin(0, 0).setDepth(LAYER_WALLS_BACK);
         this.scene.add.existing(this._backSprite);
 
-        this._frontSprite = scene.add.sprite(x + 6, y, SPRITE_VERTICAL_ACCESS_CARD_DOOR, 1).setOrigin(0, 0).setDepth(LAYER_DOORS);
+        this._frontSprite = scene.add.sprite(x + 14, y, SPRITE_VERTICAL_ACCESS_CARD_DOOR, 1).setOrigin(0, 0).setDepth(LAYER_DOORS);
         this.scene.add.existing(this._frontSprite);
 
         this.scene.anims.create({

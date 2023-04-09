@@ -21,11 +21,13 @@ export default class Player extends Entity {
         this._bossCards = 0;
 
         this._hasGrapple = false;
+        this._isGrappling = false;
 
         this._input = {
             x: 0,
             y: 0,
             movement: new Phaser.Math.Vector2(0, 0),
+            lastMovement: new Phaser.Math.Vector2(0, 0),
             up: false,
             down: false,
             left: false,
@@ -295,7 +297,11 @@ export default class Player extends Entity {
 
     Kill(){
         console.log("Player died!");
+        this.ResetInputs();
+        this._stateMachine.UpdateState();
+
         this.update = () => {};
+
 
         this.scene._camera.fadeOut(CAMERA_FADE_OUT_DURATION, 0, 0, 0, () => {
             setTimeout(() => {

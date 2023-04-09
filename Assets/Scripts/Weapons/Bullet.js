@@ -10,6 +10,9 @@ export default class Bullet extends Phaser.Physics.Arcade.Sprite {
 
         scene.physics.add.collider(this, scene._layers.decorations, () => { this.destroy(); });
 
+        scene.physics.add.collider(this, scene._accessCardDoors, () => { this.destroy(); });
+        scene.physics.add.collider(this, scene._bossDoors, () => { this.destroy(); });
+
         scene.physics.add.collider(this, scene._breakableDoors, (bullet, door) => {
             bullet.destroy();
             door.TakeDamage(damage);

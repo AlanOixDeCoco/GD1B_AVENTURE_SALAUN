@@ -2,6 +2,9 @@ import GameScene from "../Components/GameScene.js";
 import { HorizontalAccessCardDoor, HorizontalBossDoor, VerticalAccessCardDoor } from "../Doors/AccessCardDoor.js";
 import { HorizontalBreakableDoor, VerticalBreakableDoor } from "../Doors/BreakableDoor.js";
 import Enemy from "../Enemies/Enemy.js";
+import { Grip } from "../Grips/Grip.js";
+import { LeftLever, RightLever } from "../Grips/Lever.js";
+import { Spikes } from "../Obstacles/Spikes.js";
 import Pickup from "../Pickups/Pickup.js";
 import { AccessCardPickup, BossCardPickup, GrapplePickup, HalfHearthPickup, HearthPickup, NewHearthPickup, RevolverPickup, RiflePickup, pickupTypes } from "../Pickups/Pickups.js";
 import Player from "../Player/Player.js";
@@ -110,6 +113,52 @@ export default class Level001 extends GameScene{
             }
         });
 
+        // Spawn obstacles
+        var obstaclesObjectLayer = this._tilemap.getObjectLayer("Obstacles");
+        obstaclesObjectLayer.objects.forEach(obstacle => {
+            if(DEBUG) console.log(`Spawning an obstacle in (${obstacle.x}, ${obstacle.y}) : ${obstacle.properties[1].name} = ${obstacle.properties[1].value}`);
+            switch(obstacle.properties[1].value){
+                case "spikes":
+                    this._spikes.add(new Spikes(this, obstacle.x, obstacle.y, obstacle.properties[0].value));
+                    break;
+                default:
+                    break;
+            }
+        });
+        
+        this._spikes.add(new Spikes(this, 128, 80, 0));
+
+        // Spawn grips
+        var grapplingObjectLayer = this._tilemap.getObjectLayer("Grappling");
+        grapplingObjectLayer.objects.forEach(grip => {
+            if(DEBUG) console.log(`Spawning a grip in (${grip.x}, ${grip.y}) : ${grip.properties[1].name} = ${grip.properties[1].value}`);
+            switch(grip.properties[1].value){
+                case "grip":
+                    this._grips.add(new Grip(this, grip.x, grip.y));
+                    break;
+                case "rightLever":
+                    var connectedObstacles = [];
+                    this._spikes.getChildren().forEach(spikes => {
+                        if(spikes._connectionID == grip.properties[0].value) connectedObstacles.push(spikes);
+                    });
+                    this._grips.add(new RightLever(this, grip.x, grip.y, connectedObstacles));
+                    break;
+                case "leftLever":
+                    var connectedObstacles = [];
+                    this._spikes.getChildren().forEach(spikes => {
+                        if(spikes._connectionID == grip.properties[0].value) connectedObstacles.push(spikes);
+                    });
+                    this._grips.add(new LeftLever(this, grip.x, grip.y, connectedObstacles));
+                    break;
+                default:
+                    break;
+            }
+        });
+
+        this._grips.add(new RightLever(this, 128, 96, [this._spikes.getLast(true)]));
+
+        this._grips.add(new Grip(this, 144, 144));
+        
         // Spawn enemies
         //var enemiesObjectLayer = this._tilemap.getObjectLayer("Enemies");
         //enemiesObjectLayer.objects.forEach(enemy => {
@@ -170,11 +219,65 @@ export default class Level001 extends GameScene{
         this._layers.collider.setCollisionByProperty({collides: true});
         this._layers.conveyorsFront.setCollisionByProperty({collides: true});
         this._layers.decorations.setCollisionByProperty({collides: true});
+        this._layers.void.setCollisionByProperty({collides: true});
 
         // Apply the collisions
         this.physics.add.collider([this._enemies, this._player], [this._layers.collider, this._layers.conveyorsFront, this._layers.conveyorsBack]);
+        this.physics.add.collider(this._enemies, this._layers.void);
+        this.physics.add.collider(this._player, this._layers.void, () => {
+            console.log("touches void!");
+        }, () => {
+            if(this._player._isGrappling){
+                console.log("is grappling over void!");
+                return false;
+            }
+            return true;
+        });
 
-        super.afterCreate();
+        this.afterCreate();
+    }
+
+    afterCreate(){
+        this.physics.add.collider(this._player, this._enemies, () => {
+            if(DEBUG) console.log("Player collides with enemy!");
+            this._player._weapon?.update();
+            this._player.TakeDamage(ENEMY_DAMAGE_COLLIDE, INVINCIBLE_DURATION_PLAYER);
+        },
+        (player) => { return !player._invincible; });
+
+        this.physics.add.overlap(this._player, this._pickups, (player, pickup) => {
+            if(this._player._input.interact){
+                player.Pick(pickup);
+            }
+        });
+
+        this.physics.add.collider(this._player, this._breakableDoors);
+
+        this.physics.add.collider(this._player, this._accessCardDoors, (player, door) => {
+            if(this._player._input.interact){
+                console.log("Interact with access card door!");
+                if(this._player._accessCards > 0 && !door._opened){
+                    door.OpenDoor();
+                    this._player._accessCards--;
+                }
+            }
+        });
+
+        this.physics.add.collider(this._player, this._bossDoors, (player, door) => {
+            if(this._player._input.interact){
+                console.log("Interact with boss door!");
+                if(this._player._bossCards > 0 && !door._opened){
+                    door.OpenDoor();
+                    this._player._bossCards--;
+                }
+            }
+        });
+
+        //this.physics.add.collider(this._enemies, this._spikes);
+
+        this.physics.add.collider(this._player, this._spikes, (player, spikes) => {
+            player.TakeDamage(SPIKES_DAMAGE, INVINCIBLE_DURATION_PLAYER);
+        });
     }
 
     update(time, deltaTime){

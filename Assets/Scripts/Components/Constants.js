@@ -34,6 +34,8 @@ const WEAPON_DEFAULT_RELOAD_DURATION = 1000; // ms
 const WEAPON_RIFLE_RELOAD_DURATION = 2000; // ms
 const WEAPON_REVOLVER_RELOAD_DURATION = 1000; // ms
 
+const GRAPPLING_HOOK_LIFETIME = 300;
+
 // Camera
 const CAMERA_SHAKE_HIT_DURATION = 100; // ms
 const CAMERA_SHAKE_HIT_INTENSITY = 0.02;
@@ -46,11 +48,12 @@ const BREAKABLE_DOOR_HEALTH = 5;
 
 // Player
 const PLAYER_SPEED = 128; // px.s-1
+const GRAPPLING_HOOK_SPEED = 256;
 //const PLAYER_SPEED = 512; // px.s-1
 const PLAYER_HEALTH = 3;
 
 // Enemies
-const ENEMY_SPEED = 64;
+const ENEMY_SPEED = 56;
 const ENEMIES_DRAG = 2000;
 const ENEMY_RANGE_DETECTION_DELAY = 100; // ms
 const ENEMY_DETECTED_RANGE_FACTOR = 1.4;
@@ -59,6 +62,9 @@ const ENEMY_HEALTH = 3;
 const ENEMY_ATTACK_DELAY = {min: 1000, max: 3000};
 const ENEMY_DAMAGE_COLLIDE = 1;
 const ENEMY_MINIMUM_AMMOS = 5;
+
+// Obstacles
+const SPIKES_DAMAGE = 1;
 
 // Sprite layers depth
 const LAYER_DEBUG = 100;
@@ -82,11 +88,11 @@ const LAYER_WALLS_FRONT = 80;
 const LAYER_DOORS = 70;
 const LAYER_DECORATIONS = 68;
 const LAYER_FENCES_FRONT = 65;
-const LAYER_OBSTACLES = 60;
 const LAYER_CONVEYORS_FRONT = 50;
 const LAYER_CONVEYORS_BACK = 40;
 const LAYER_FENCES_BACK = 30;
 const LAYER_WALLS_BACK = 20;
+const LAYER_OBSTACLES = 12;
 const LAYER_GROUND = 10;
 const LAYER_VOID = 0;
 
@@ -140,6 +146,10 @@ const SPRITE_ACCESS_CARD_PICKUP = "access_card_pickup";
 const SPRITE_BOSS_CARD_PICKUP = "boss_card_pickup";
 
 const SPRITE_GRAPPLE_PICKUP = "grapple_pickup";
+const SPRITE_GRAPPLING_HOOK = "grappling_hook";
+
+const SPRITE_GRIP = "grip";
+const SPRITE_LEVER = "lever";
 
 const SPRITE_SPIKES = "spikes";
 

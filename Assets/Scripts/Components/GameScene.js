@@ -31,6 +31,10 @@ export default class GameScene extends Phaser.Scene{
 
         this.load.spritesheet(SPRITE_SPIKES, "./Assets/Sprites/spikes_spritesheet.png", {frameWidth: 16, frameHeight: 16});
 
+        this.load.image(SPRITE_GRIP, "./Assets/Sprites/grip.png");
+        this.load.spritesheet(SPRITE_LEVER, "./Assets/Sprites/lever_spritesheet.png", {frameWidth: 32, frameHeight: 16});
+        this.load.image(SPRITE_GRAPPLING_HOOK, "./Assets/Sprites/grappling_hook.png");
+
         this.load.image(SPRITE_ENEMY_DETECTION_RANGE, "./Assets/Sprites/Enemies/enemyDetectionRange.png");
 
         this.load.image(SPRITE_WEAPON_REVOLVER, "./Assets/Sprites/weapon_revolver.png");
@@ -64,10 +68,16 @@ export default class GameScene extends Phaser.Scene{
         this._windowVignette = this.add.image(0, 0, "window_vignette").setOrigin(0, 0).setDepth(1000).setScrollFactor(0);
 
         this._enemies = this.add.group();
+
         this._pickups = this.add.group();
+
         this._breakableDoors = this.add.group();
         this._accessCardDoors = this.add.group();
         this._bossDoors = this.add.group();
+
+        this._spikes = this.add.group();
+
+        this._grips = this.add.group();
 
         // Create scene camera
         this._camera = this.cameras.add(0, 0, GAME_WIDTH, GAME_HEIGHT, true);
@@ -75,43 +85,6 @@ export default class GameScene extends Phaser.Scene{
         this._camera.setRoundPixels(true);
         this._camera.fadeIn(CAMERA_FADE_IN_DURATION);
     };
-
-    afterCreate(){
-        this.physics.add.collider(this._player, this._enemies, () => {
-            if(DEBUG) console.log("Player collides with enemy!");
-            this._player._weapon?.update();
-            this._player.TakeDamage(ENEMY_DAMAGE_COLLIDE, INVINCIBLE_DURATION_PLAYER);
-        },
-        (player) => { return !player._invincible; });
-
-        this.physics.add.overlap(this._player, this._pickups, (player, pickup) => {
-            if(this._player._input.interact){
-                player.Pick(pickup);
-            }
-        });
-
-        this.physics.add.collider(this._player, this._breakableDoors);
-
-        this.physics.add.collider(this._player, this._accessCardDoors, (player, door) => {
-            if(this._player._input.interact){
-                console.log("Interact with access card door!");
-                if(this._player._accessCards > 0 && !door._opened){
-                    door.OpenDoor();
-                    this._player._accessCards--;
-                }
-            }
-        });
-
-        this.physics.add.collider(this._player, this._bossDoors, (player, door) => {
-            if(this._player._input.interact){
-                console.log("Interact with boss door!");
-                if(this._player._bossCards > 0 && !door._opened){
-                    door.OpenDoor();
-                    this._player._bossCards--;
-                }
-            }
-        });
-    }
 
     SwitchScene(nextScene, data){
         this.scene.switch(nextScene, data);

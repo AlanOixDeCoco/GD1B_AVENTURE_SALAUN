@@ -28,6 +28,11 @@ export class IdlePlayerState extends State {
             this._context._stateMachine.SwitchState(new MovingPlayerState(this._context));
             return;
         }
+
+        if(this._context._input.special && this._context._hasGrapple){
+            this._context._stateMachine.SwitchState(new UseGrapplePlayerState(this._context));
+            return;
+        }
         //#endregion
 
         if(this._context._input.attack) this._context.Attack(this._context.scene._enemies);
@@ -39,17 +44,20 @@ export class MovingPlayerState extends State {
         super(context);
     }
 
-    onEnterState(){
-        
-    }
-
     Update(){
         //#region states transitions
         if(!this._context._input.moving){
             this._context._stateMachine.SwitchState(new IdlePlayerState(this._context));
             return;
         }
+
+        if(this._context._input.special && this._context._hasGrapple){
+            this._context._stateMachine.SwitchState(new UseGrapplePlayerState(this._context));
+            return;
+        }
         //#endregion
+
+        this._context._input.lastMovement = this._context._input.movement;
 
         // Set velocity
         this._context.body.setVelocity(
@@ -78,22 +86,53 @@ export class MovingPlayerState extends State {
     }
 }
 
-export class GrapplingPlayerState extends State {
+export class UseGrapplePlayerState extends State {
     constructor(context){
         super(context);
     }
 
     onEnterState(){
-        if(DEBUG) console.log("Enter Grappling State!\n");
-    }
-}
+        if(DEBUG) console.log("Enter Grapple Use State!\n");
 
-export class BoxingPlayerState extends State {
-    constructor(context){
-        super(context);
-    }
+        this._context.x = Math.round(this._context.x);
+        this._context.y = Math.round(this._context.y);
 
-    onEnterState(){
-        if(DEBUG) console.log("Enter Boxing State!\n");
+        this._context.anims.play(this._context._animations.idle, true);
+
+        // Throw the grapple in front of the player
+        var grapplingHook = this._context.scene.add.sprite(this._context.x, this._context.y, SPRITE_GRAPPLING_HOOK).setDepth(1000);
+        this._context.scene.physics.world.enable(grapplingHook);
+        this._context.scene.add.existing(this);
+        grapplingHook.body.velocity = this._context._input.lastMovement.clone().scale(GRAPPLING_HOOK_SPEED);
+
+        // then resets the player velocity
+        this._context.body.setVelocity(0, 0);
+
+        // destroy the grappling hook and go back to idle state after too much time
+        var timeout = setTimeout(() => {
+            grapplingHook.destroy();
+            this._context._stateMachine.SwitchState(new IdlePlayerState(this._context));
+        }, GRAPPLING_HOOK_LIFETIME);
+
+        // create the collision between the hook and the grips
+        this._context.scene.physics.add.overlap(grapplingHook, this._context.scene._grips, (grappling_hook, grip) => {
+            switch(grip._gripType){
+                case "grip":
+                    this._context.setPosition(grip.x, grip.y - 16);
+                    break;
+                case "lever":
+                    grip.Pull();
+                    break;
+            }
+            clearTimeout(timeout);
+            grapplingHook.destroy();
+            this._context._stateMachine.SwitchState(new IdlePlayerState(this._context));
+        });
+
+        // and the collisions with the other colliders
+        this._context.scene.physics.add.collider(grapplingHook, this._context.scene._layers.collider, () => { grapplingHook.destroy(); });
+        this._context.scene.physics.add.collider(grapplingHook, this._context.scene._layers.decorations, () => { grapplingHook.destroy(); });
+        this._context.scene.physics.add.collider(grapplingHook, this._context.scene._accessCardDoors, () => { grapplingHook.destroy(); });
+        this._context.scene.physics.add.collider(grapplingHook, this._context.scene._bossDoors, () => { grapplingHook.destroy(); });
     }
 }
