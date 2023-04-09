@@ -3244,7 +3244,7 @@
                         {
                          "name":"weapon",
                          "type":"string",
-                         "value":""
+                         "value":"rifle"
                         }],
                  "rotation":0,
                  "visible":true,
@@ -3262,7 +3262,7 @@
                         {
                          "name":"weapon",
                          "type":"string",
-                         "value":"revolver"
+                         "value":""
                         }],
                  "rotation":0,
                  "visible":true,
@@ -3280,7 +3280,7 @@
                         {
                          "name":"weapon",
                          "type":"string",
-                         "value":"rifle"
+                         "value":""
                         }],
                  "rotation":0,
                  "visible":true,
@@ -3298,7 +3298,7 @@
                         {
                          "name":"weapon",
                          "type":"string",
-                         "value":"rifle"
+                         "value":"revolver"
                         }],
                  "rotation":0,
                  "visible":true,
@@ -3316,7 +3316,7 @@
                         {
                          "name":"weapon",
                          "type":"string",
-                         "value":"rifle"
+                         "value":""
                         }],
                  "rotation":0,
                  "visible":true,

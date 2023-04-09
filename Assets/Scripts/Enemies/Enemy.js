@@ -51,7 +51,7 @@ export default class Enemy extends Entity {
     onStart(){
         super.onStart();
 
-        this.body.setSize(12, 22);
+        this.body.setSize(14, 24);
         this.body.setOffset(10, 8);
     }
 

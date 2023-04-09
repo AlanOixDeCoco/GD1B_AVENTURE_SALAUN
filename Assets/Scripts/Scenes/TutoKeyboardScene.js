@@ -35,6 +35,7 @@ export default class TutoKeyboardScene extends Phaser.Scene {
             this._nextButton.anims.play("next_button_up");
         })
         .on("pointerdown", () => {
+            this._nextButton.disableInteractive();
             setTimeout(() => {
                 this.scene.start("tuto_gamepad_scene");
             }, CAMERA_FADE_OUT_DURATION);

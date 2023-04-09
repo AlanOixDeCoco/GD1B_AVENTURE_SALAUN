@@ -3127,31 +3127,31 @@
   </object>
   <object id="88" class="enemy" x="1120" y="624">
    <properties>
-    <property name="weapon" value=""/>
+    <property name="weapon" value="rifle"/>
    </properties>
    <point/>
   </object>
   <object id="89" class="enemy" x="1120" y="720">
    <properties>
-    <property name="weapon" value="revolver"/>
+    <property name="weapon" value=""/>
    </properties>
    <point/>
   </object>
   <object id="90" class="enemy" x="1216" y="720">
    <properties>
-    <property name="weapon" value="rifle"/>
+    <property name="weapon" value=""/>
    </properties>
    <point/>
   </object>
   <object id="91" class="enemy" x="976" y="608">
    <properties>
-    <property name="weapon" value="rifle"/>
+    <property name="weapon" value="revolver"/>
    </properties>
    <point/>
   </object>
   <object id="92" class="enemy" x="720" y="624">
    <properties>
-    <property name="weapon" value="rifle"/>
+    <property name="weapon" value=""/>
    </properties>
    <point/>
   </object>

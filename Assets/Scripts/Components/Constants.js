@@ -27,7 +27,7 @@ const BULLET_LIFETIME = 3000; // milliseconds
 const EMPTY_WEAPON_LIFETIME = 3000; // ms
 
 const INVINCIBLE_DURATION_PLAYER = 1000; // ms
-const INVINCIBLE_DURATION_ENEMY = 200; // ms
+const INVINCIBLE_DURATION_ENEMY = 0; // ms
 const INVINCIBLE_BLINK_INTERVAL = 100; // ms
 
 const WEAPON_DEFAULT_RELOAD_DURATION = 1000; // ms
@@ -114,7 +114,8 @@ const BUTTON_UP = 12;
 const BUTTON_DOWN = 13;
 
 // Gamepad Axis threshold
-const AXIS_THRESHOLD_VERTICAL = 0.5;
+const AXIS_THRESHOLD_VERTICAL = 0.2;
+const GAMEPAD_DRIFT = 0.1;
 
 // Sprites name
 const SPRITE_PLAYER = "player";
