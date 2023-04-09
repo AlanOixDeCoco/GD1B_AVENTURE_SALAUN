@@ -10,3 +10,5 @@ function onResizeWindow(){
 }
 
 onResizeWindow();
+
+console.log(`BOB - ${VERSION_NUMBER}`);
