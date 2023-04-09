@@ -1,6 +1,6 @@
 // Debug mode
 const DEBUG = false;
-const VERSION_NUMBER = "09.04.23_13.43";
+const VERSION_NUMBER = "09.04.23_14.45";
 
 // Inputs
 const INPUT_ZERO_TOLERANCE = 0.1;
