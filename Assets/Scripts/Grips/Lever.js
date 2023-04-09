@@ -11,7 +11,7 @@ export class Lever extends Phaser.Physics.Arcade.Sprite {
 
         this._connectedObstacles = connectedObstacles;
 
-        this.setDepth(LAYER_OBSTACLES);
+        this.setDepth(LAYER_GRIPS);
         this.setImmovable(true);
         
         this.scene.add.existing(this);

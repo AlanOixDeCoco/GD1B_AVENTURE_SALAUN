@@ -7,7 +7,7 @@ export class Grip extends Phaser.Physics.Arcade.Sprite {
         this.setOrigin(0, 1);
         scene.physics.world.enable(this);
 
-        this.setDepth(LAYER_OBSTACLES);
+        this.setDepth(LAYER_GRIPS);
         this.setImmovable(true);
         
         this.scene.add.existing(this);
