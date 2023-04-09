@@ -1,6 +1,6 @@
 // Debug mode
 const DEBUG = false;
-const VERSION_NUMBER = "09.04.23_20.50";
+const VERSION_NUMBER = "09.04.23_22.20";
 
 // Inputs
 const INPUT_ZERO_TOLERANCE = 0.1;
@@ -181,11 +181,10 @@ const POS_UI_CARDS = {x: 237, y: 7};
 
 // Levels keys
 const LEVEL_KEY_001 = "level_001";
-const LEVEL_KEY_002 = "level_002";
-const LEVEL_KEY_BOSS = "level_boss";
-const LEVEL_KEY_UI = "level_ui";
 
 const GAMEOVERSCENE_KEY = "gameover_scene";
+
+const END_SCENE_KEY = "end_scene";
 
 // Levels name
 const LEVEL_NAME_001 = "Usine d'ordinateurs";

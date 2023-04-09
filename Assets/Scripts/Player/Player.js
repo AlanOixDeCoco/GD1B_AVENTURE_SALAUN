@@ -3,7 +3,7 @@ import Pickup from "../Pickups/Pickup.js";
 import { pickupTypes } from "../Pickups/Pickups.js";
 import { Revolver, Rifle } from "../Weapons/Weapons.js";
 import PlayerStateMachine from "./PlayerStateMachine.js";
-import { IdlePlayerState, MovingPlayerState } from "./PlayerStates.js";
+import { IdlePlayerState, MovingPlayerState, StairsPlayerState } from "./PlayerStates.js";
 
 export default class Player extends Entity {
     constructor(scene, x, y, properties){
@@ -352,12 +352,10 @@ export default class Player extends Entity {
 
         this.update = () => {};
 
-
-        this.scene._camera.fadeOut(CAMERA_FADE_OUT_DURATION, 0, 0, 0, () => {
-            setTimeout(() => {
-                this.scene.SwitchScene(GAMEOVERSCENE_KEY);
-            }, CAMERA_FADE_OUT_DURATION);
-        });
+        this.scene._camera.fadeOut(CAMERA_FADE_OUT_DURATION);
+        setTimeout(() => {
+            this.scene.SwitchScene(GAMEOVERSCENE_KEY);
+        }, CAMERA_FADE_OUT_DURATION);
     }
 
     //#region Keyboard

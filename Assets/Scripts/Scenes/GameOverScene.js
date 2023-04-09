@@ -1,29 +1,14 @@
-import GameScene from "../Components/GameScene.js";
+export default class GameOverScene extends Phaser.Scene {
+    constructor(){
+        super(GAMEOVERSCENE_KEY);
+    }
 
-export default class GameOverScene extends GameScene{
-    constructor(gameManager){
-        super(gameManager, GAMEOVERSCENE_KEY, GAMEOVERSCENE_KEY);
+    preload(){
+        this.load.image("gameover_background", "./Assets/Menus/gameover_scene.png");
     }
 
     create(){
-        super.create();
-
-        this._camera.setBackgroundColor(0x000000);
-
-        this.add.bitmapText(
-            GAME_WIDTH / 2, 
-            (GAME_HEIGHT / 2) - 12, 
-            'CursedScript', 
-            'You died!', 
-            FONT_SIZE_X3
-        ).setOrigin(.5, .5).setCenterAlign();
-
-        this.add.bitmapText(
-            GAME_WIDTH / 2, 
-            (GAME_HEIGHT / 2) + 12, 
-            'CursedScript', 
-            'ctrl + R / F5 to retry', 
-            FONT_SIZE_X1
-        ).setOrigin(.5, .5).setCenterAlign();
+        this.cameras.main.fadeIn(CAMERA_FADE_IN_DURATION);
+        this._background = this.add.image(0, 0, "gameover_background").setOrigin(0, 0);
     }
 }

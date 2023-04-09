@@ -1,5 +1,6 @@
 //#region imports
 import GameManager from "./Components/GameManager.js";
+import EndScene from "./Scenes/EndScene.js";
 import GameOverScene from "./Scenes/GameOverScene.js";
 import Level001 from "./Scenes/Level001.js";
 import StartScene from "./Scenes/StartScene.js";
@@ -23,14 +24,15 @@ const config = {
     },
     pixelArt: true,
     scene: [
-        //StartScene,
-//
-        //TutoKeyboardScene,
-        //TutoGamepadScene,
+        StartScene,
+
+        TutoKeyboardScene,
+        TutoGamepadScene,
         
         new Level001(gameManager),
 
-        new GameOverScene(gameManager)
+        GameOverScene,
+        EndScene
     ],
     input: {
         gamepad: true,

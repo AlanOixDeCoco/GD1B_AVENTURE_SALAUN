@@ -136,3 +136,30 @@ export class UseGrapplePlayerState extends State {
         this._context.scene.physics.add.collider(grapplingHook, this._context.scene._bossDoors, () => { grapplingHook.destroy(); });
     }
 }
+
+
+export class StairsPlayerState extends State {
+    constructor(context){
+        super(context);
+    }
+
+    onEnterState(){
+        if(this._context._weapon){
+            this._context.anims.play(this._context._animations.moveWeapon);
+        }
+        else {
+            this._context.anims.play(this._context._animations.move);
+        }
+
+        this._context.body.setVelocity(10, 0);
+        setInterval(() => {
+            this._context.setAlpha(this._context.alpha - 0.1);
+            this._context._shadow.setAlpha(this._context.alpha - 0.1);
+        }, 100);
+    }
+
+    Update(){
+        // Update equiped weapon
+        this._context._weapon?.update(this);
+    }
+}

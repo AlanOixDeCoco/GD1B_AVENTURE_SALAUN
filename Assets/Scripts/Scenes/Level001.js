@@ -8,6 +8,7 @@ import { Spikes } from "../Obstacles/Spikes.js";
 import Pickup from "../Pickups/Pickup.js";
 import { AccessCardPickup, BossCardPickup, BulletsPickup, GrapplePickup, HalfHearthPickup, HearthPickup, NewHearthPickup, RevolverPickup, RiflePickup, pickupTypes } from "../Pickups/Pickups.js";
 import Player from "../Player/Player.js";
+import { StairsPlayerState } from "../Player/PlayerStates.js";
 
 export default class Level001 extends GameScene{
     constructor(gameManager){
@@ -87,10 +88,16 @@ export default class Level001 extends GameScene{
                 "WallsFront",
                 this._tileset
             ).setDepth(LAYER_WALLS_FRONT),
+
+            stairs: this._tilemap.createLayer(
+                "Stairs",
+                this._tileset
+            ).setDepth(LAYER_WALLS_BACK),
         };
 
         // Create a player
         this._player = new Player(this, 80, 80, {health: this._gameManager._playerStats.health});
+
         this._camera.setScroll(TILE_SIZE, TILE_SIZE);
 
         // Followed by the camera
@@ -229,6 +236,7 @@ export default class Level001 extends GameScene{
         this._layers.desksFront.setCollisionByProperty({collides: true});
         this._layers.decorations.setCollisionByProperty({collides: true});
         this._layers.void.setCollisionByProperty({collides: true});
+        this._layers.stairs.setCollisionByProperty({collides: true});
 
         // Apply the collisions
         this.physics.add.collider([this._enemies, this._player], [this._layers.collider, this._layers.conveyorsFront, this._layers.desksFront]);
@@ -241,6 +249,18 @@ export default class Level001 extends GameScene{
                 return false;
             }
             return true;
+        });
+
+        this.physics.add.collider(this._player, this._layers.stairs, () => {
+            // Condition de victoire
+            this._player._hasFinished = true;
+            this._player._stateMachine.SwitchState(new StairsPlayerState(this._player));
+            this._camera.fadeOut(CAMERA_FADE_OUT_DURATION);
+            setTimeout(() => {
+                this.SwitchScene(END_SCENE_KEY);
+            }, CAMERA_FADE_OUT_DURATION);
+        }, () => {
+            return !this._player._hasFinished;
         });
 
         this.afterCreate();
