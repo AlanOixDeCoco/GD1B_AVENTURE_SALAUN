@@ -11,4 +11,4 @@ function onResizeWindow(){
 
 onResizeWindow();
 
-console.log(`BOB - ${VERSION_NUMBER}`);
+console.log(`%c BOB - ${VERSION_NUMBER} `, 'background: #000; color: #00FF00');
