@@ -1,5 +1,5 @@
 import Entity from "../Components/Entity.js";
-import { BulletsPickup, pickupTypes } from "../Pickups/Pickups.js";
+import { BulletsPickup, HalfHearthPickup, pickupTypes } from "../Pickups/Pickups.js";
 import { Revolver, Rifle } from "../Weapons/Weapons.js";
 import EnemyStateMachine from "./EnemyStateMachine.js";
 import { DetectedEnemyState, IdleEnemyState } from "./EnemyStates.js";
@@ -132,11 +132,17 @@ export default class Enemy extends Entity {
     }
 
     Kill(){
+        // Drops Weapon or ammos by probability if it doesn't have one
         if(this._weapon) this._weapon.Throw();
         else {
-            if(Math.random() > ENEMY_BULLETS_DROP_PROBA){
+            if(Math.random() < ENEMY_BULLETS_DROP_PROBA){
                 this.scene._pickups.add(new BulletsPickup(this.scene, this.x, this.y));
             }
+        }
+
+        // drops a half hearth by probability
+        if(Math.random() < ENEMY_HALF_HEARTH_DROP_PROBA){
+            this.scene._pickups.add(new HalfHearthPickup(this.scene, this.x, this.y));
         }
         
         this.destroy();

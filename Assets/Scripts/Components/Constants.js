@@ -63,7 +63,9 @@ const ENEMY_HEALTH = 2;
 const ENEMY_ATTACK_DELAY = {min: 1000, max: 3000};
 const ENEMY_DAMAGE_COLLIDE = 1;
 const ENEMY_MINIMUM_AMMOS = 5;
+
 const ENEMY_BULLETS_DROP_PROBA = 0.5;
+const ENEMY_HALF_HEARTH_DROP_PROBA = 0.3;
 
 // Obstacles
 const SPIKES_DAMAGE = 1;

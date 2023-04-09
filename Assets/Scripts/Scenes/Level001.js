@@ -63,6 +63,16 @@ export default class Level001 extends GameScene{
                 this._tileset
             ).setDepth(LAYER_CONVEYORS_FRONT),
 
+            desksBack: this._tilemap.createLayer(
+                "DesksBack",
+                this._tileset
+            ).setDepth(LAYER_CONVEYORS_BACK),
+
+            desksFront: this._tilemap.createLayer(
+                "DesksFront",
+                this._tileset
+            ).setDepth(LAYER_CONVEYORS_FRONT),
+
             fences: this._tilemap.createLayer(
                 "FencesFront",
                 this._tileset,
@@ -216,11 +226,12 @@ export default class Level001 extends GameScene{
         // Create the collisions
         this._layers.collider.setCollisionByProperty({collides: true});
         this._layers.conveyorsFront.setCollisionByProperty({collides: true});
+        this._layers.desksFront.setCollisionByProperty({collides: true});
         this._layers.decorations.setCollisionByProperty({collides: true});
         this._layers.void.setCollisionByProperty({collides: true});
 
         // Apply the collisions
-        this.physics.add.collider([this._enemies, this._player], [this._layers.collider, this._layers.conveyorsFront, this._layers.conveyorsBack]);
+        this.physics.add.collider([this._enemies, this._player], [this._layers.collider, this._layers.conveyorsFront, this._layers.desksFront]);
         this.physics.add.collider(this._enemies, this._layers.void);
         this.physics.add.collider(this._player, this._layers.void, () => {
             console.log("touches void!");
