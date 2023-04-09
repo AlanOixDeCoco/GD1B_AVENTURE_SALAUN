@@ -153,22 +153,22 @@ export default class Level001 extends GameScene{
             }
         });
         
-        //// Spawn enemies
-        //var enemiesObjectLayer = this._tilemap.getObjectLayer("Enemies");
-        //enemiesObjectLayer.objects.forEach(enemy => {
-        //    if(DEBUG) console.log(`Spawning an enemy in (${enemy.x}, ${enemy.y}) : ${enemy.properties[0].name} = ${enemy.properties[0].value != "" ? enemy.properties[0].value : "none"}`);
-        //    switch(enemy.properties[0].value){
-        //        case "revolver":
-        //            this._enemies.add(new Enemy(this, enemy.x, enemy.y, SPRITE_ENEMY, 1, this._player, pickupTypes.revolver));
-        //            break;
-        //        case "rifle":
-        //            this._enemies.add(new Enemy(this, enemy.x, enemy.y, SPRITE_ENEMY, 1, this._player, pickupTypes.rifle));
-        //            break;
-        //        default:
-        //            this._enemies.add(new Enemy(this, enemy.x, enemy.y, SPRITE_ENEMY, 1, this._player));
-        //            break;
-        //    }
-        //});
+        // Spawn enemies
+        var enemiesObjectLayer = this._tilemap.getObjectLayer("Enemies");
+        enemiesObjectLayer.objects.forEach(enemy => {
+            if(DEBUG) console.log(`Spawning an enemy in (${enemy.x}, ${enemy.y}) : ${enemy.properties[0].name} = ${enemy.properties[0].value != "" ? enemy.properties[0].value : "none"}`);
+            switch(enemy.properties[0].value){
+                case "revolver":
+                    this._enemies.add(new Enemy(this, enemy.x, enemy.y, SPRITE_ENEMY, 1, this._player, pickupTypes.revolver));
+                    break;
+                case "rifle":
+                    this._enemies.add(new Enemy(this, enemy.x, enemy.y, SPRITE_ENEMY, 1, this._player, pickupTypes.rifle));
+                    break;
+                default:
+                    this._enemies.add(new Enemy(this, enemy.x, enemy.y, SPRITE_ENEMY, 1, this._player));
+                    break;
+            }
+        });
         
 
         // Spawn pickups
