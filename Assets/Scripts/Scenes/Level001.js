@@ -125,8 +125,6 @@ export default class Level001 extends GameScene{
                     break;
             }
         });
-        
-        this._spikes.add(new Spikes(this, 128, 80, 0));
 
         // Spawn grips
         var grapplingObjectLayer = this._tilemap.getObjectLayer("Grappling");
@@ -154,12 +152,8 @@ export default class Level001 extends GameScene{
                     break;
             }
         });
-
-        this._grips.add(new RightLever(this, 128, 96, [this._spikes.getLast(true)]));
-
-        this._grips.add(new Grip(this, 144, 144));
         
-        // Spawn enemies
+        //// Spawn enemies
         //var enemiesObjectLayer = this._tilemap.getObjectLayer("Enemies");
         //enemiesObjectLayer.objects.forEach(enemy => {
         //    if(DEBUG) console.log(`Spawning an enemy in (${enemy.x}, ${enemy.y}) : ${enemy.properties[0].name} = ${enemy.properties[0].value != "" ? enemy.properties[0].value : "none"}`);
@@ -259,6 +253,7 @@ export default class Level001 extends GameScene{
                 if(this._player._accessCards > 0 && !door._opened){
                     door.OpenDoor();
                     this._player._accessCards--;
+                    this._player.UpdateCardsUI();
                 }
             }
         });
@@ -269,6 +264,7 @@ export default class Level001 extends GameScene{
                 if(this._player._bossCards > 0 && !door._opened){
                     door.OpenDoor();
                     this._player._bossCards--;
+                    this._player.UpdateCardsUI();
                 }
             }
         });

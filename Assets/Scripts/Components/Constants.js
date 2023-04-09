@@ -58,7 +58,7 @@ const ENEMIES_DRAG = 2000;
 const ENEMY_RANGE_DETECTION_DELAY = 100; // ms
 const ENEMY_DETECTED_RANGE_FACTOR = 1.4;
 const ENEMY_HIT_DETECTION_DELAY = 2000;
-const ENEMY_HEALTH = 3;
+const ENEMY_HEALTH = 2;
 const ENEMY_ATTACK_DELAY = {min: 1000, max: 3000};
 const ENEMY_DAMAGE_COLLIDE = 1;
 const ENEMY_MINIMUM_AMMOS = 5;
@@ -168,6 +168,9 @@ const POS_UI_AMMOS_BG = {x: 26, y: 22};
 
 const POS_UI_AMMOS_CURRENT_TEXT = {x: 40, y: 20};
 const POS_UI_AMMOS_MAX_TEXT = {x: 54, y: 20};
+
+const POS_UI_GRAPPLING_HOOK = {x: 217, y: 6};
+const POS_UI_CARDS = {x: 237, y: 7};
 
 // Levels keys
 const LEVEL_KEY_001 = "level_001";

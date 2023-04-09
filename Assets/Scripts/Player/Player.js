@@ -49,6 +49,9 @@ export default class Player extends Entity {
             hearths: [
             ],
 
+            cards: [
+            ],
+
             ammosBackground: this.scene.add.sprite(
                 POS_UI_AMMOS_BG.x,
                 POS_UI_AMMOS_BG.y,
@@ -71,11 +74,20 @@ export default class Player extends Entity {
                 '/00', 
                 FONT_SIZE_X1
             ).setOrigin(0).setDepth(LAYER_UI_TEXT).setScrollFactor(0).setTint(COLOR_AMMOS_MAX).setDropShadow(0, 1),
+
+            grapplingHook: this.scene.add.image(
+                POS_UI_GRAPPLING_HOOK.x,
+                POS_UI_GRAPPLING_HOOK.y,
+                SPRITE_GRAPPLE_PICKUP,
+                0
+            ).setOrigin(0).setDepth(LAYER_UI).setScrollFactor(0).setVisible(false),
         };
 
         this._uiAnimations = this.CreateUIAnimations();
 
         this.UpdateHearthUI();
+
+        this.UpdateCardsUI();
         
 
         //#region Inputs setup
@@ -180,6 +192,37 @@ export default class Player extends Entity {
         }
     }
 
+    UpdateCardsUI(){
+        this._ui.cards.forEach(card => {
+            card.destroy();
+        });
+
+        this._ui.cards = [];
+
+        var i = 0;
+        for(var j = 0; j < this._accessCards; j++){
+            this._ui.cards.push(
+                this.scene.add.sprite(
+                    POS_UI_CARDS.x,
+                    POS_UI_CARDS.y + (i * 5),
+                    SPRITE_ACCESS_CARD_PICKUP,
+                    0
+                ).setOrigin(0).setDepth(LAYER_UI).setScrollFactor(0)
+            );
+            i++;
+        }
+        for(var j = i; j < i + this._bossCards; j++){
+            this._ui.cards.push(
+                this.scene.add.sprite(
+                    POS_UI_CARDS.x,
+                    POS_UI_CARDS.y + (i * 5),
+                    SPRITE_BOSS_CARD_PICKUP,
+                    0
+                ).setOrigin(0).setDepth(LAYER_UI).setScrollFactor(0)
+            );
+        }
+    }
+
     UpdateAmmosUI(){
         this._ui.ammosBackground.setVisible(this._weapon);
         this._ui.ammosTextCurrent.setVisible(this._weapon);
@@ -274,15 +317,18 @@ export default class Player extends Entity {
             case pickupTypes.accessCard:
                 this._accessCards++;
                 console.log("Pick an access card!");
+                this.UpdateCardsUI();
                 break;
             case pickupTypes.bossCard:
                 this._bossCards++;
                 console.log("Pick a boss card!");
+                this.UpdateCardsUI();
                 break;
 
             case pickupTypes.grapple:
                 this._hasGrapple = true;
                 console.log("Pick the grapple!");
+                this._ui.grapplingHook.setVisible(true);
                 break;
 
             default:

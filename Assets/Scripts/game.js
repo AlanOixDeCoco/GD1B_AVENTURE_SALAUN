@@ -23,10 +23,10 @@ const config = {
     },
     pixelArt: true,
     scene: [
-        //StartScene,
-//
-        //TutoKeyboardScene,
-        //TutoGamepadScene,
+        StartScene,
+
+        TutoKeyboardScene,
+        TutoGamepadScene,
         
         new Level001(gameManager),
 
