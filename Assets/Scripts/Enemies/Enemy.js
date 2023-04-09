@@ -1,5 +1,5 @@
 import Entity from "../Components/Entity.js";
-import { pickupTypes } from "../Pickups/Pickups.js";
+import { BulletsPickup, pickupTypes } from "../Pickups/Pickups.js";
 import { Revolver, Rifle } from "../Weapons/Weapons.js";
 import EnemyStateMachine from "./EnemyStateMachine.js";
 import { DetectedEnemyState, IdleEnemyState } from "./EnemyStates.js";
@@ -132,7 +132,13 @@ export default class Enemy extends Entity {
     }
 
     Kill(){
-        this._weapon?.Throw();
+        if(this._weapon) this._weapon.Throw();
+        else {
+            if(Math.random() > ENEMY_BULLETS_DROP_PROBA){
+                this.scene._pickups.add(new BulletsPickup(this.scene, this.x, this.y));
+            }
+        }
+        
         this.destroy();
     }
 }

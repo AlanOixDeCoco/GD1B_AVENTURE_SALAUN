@@ -331,6 +331,10 @@ export default class Player extends Entity {
                 this._ui.grapplingHook.setVisible(true);
                 break;
 
+            case pickupTypes.bullets:
+                this._weapon?.Reload();
+                break;
+
             default:
                 console.log("Unknown pickup object!");
                 break;
@@ -381,8 +385,8 @@ export default class Player extends Entity {
         this._actionKeys = this.scene.input.keyboard.addKeys({
             attack: Phaser.Input.Keyboard.KeyCodes.SPACE,
             interact: Phaser.Input.Keyboard.KeyCodes.E,
-            drop: Phaser.Input.Keyboard.KeyCodes.F,
-            special: Phaser.Input.Keyboard.KeyCodes.G,
+            special1: Phaser.Input.Keyboard.KeyCodes.F,
+            special2: Phaser.Input.Keyboard.KeyCodes.G,
         });
         
         this._actionKeys.attack
@@ -395,12 +399,12 @@ export default class Player extends Entity {
         .on('up', this.onInteract)
         .context = this;
 
-        this._actionKeys.drop
-        .on('down', this.onDrop)
-        .on('up', this.onDrop)
+        this._actionKeys.special1
+        .on('down', this.onSpecial)
+        .on('up', this.onSpecial)
         .context = this;
 
-        this._actionKeys.special
+        this._actionKeys.special2
         .on('down', this.onSpecial)
         .on('up', this.onSpecial)
         .context = this;
@@ -465,19 +469,7 @@ export default class Player extends Entity {
         this._isGamepadConnected = false;
 
         // resets inputs when disconnected
-        this._input = {
-            x: 0,
-            y: 0,
-            movement: new Phaser.Math.Vector2(0, 0),
-            up: false,
-            down: false,
-            left: false,
-            right: false,
-            attack: false,
-            interact: false,
-            drop: false,
-            special: false
-        };
+        this.ResetInputs();
     }
 
 
@@ -493,12 +485,9 @@ export default class Player extends Entity {
 
         context._input.attack = context._gamepad.isButtonDown(BUTTON_ATTACK);
 
-        if(context._gamepad.isButtonDown(BUTTON_INTERACT)){
-            context._input.interact = context._gamepad.isButtonDown(BUTTON_INTERACT);
-        }
+        context._input.interact = context._gamepad.isButtonDown(BUTTON_INTERACT);
 
-        context._input.drop = context._gamepad.isButtonDown(BUTTON_DROP);
-        context._input.special = context._gamepad.isButtonDown(BUTTON_SPECIAL);
+        context._input.special = (context._gamepad.isButtonDown(BUTTON_SPECIAL1) || context._gamepad.isButtonDown(BUTTON_SPECIAL2));
 
         context.CalculateButtonMovement();
     }
@@ -513,10 +502,6 @@ export default class Player extends Entity {
 
     onInteract(evt){
         evt.context._input.interact = evt.isDown;
-    }
-
-    onDrop(evt){
-        evt.context._input.drop = evt.isDown;
     }
 
     onSpecial(evt){

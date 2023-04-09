@@ -44,6 +44,7 @@ export default class GameScene extends Phaser.Scene{
         this.load.image(SPRITE_WEAPON_RIFLE_PICKUP, "./Assets/Sprites/weapon_rifle_pickup.png");
 
         this.load.image(SPRITE_BULLET, "./Assets/Sprites/bullet.png");
+        this.load.image(SPRITE_BULLETS_PICKUP, "./Assets/Sprites/bullets_pickup.png");
 
         this.load.spritesheet(SPRITE_ENEMY, "./Assets/Sprites/Enemies/enemySpritesheetV2.png", {frameWidth: 40, frameHeight: 40});
 

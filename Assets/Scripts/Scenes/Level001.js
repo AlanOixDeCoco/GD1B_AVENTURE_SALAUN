@@ -6,7 +6,7 @@ import { Grip } from "../Grips/Grip.js";
 import { LeftLever, RightLever } from "../Grips/Lever.js";
 import { Spikes } from "../Obstacles/Spikes.js";
 import Pickup from "../Pickups/Pickup.js";
-import { AccessCardPickup, BossCardPickup, GrapplePickup, HalfHearthPickup, HearthPickup, NewHearthPickup, RevolverPickup, RiflePickup, pickupTypes } from "../Pickups/Pickups.js";
+import { AccessCardPickup, BossCardPickup, BulletsPickup, GrapplePickup, HalfHearthPickup, HearthPickup, NewHearthPickup, RevolverPickup, RiflePickup, pickupTypes } from "../Pickups/Pickups.js";
 import Player from "../Player/Player.js";
 
 export default class Level001 extends GameScene{
@@ -202,6 +202,10 @@ export default class Level001 extends GameScene{
                 
                 case "grapple":
                     this._pickups.add(new GrapplePickup(this, pickup.x, pickup.y));
+                    break;
+
+                case "bullets":
+                    this._pickups.add(new BulletsPickup(this, pickup.x, pickup.y));
                     break;
                     
                 default:

@@ -63,6 +63,7 @@ const ENEMY_HEALTH = 2;
 const ENEMY_ATTACK_DELAY = {min: 1000, max: 3000};
 const ENEMY_DAMAGE_COLLIDE = 1;
 const ENEMY_MINIMUM_AMMOS = 5;
+const ENEMY_BULLETS_DROP_PROBA = 0.5;
 
 // Obstacles
 const SPIKES_DAMAGE = 1;
@@ -107,8 +108,8 @@ const OFFSET_BULLET_SPAWN = 0;
 // Gamepad buttons
 const BUTTON_ATTACK = 0;
 const BUTTON_INTERACT = 2;
-const BUTTON_DROP = 3;
-const BUTTON_SPECIAL = 1;
+const BUTTON_SPECIAL1 = 3;
+const BUTTON_SPECIAL2 = 1;
 const BUTTON_LEFT = 14;
 const BUTTON_RIGHT = 15;
 const BUTTON_UP = 12;
@@ -140,6 +141,7 @@ const SPRITE_WEAPON_REVOLVER_PICKUP = "weapon_revolver_pickup";
 const SPRITE_WEAPON_RIFLE = "weapon_rifle";
 const SPRITE_WEAPON_RIFLE_PICKUP = "weapon_rifle_pickup";
 const SPRITE_BULLET = "bullet";
+const SPRITE_BULLETS_PICKUP = "bullets_pickup";
 
 const SPRITE_HALF_HEARTH_PICKUP = "half_hearth_pickup";
 const SPRITE_HEARTH_PICKUP = "hearth_pickup";

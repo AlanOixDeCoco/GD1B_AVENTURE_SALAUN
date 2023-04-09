@@ -9,6 +9,7 @@ export const pickupTypes = {
     accessCard: 5,
     bossCard: 6,
     grapple: 7,
+    bullets: 8,
 }
 
 export class RevolverPickup extends Pickup{
@@ -56,5 +57,11 @@ export class BossCardPickup extends Pickup{
 export class GrapplePickup extends Pickup{
     constructor(scene, x, y){
         super(scene, x, y, SPRITE_GRAPPLE_PICKUP, pickupTypes.grapple);
+    }
+}
+
+export class BulletsPickup extends Pickup{
+    constructor(scene, x, y){
+        super(scene, x, y, SPRITE_BULLETS_PICKUP, pickupTypes.bullets);
     }
 }
