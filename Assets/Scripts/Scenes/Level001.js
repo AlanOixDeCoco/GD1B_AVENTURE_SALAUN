@@ -281,6 +281,9 @@ export default class Level001 extends GameScene{
         });
 
         this.physics.add.collider(this._player, this._breakableDoors);
+        this.physics.add.collider(this._enemies, this._breakableDoors);
+        this.physics.add.collider(this._enemies, this._accessCardDoors);
+        this.physics.add.collider(this._enemies, this._bossDoors);
 
         this.physics.add.collider(this._player, this._accessCardDoors, (player, door) => {
             if(this._player._input.interact){

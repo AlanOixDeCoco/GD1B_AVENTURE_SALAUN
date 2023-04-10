@@ -261,6 +261,7 @@ export default class Player extends Entity {
     }
 
     TakeDamage(amount, invincibleDuration){
+        this.scene._camera.shake(CAMERA_SHAKE_HIT_DURATION, CAMERA_SHAKE_HIT_INTENSITY * amount);
         super.TakeDamage(amount / 2, invincibleDuration);
         this.scene._gameManager.setHealth(this._health);
 
