@@ -119,6 +119,7 @@ export default class Enemy extends Entity {
     }
 
     TakeDamage(amount){
+        this.scene._camera.shake(CAMERA_SHAKE_HIT_DURATION, CAMERA_SHAKE_HIT_INTENSITY * amount);
         this.DetectPlayer(ENEMY_HIT_DETECTION_DELAY);
         super.TakeDamage(amount, INVINCIBLE_DURATION_ENEMY);
     }
